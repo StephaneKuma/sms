@@ -1,3 +1,6 @@
+@php
+    $profile = auth()->user();
+@endphp
 <!-- Side Overlay-->
 <aside id="side-overlay">
     <!-- Side Header -->
@@ -12,10 +15,14 @@
 
             <!-- User Info -->
             <div class="content-header-item">
-                <a class="img-link mr-5" href="#">
-                    <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ auth()->user()->name }}">
+                <a class="img-link mr-5" href="{{ route('profiles.show', $profile) }}">
+                    @if (is_null($profile->picture))
+                        <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
+                    @else
+                        <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
+                    @endif
                 </a>
-                <a class="align-middle link-effect text-primary-dark font-w600" href="#">{{ auth()->user()->name }}</a>
+                <a class="align-middle link-effect text-primary-dark font-w600" href="{{ route('profiles.show', $profile) }}">{{ $profile->name }}</a>
             </div>
             <!-- END User Info -->
         </div>
@@ -194,7 +201,7 @@
                     <div class="form-group mb-15">
                         <label for="side-overlay-profile-name">Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="side-overlay-profile-name" name="side-overlay-profile-name" placeholder="Your name.." value="{{ auth()->user()->name }}">
+                            <input type="text" class="form-control" id="side-overlay-profile-name" name="side-overlay-profile-name" placeholder="Your name.." value="{{ $profile->name }}">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-user"></i>
