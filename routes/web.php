@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
 
@@ -35,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
             // Permissions
             Route::resource('permissions', PermissionController::class)->except('show');
+
+            // Users
+            Route::resource('users', UserController::class)->except('show');
         });
     });
 });

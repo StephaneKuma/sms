@@ -84,47 +84,72 @@
     <!-- Sign Up Form -->
     <div class="row justify-content-center px-5">
         <div class="col-sm-8 col-md-6 col-xl-4">
-            <form class="js-validation-signup" action="{{ route('register') }}" method="post">
+            <form class="js-validation-material" action="{{ route('register') }}" method="post">
                 @csrf
 
-                <div class="form-group row">
+                <div class="form-group row {{ $errors->has('last_name') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
                             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}">
                             <label for="last_name">Nom</label>
                         </div>
+                        @error('last_name')
+                            <div class="invalid-feedback animated fadeInDown">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row {{ $errors->has('first_name') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
                             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}">
                             <label for="first_name">Prénom(s)</label>
                         </div>
+                        @error('first_name')
+                            <div class="invalid-feedback animated fadeInDown">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row {{ $errors->has('email') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
                             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                             <label for="email">Adresse E-mail</label>
                         </div>
+                        @error('email')
+                            <div class="invalid-feedback animated fadeInDown">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row {{ $errors->has('password') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
                             <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
                             <label for="password">Mot de passe</label>
                         </div>
+                        @error('password')
+                            <div class="invalid-feedback animated fadeInDown">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                             <label for="password_confirmation">Confirmez le mot de passe</label>
                         </div>
+                        @error('password_confirmation')
+                            <div class="invalid-feedback animated fadeInDown">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group row text-center">

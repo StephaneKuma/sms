@@ -115,6 +115,9 @@
                         <li>
                             <a class="{{ request()->is('settings/acl/permissions*') ? 'active' : '' }}" href="{{ route('settings.acl.permissions.index') }}">Permissions</a>
                         </li>
+                        <li>
+                            <a class="{{ request()->is('settings/acl/users*') ? 'active' : '' }}" href="{{ route('settings.acl.users.index') }}">Utilisateurs</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
