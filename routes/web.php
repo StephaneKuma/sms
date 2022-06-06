@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('settings')->name('settings.')->group(function () {
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);
+
+        // ACL
+        Route::prefix('acl')->name('acl.')->group(function () {
+            // Roles
+            Route::resource('roles', RoleController::class)->except('show');
+        });
     });
 });
 

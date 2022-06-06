@@ -103,6 +103,17 @@
                         <i class="si si-user"></i><span class="sidebar-mini-hide">Profil</span>
                     </a>
                 </li>
+                <li class="{{ request()->is('settings/acl*') ? 'open' : '' }}">
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="javascript:void(0)">
+                        <i class="si si-key"></i>
+                        <span class="sidebar-mini-hide">Gestion d'accès</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a class="{{ request()->is('settings/acl/roles*') ? 'active' : '' }}" href="{{ route('settings.acl.roles.index') }}">Rôles</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- END Side Navigation -->

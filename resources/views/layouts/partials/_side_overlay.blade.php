@@ -21,6 +21,7 @@
                     @else
                         <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
                     @endif
+                    <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
                 </a>
                 <a class="align-middle link-effect text-primary-dark font-w600" href="{{ route('settings.profiles.show', $profile) }}">{{ $profile->name }}</a>
             </div>
@@ -85,28 +86,28 @@
                 <ul class="nav-users push">
                     <li>
                         <a href="#">
-                            <img class="img-avatar" src="assets/media/avatars/avatar3.jpg" alt="">
+                            <img class="img-avatar" src="{{ asset('media/avatars/avatar3.jpg') }}" alt="">
                             <i class="fa fa-circle text-success"></i> Megan Fuller
                             <div class="font-w400 font-size-xs text-muted">Photographer</div>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img class="img-avatar" src="assets/media/avatars/avatar9.jpg" alt="">
+                            <img class="img-avatar" src="{{ asset('media/avatars/avatar9.jpg') }}" alt="">
                             <i class="fa fa-circle text-success"></i> Adam McCoy
                             <div class="font-w400 font-size-xs text-muted">Web Designer</div>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img class="img-avatar" src="assets/media/avatars/avatar1.jpg" alt="">
+                            <img class="img-avatar" src="{{ asset('media/avatars/avatar1.jpg') }}" alt="">
                             <i class="fa fa-circle text-warning"></i> Helen Jacobs
                             <div class="font-w400 font-size-xs text-muted">UI Designer</div>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img class="img-avatar" src="assets/media/avatars/avatar16.jpg" alt="">
+                            <img class="img-avatar" src="{{ asset('media/avatars/avatar16.jpg') }}" alt="">
                             <i class="fa fa-circle text-danger"></i> Scott Young
                             <div class="font-w400 font-size-xs text-muted">Copywriter</div>
                         </a>

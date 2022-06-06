@@ -37,20 +37,6 @@
 
                 @yield('content')
 
-                {{-- @yield('header')
-
-                <!-- Page Content -->
-                <div class="content">
-                    @include('layouts.partials._breadcrumb')
-
-                    <div class="block">
-                        <div class="block-content">
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
-                <!-- END Page Content --> --}}
-
             </main>
             <!-- END Main Container -->
 
