@@ -51,7 +51,7 @@
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
-                <a class="img-link" href="{{ route('profiles.show', $profile) }}">
+                <a class="img-link" href="{{ route('settings.profiles.show', $profile) }}">
                     @if (is_null($profile->picture))
                         <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
                     @else
@@ -60,7 +60,7 @@
                 </a>
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{ route('profiles.show', $profile) }}">
+                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{ route('settings.profiles.show', $profile) }}">
                             {{ $profile->name }}
                         </a>
                     </li>
@@ -87,7 +87,7 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="{{ route('dashboard') }}">
+                    <a class="{{ request()->is('dashboard*') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                         <i class="si si-grid"></i><span class="sidebar-mini-hide">Tableau de bord</span>
                     </a>
                 </li>
@@ -99,7 +99,7 @@
                     @php
                         $profile = $profile;
                     @endphp
-                    <a href="{{ route('profiles.show', $profile) }}">
+                    <a class="{{ request()->is('settings/profiles*') ? 'active' : '' }} href="{{ route('settings.profiles.show', $profile) }}">
                         <i class="si si-user"></i><span class="sidebar-mini-hide">Profil</span>
                     </a>
                 </li>

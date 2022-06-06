@@ -15,14 +15,14 @@
 
             <!-- User Info -->
             <div class="content-header-item">
-                <a class="img-link mr-5" href="{{ route('profiles.show', $profile) }}">
+                <a class="img-link mr-5" href="{{ route('settings.profiles.show', $profile) }}">
                     @if (is_null($profile->picture))
                         <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
                     @else
                         <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
                     @endif
                 </a>
-                <a class="align-middle link-effect text-primary-dark font-w600" href="{{ route('profiles.show', $profile) }}">{{ $profile->name }}</a>
+                <a class="align-middle link-effect text-primary-dark font-w600" href="{{ route('settings.profiles.show', $profile) }}">{{ $profile->name }}</a>
             </div>
             <!-- END User Info -->
         </div>

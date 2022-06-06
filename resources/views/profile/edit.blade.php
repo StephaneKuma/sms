@@ -40,7 +40,7 @@
                 <!-- END Personal -->
 
                 <!-- Actions -->
-                <a class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5 px-20" href="{{ route('profiles.show', $profile) }}">
+                <a class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5 px-20" href="{{ route('settings.profiles.show', $profile) }}">
                     <i class="fa fa-arrow-left mr-5"></i> Retour au profile
                 </a>
                 <!-- END Actions -->
@@ -58,7 +58,7 @@
                 </h3>
             </div>
             <div class="block-content">
-                <form enctype="multipart/form-data" action="{{ route('profiles.update', $profile) }}" method="POST">
+                <form enctype="multipart/form-data" action="{{ route('settings.profiles.update', $profile) }}" method="POST">
                     @csrf
                     @method('PATCH')
 

@@ -16,10 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::resource('profiles', ProfileController::class)->except('index');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    // Settings
+    Route::prefix('settings')->name('settings.')->group(function () {
+        // Profile
+        Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);
+    });
+});
 
 require __DIR__.'/auth.php';

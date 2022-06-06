@@ -40,14 +40,14 @@
                 <!-- END Personal -->
 
                 <!-- Actions -->
-                <form action="{{ route('profiles.destroy', $profile) }}" method="post">
+                <form action="{{ route('settings.profiles.destroy', $profile) }}" method="post">
                     @csrf
                     @method('DELETE')
 
                     <button type="submit" class="btn btn-rounded btn-hero btn-sm btn-alt-danger mb-5">
                         <i class="fa fa-trash mr-5"></i> Supprimer mon compte
                     </button>
-                    <a class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5 px-20" href="{{ route('profiles.edit', $profile) }}">
+                    <a class="btn btn-rounded btn-hero btn-sm btn-alt-secondary mb-5 px-20" href="{{ route('settings.profiles.edit', $profile) }}">
                         <i class="fa fa-pencil"></i>
                     </a>
                 </form>

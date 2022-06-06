@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
         toastr()->success("Les informations primaire du profil ont bien été mise à jour", 'Profil');
 
-        return redirect()->route('profiles.show', $profile);
+        return redirect()->route('settings.profiles.show', $profile);
     }
 
     /**
