@@ -112,6 +112,9 @@
                         <li>
                             <a class="{{ request()->is('settings/acl/roles*') ? 'active' : '' }}" href="{{ route('settings.acl.roles.index') }}">Rôles</a>
                         </li>
+                        <li>
+                            <a class="{{ request()->is('settings/acl/permissions*') ? 'active' : '' }}" href="{{ route('settings.acl.permissions.index') }}">Permissions</a>
+                        </li>
                     </ul>
                 </li>
             </ul>

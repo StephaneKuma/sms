@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::prefix('acl')->name('acl.')->group(function () {
             // Roles
             Route::resource('roles', RoleController::class)->except('show');
+
+            // Permissions
+            Route::resource('permissions', PermissionController::class)->except('show');
         });
     });
 });
