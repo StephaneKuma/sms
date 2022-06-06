@@ -21,7 +21,7 @@
         <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
         
         @stack('css')
-        
+
         <link rel="stylesheet" href="{{ asset('toastr.min.css') }}">
     </head>
     <body class="font-sans antialiased">
@@ -35,20 +35,21 @@
             <!-- Main Container -->
             <main id="main-container">
 
+                @yield('content')
+
+                {{-- @yield('header')
+
                 <!-- Page Content -->
                 <div class="content">
                     @include('layouts.partials._breadcrumb')
 
                     <div class="block">
-                        {{-- <div class="block-header block-header-default">
-                            <h3 class="block-title">Blank <small>Get Started</small></h3>
-                        </div> --}}
                         <div class="block-content">
                             @yield('content')
                         </div>
                     </div>
                 </div>
-                <!-- END Page Content -->
+                <!-- END Page Content --> --}}
 
             </main>
             <!-- END Main Container -->

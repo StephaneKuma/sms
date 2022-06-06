@@ -1,3 +1,7 @@
+@php
+    $profile = auth()->user();
+@endphp
+
 <nav id="sidebar">
     <!-- Sidebar Content -->
     <div class="sidebar-content">
@@ -15,8 +19,6 @@
 
             <!-- Normal Mode -->
             <div class="content-header-section text-center align-parent sidebar-mini-hidden">
-                <!-- Close Sidebar, Visible only on mobile screens -->
-                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                 <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
                     <i class="fa fa-times text-danger"></i>
                 </button>
@@ -39,19 +41,27 @@
         <div class="content-side content-side-full content-side-user px-10 align-parent">
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
-                <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ auth()->user()->name }}">
+                @if (is_null($profile->picture))
+                    <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
+                @else
+                    <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
+                @endif
             </div>
             <!-- END Visible only in mini mode -->
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
-                <a class="img-link" href="be_pages_generic_profile.html">
-                    <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ auth()->user()->name }}">
+                <a class="img-link" href="{{ route('profiles.show', $profile) }}">
+                    @if (is_null($profile->picture))
+                        <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
+                    @else
+                        <img class="img-avatar" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
+                    @endif
                 </a>
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="#profile">
-                            {{ auth()->user()->name }}
+                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{ route('profiles.show', $profile) }}">
+                            {{ $profile->name }}
                         </a>
                     </li>
                     <li class="list-inline-item">
@@ -78,7 +88,19 @@
             <ul class="nav-main">
                 <li>
                     <a href="{{ route('dashboard') }}">
-                        <i class="si si-cup"></i><span class="sidebar-mini-hide">Tableau de bord</span>
+                        <i class="si si-grid"></i><span class="sidebar-mini-hide">Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="nav-main-heading">
+                    <span class="sidebar-mini-visible">PARAM</span>
+                    <span class="sidebar-mini-hidden">Paramètres</span>
+                </li>
+                <li>
+                    @php
+                        $profile = $profile;
+                    @endphp
+                    <a href="{{ route('profiles.show', $profile) }}">
+                        <i class="si si-user"></i><span class="sidebar-mini-hide">Profil</span>
                     </a>
                 </li>
             </ul>
