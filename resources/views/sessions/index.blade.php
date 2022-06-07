@@ -1,9 +1,8 @@
 @php
-    $profile = auth()->user();
-    $title = "Liste des rôles";
-    $bread = "Rôles";
-    $second = "Paramètres";
-    $url = route('settings.profiles.show', $profile);
+    $title = "Liste des utilisateurs";
+    $bread = "Sessions";
+    $second = "Ecole";
+    $url = route('school.sessions.index');
 @endphp
 
 @extends('layouts.app')
@@ -29,8 +28,8 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('settings.acl.roles.create') }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-plus mr-5"></i> Ajouter un rôle
+                <a href="{{ route('school.sessions.create') }}" class="btn btn-rounded btn-noborder btn-primary">
+                    <i class="fa fa-plus mr-5"></i> Ajouter une session
                 </a>
             </div>
             <div class="block-content block-content-full">
@@ -43,21 +42,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $myRoles = $roles;
-                        @endphp
-                        @forelse ($myRoles as $role)
+                        @forelse ($sessions as $session)
                             <tr>
-                                <td>{{ Str::ucfirst($role->name) }}</td>
+                                <td class="">
+                                    {{ $session->name }}
+                                </td>
                                 <td class="text-center">
-                                    <form action="{{ route('settings.acl.roles.destroy', $role) }}" method="POST">
+                                    <form action="{{ route('school.sessions.destroy', $session) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
+
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('settings.acl.roles.edit', $role) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier le rôle">
+                                            <a href="{{ route('school.sessions.edit', $session) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier la session">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer le rôle">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer la session">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>

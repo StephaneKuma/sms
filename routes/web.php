@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\SchoolSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    
+
+    // School
+    Route::prefix('school')->name('school.')->group(function () {
+        // Session
+        Route::resource('sessions', SchoolSessionController::class);
+    });
+
     // Settings
     Route::prefix('settings')->name('settings.')->group(function () {
         // Profile

@@ -71,10 +71,10 @@
                                         @method('DELETE')
 
                                         <div class="btn-group" user="group">
-                                            <a href="{{ route('settings.acl.users.edit', $user) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier l'utilisateur'">
+                                            <a href="{{ route('settings.acl.users.edit', $user) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier l'utilisateur">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer l'utilisateur'">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer l'utilisateur">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
