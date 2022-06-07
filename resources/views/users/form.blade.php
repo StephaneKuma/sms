@@ -10,10 +10,43 @@
 
 @extends('layouts.app')
 
+@push('css')
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="{{ asset('js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/jquery-tags-input/jquery.tagsinput.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/jquery-auto-complete/jquery.auto-complete.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/ion-rangeslider/css/ion.rangeSlider.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/dropzonejs/dist/dropzone.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/flatpickr/flatpickr.min.css') }}">
+@endpush
+
+@push('js')
+    <!-- Page JS Plugins -->
+    <script src="{{ asset('js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-tags-input/jquery.tagsinput.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-auto-complete/jquery.auto-complete.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/masked-inputs/jquery.maskedinput.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/dropzonejs/dropzone.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/flatpickr/flatpickr.min.js') }}"></script>
+
+    <!-- Page JS Code -->
+    <script src="{{ asset('js/pages/be_forms_plugins.min.js') }}"></script>
+
+    <!-- Page JS Helpers (Flatpickr + BS Datepicker + BS Colorpicker + BS Maxlength + Select2 + Masked Input + Range Sliders + Tags Inputs plugins) -->
+    <script>jQuery(function(){ Codebase.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs']); });</script>
+@endpush
+
 @section('content')
     <div class="content">
         @include('layouts.partials._breadcrumb')
-        
+
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
@@ -22,7 +55,7 @@
                 </a>
             </div>
             <div class="block-content block-content-full">
-                <form class="js-validation-material" action="{{ isset($user) ? route('settings.acl.users.update', $user) : route('settings.acl.users.store') }}" method="POST">
+                <form enctype="multipart/form-data" class="js-validation-material" action="{{ isset($user) ? route('settings.acl.users.update', $user) : route('settings.acl.users.store') }}" method="POST">
                     @csrf
                     @isset($user)
                         @method('PATCH')
@@ -72,7 +105,7 @@
                             <div class="form-group row{{ $errors->has('phone') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="tel" class="form-control" id="phone" name="phone" value="{{ isset($user) ? $user->phone : old('phone') }}">
+                                        <input type="tel" class="js-masked-phone form-control js-masked-enabled" id="phone" name="phone" value="{{ isset($user) ? $user->phone : old('phone') }}">
                                         <label for="phone">Téléphone</label>
                                     </div>
                                     @error('phone')
@@ -103,10 +136,11 @@
                         <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('gender') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
-                                    <div class="form-material floating">
-                                        <select id="gender" class="form-control" name="gender">
-                                            <option value="Male" {{ old('gender') == 'male' ? 'selected' : '' }}>Masculin</option>
-                                            <option value="Female" {{ old('gender') == 'female' ? 'selected' : '' }}>Feminin</option>
+                                    <div class="form-material">
+                                        <select id="gender" class="js-select2 form-control" name="gender" data-placeholder="Choisissez un genre">
+                                            <option></option>
+                                            <option value="M" {{ ((isset($user) && ($user->gender == 'M')) || (old('gender') == 'M')) ? 'selected' : '' }}>Masculin</option>
+                                            <option value="F" {{ ((isset($user) && ($user->gender == 'F')) || (old('gender') == 'F')) ? 'selected' : '' }}>Feminin</option>
                                         </select>
                                         <label for="gender">Sexe</label>
                                     </div>
@@ -121,17 +155,18 @@
                         <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('blood_type') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
-                                    <div class="form-material floating">
-                                        <select class="form-control" id="blood_type" name="blood_type" size="1">
-                                            <option {{ old('blood_type') == 'A+' ? 'selected' : '' }}>A+</option>
-                                            <option {{ old('blood_type') == 'A-' ? 'selected' : '' }}>A-</option>
-                                            <option {{ old('blood_type') == 'B+' ? 'selected' : '' }}>B+</option>
-                                            <option {{ old('blood_type') == 'B-' ? 'selected' : '' }}>B-</option>
-                                            <option {{ old('blood_type') == 'O+' ? 'selected' : '' }}>O+</option>
-                                            <option {{ old('blood_type') == 'O-' ? 'selected' : '' }}>O-</option>
-                                            <option {{ old('blood_type') == 'AB+' ? 'selected' : '' }}>AB+</option>
-                                            <option {{ old('blood_type') == 'AB-' ? 'selected' : '' }}>AB-</option>
-                                            <option {{ old('blood_type') == 'other' ? 'selected' : '' }}>Autre</option>
+                                    <div class="form-material">
+                                        <select class="js-select2 form-control" id="blood_type" name="blood_type" size="1" data-placeholder="Choisissez un groupe">
+                                            <option></option>
+                                            <option value="A+" {{ (((isset($user) && $user->blood_type =='A+') || (old('blood_type') == 'A+')) ? 'selected' : '' ) }}>A+</option>
+                                            <option value="A-" {{ isset($user) ? $user->blood_type == 'A-' ? 'selected' : '' : '' }}>A-</option>
+                                            <option value="B+" {{ isset($user) ? $user->blood_type == 'B+' ? 'selected' : '' : '' }}>B+</option>
+                                            <option value="B-" {{ isset($user) ? $user->blood_type == 'B-' ? 'selected' : '' : '' }}>B-</option>
+                                            <option value="O+" {{ isset($user) ? $user->blood_type == 'O+' ? 'selected' : '' : '' }}>O+</option>
+                                            <option value="O-" {{ isset($user) ? $user->blood_type == 'O-' ? 'selected' : '' : '' }}>O-</option>
+                                            <option value="AB+" {{ isset($user) ? $user->blood_type == 'AB+' ? 'selected' : '' : '' }}>AB+</option>
+                                            <option value="AB-" {{ isset($user) ? $user->blood_type == 'AB-' ? 'selected' : '' : '' }}>AB-</option>
+                                            <option value="Autres" {{ isset($user) ? $user->blood_type == 'Autres' ? 'selected' : '' : '' }}>Autres</option>
                                         </select>
                                         <label for="blood_type">Groupe sangin</label>
                                     </div>
@@ -146,14 +181,15 @@
                         <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('religion') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
-                                    <div class="form-material floating">
-                                        <select id="religion" class="form-control" name="religion" required>
-                                            <option {{ old('religion') == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                            <option {{ old('religion') == 'Hinduism' ? 'selected' : '' }}>Hinduism</option>
-                                            <option {{ old('religion') == 'Christianity' ? 'selected' : '' }}>Christianisme</option>
-                                            <option {{ old('religion') == 'Buddhism' ? 'selected' : '' }}>Buddhisme</option>
-                                            <option {{ old('religion') == 'Judaism' ? 'selected' : '' }}>Judaisme</option>
-                                            <option {{ old('religion') == 'Others' ? 'selected' : '' }}>Autre</option>
+                                    <div class="form-material">
+                                        <select id="religion" class="js-select2 form-control" name="religion" data-placeholder="Choisissez une réligion">
+                                            <option></option>
+                                            <option value="Islame" {{ ((isset($user) && $user->religion == 'Islame') || (old('religion') == 'Islame')) ? 'selected' : '' }}>Islame</option>
+                                            <option value="Hinduisme" {{ ((isset($user) && $user->religion == 'Hinduisme') || (old('religion') == 'Hinduisme')) ? 'selected' : '' }}>Hinduisme</option>
+                                            <option value="Christianisme" {{ ((isset($user) && $user->religion == 'Christianisme') || (old('religion') == 'Christianisme')) ? 'selected' : '' }}>Christianisme</option>
+                                            <option value="Buddhisme" {{ ((isset($user) && $user->religion == 'Buddhisme') || (old('religion') == 'Buddhisme')) ? 'selected' : '' }}>Buddhisme</option>
+                                            <option value="Judaisme" {{ ((isset($user) && $user->religion == 'Judaisme') || (old('religion') == 'Judaisme')) ? 'selected' : '' }}>Judaisme</option>
+                                            <option value="Autres" {{ ((isset($user) && $user->religion == 'Autres') || (old('religion') == 'Autres')) ? 'selected' : '' }}>Autres</option>
                                         </select>
                                         <label for="religion">Réligion</label>
                                     </div>
@@ -214,11 +250,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group row{{ $errors->has('birthday') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="date" class="form-control" id="birthday" name="birthday" value="{{ isset($user) ? $user->birthday : old('birthday') }}">
+                                        <input type="text" class="js-flatpickr form-control" data-date-format="d-m-Y" id="birthday" name="birthday" value="{{ isset($user) ? $user->birthday : old('birthday') }}">
                                         <label for="birthday">Date de naissance</label>
                                     </div>
                                     @error('birthday')
@@ -229,14 +265,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group row{{ $errors->has('address2') ? 'is-invalid' : '' }}">
+                        <div class="col-md-6">
+                            <div class="form-group row{{ $errors->has('zip') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="text" class="form-control" id="address2" name="address2" value="{{ isset($user) ? $user->address2 : old('address2') }}">
-                                        <label for="address2">Adresse 2</label>
+                                        <input type="text" class="form-control" id="zip" name="zip" value="{{ isset($user) ? $user->zip : old('zip') }}">
+                                        <label for="zip">Zip</label>
                                     </div>
-                                    @error('address2')
+                                    @error('zip')
                                         <div class="invalid-feedback animated fadeInDown">
                                             {{ $message }}
                                         </div>
@@ -244,14 +280,100 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group row{{ $errors->has('city') ? 'is-invalid' : '' }}">
+                    </div>
+                    <div class="form-group row{{ $errors->has('picture') ? 'is-invalid' : '' }}">
+                        @isset($user)
+                            <div class="col-12">
+                                @if (is_null($user->picture))
+                                    <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $user->name }}">
+                                @else
+                                    <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ Storage::url($user->picture) }}" alt="{{ $user->name }}">
+                                @endif
+                            </div>
+                        @endisset
+                        <div class="col-12">
+                            <div class="form-material floating">
+                                <input type="file" class="form-control" id="picture" name="picture" value="{{ isset($user) ? $user->picture : old('picture') }}">
+                                <label for="picture">Photo</label>
+                            </div>
+                            @error('picture')
+                                <div class="invalid-feedback animated fadeInDown">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="form-group row{{ $errors->has('password') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="text" class="form-control" id="city" name="city" value="{{ isset($user) ? $user->city : old('city') }}">
-                                        <label for="city">Ville</label>
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            value="{{ old('password') }}" autocomplete="new-password">
+                                        <label for="password">Mot de passe</label>
                                     </div>
-                                    @error('city')
+                                    @error('password')
+                                        <div class="invalid-feedback animated fadeInDown">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row{{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}">
+                                <div class="col-12">
+                                    <div class="form-material floating">
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                                        <label for="password_confirmation">Confirmez le mot de passe</label>
+                                    </div>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback animated fadeInDown">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <div class="form-group row{{ $errors->has('role') ? 'is-invalid' : '' }}">
+                                <div class="col-12">
+                                    <div class="form-material">
+                                        <select id="role" class="js-select2 form-control" name="role" data-placeholder="Choisissez un rôle">
+                                            <option></option>
+                                            @forelse ($roles as $role)
+                                                <option value="{{ $role->id }}" {{ ((isset($user) && $user->hasRole($role)) || old('role') == '$role->id') ? 'selected' : '' }}>{{ $role->name }}</option>
+                                            @empty
+                                                <option value="-1"><a href="{{ route('settings.acl.roles.create') }}">Veuillez créer un rôle</a></option>
+                                            @endforelse
+                                        </select>
+                                        <label for="role">Rôle</label>
+                                    </div>
+                                    @error('role')
+                                        <div class="invalid-feedback animated fadeInDown">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row{{ $errors->has('permissions') ? 'is-invalid' : '' }}">
+                                <div class="col-12">
+                                    <div class="form-material">
+                                        <select style="width: 100%;" class="js-select2 form-control bg-blue" id="permissions" name="permissions[]" data-placeholder="Choisissez les permissions" multiple>
+                                            <option></option>
+                                            @forelse ($permissions as $permission)
+                                                <option {{ old('permissions') == $permission->id ? 'selected' : '' }} valuue="{{ $permission->id }}">{{ $permission->name }}</option>
+                                            @empty
+                                                <option value="-1"><a href="{{ route('settings.acl.permissions.create') }}">Veuillez créer une permission</a></option>
+                                            @endforelse
+                                        </select>
+                                        <label for="permissions">Permissions</label>
+                                    </div>
+                                    @error('permissions')
                                         <div class="invalid-feedback animated fadeInDown">
                                             {{ $message }}
                                         </div>

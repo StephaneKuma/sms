@@ -25,7 +25,7 @@
 @section('content')
     <div class="content">
         @include('layouts.partials._breadcrumb')
-        
+
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
@@ -39,6 +39,7 @@
                     <thead>
                         <tr>
                             <th>Nom</th>
+                            <th>Slug</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                         @forelse ($roles as $role)
                             <tr>
                                 <td class="">{{ Str::ucfirst($role->name) }}</td>
+                                <td>{{ Str::slug($role->name) }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('settings.acl.roles.destroy', $role) }}" method="POST">
                                         @csrf

@@ -25,7 +25,7 @@
 @section('content')
     <div class="content">
         @include('layouts.partials._breadcrumb')
-        
+
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
@@ -41,6 +41,7 @@
                             <th>Nom</th>
                             <th>Email</th>
                             <th>Rôle</th>
+                            <th>Permissions</th>
                             <th>Sexe</th>
                             <th>Nationalité</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
@@ -60,19 +61,20 @@
                                 <td>
                                     <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
                                 </td>
-                                <td>{{ $user->getRoleNames()->first() }}</td>
-                                <td>{{ $user->gender }}</td>
+                                <td>{{ Str::ucfirst($user->getRoleNames()->first()) }}</td>
+                                <td class="text-center"><span class="badge badge-info">{{ $user->getDirectPermissions()->count() }}</span></td>
+                                <td class="text-center">{{ $user->gender }}</td>
                                 <td>{{ $user->nationality }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('settings.acl.users.destroy', $user) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        
+
                                         <div class="btn-group" user="group">
-                                            <a href="{{ route('settings.acl.users.edit', $user) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier le rôle">
+                                            <a href="{{ route('settings.acl.users.edit', $user) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier l'utilisateur'">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer le rôle">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer l'utilisateur'">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
@@ -81,7 +83,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="2">Aucune donnée à afficher</td>
+                                <td class="text-center" colspan="7">Aucune donnée à afficher</td>
                             </tr>
                         @endforelse
                     </tbody>
