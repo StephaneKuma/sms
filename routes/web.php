@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolSessionController;
+use App\Http\Controllers\SemesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,10 @@ Route::middleware('auth')->group(function () {
     // School
     Route::prefix('school')->name('school.')->group(function () {
         // Session
-        Route::resource('sessions', SchoolSessionController::class);
+        Route::resource('sessions', SchoolSessionController::class)->except('show');
+
+        // Semester
+        Route::resource('semesters', SemesterController::class)->except('show');
     });
 
     // Settings

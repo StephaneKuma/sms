@@ -97,9 +97,15 @@
                 </li>
                 <li>
                     <a class="{{ request()->is('school/sessions*') ? 'active' : '' }}" href="{{ route('school.sessions.index') }}">
-                        <i class="si si-grid"></i><span class="sidebar-mini-hide">Sessions</span>
+                        <i class="si si-badge"></i><span class="sidebar-mini-hide">Sessions</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/semesters*') ? 'active' : '' }}" href="{{ route('school.semesters.index') }}">
+                        <i class="si si-map"></i><span class="sidebar-mini-hide">Semestres</span>
+                    </a>
+                </li>
+
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>
                     <span class="sidebar-mini-hidden">Paramètres</span>
