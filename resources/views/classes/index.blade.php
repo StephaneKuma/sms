@@ -1,6 +1,6 @@
 @php
-    $title = "Liste des sessions";
-    $bread = "Sessions";
+    $title = "Liste des classes";
+    $bread = "Classes";
     $second = "Ecole";
     $url = route('school.sessions.index');
 @endphp
@@ -28,8 +28,8 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('school.sessions.create') }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-plus mr-5"></i> Ajouter une session
+                <a href="{{ route('school.classes.create') }}" class="btn btn-rounded btn-noborder btn-primary">
+                    <i class="fa fa-plus mr-5"></i> Ajouter une classe
                 </a>
             </div>
             <div class="block-content block-content-full">
@@ -37,26 +37,28 @@
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
                     <thead>
                         <tr>
+                            <th>Session</th>
                             <th>Nom</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($sessions as $session)
+                        @forelse ($classes as $class)
                             <tr>
+                                <td>{{ $class->session->name }}</td>
                                 <td class="">
-                                    {{ $session->name }}
+                                    {{ $class->name }}
                                 </td>
                                 <td class="text-center">
-                                    <form action="{{ route('school.sessions.destroy', $session) }}" method="POST">
+                                    <form action="{{ route('school.classes.destroy', $class) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.sessions.edit', $session) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier la session">
+                                            <a href="{{ route('school.classes.edit', $class) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier la classe">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer la session">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer la classe">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
@@ -65,7 +67,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="2">Aucune donnée à afficher</td>
+                                <td class="text-center" colspan="3">Aucune donnée à afficher</td>
                             </tr>
                         @endforelse
                     </tbody>

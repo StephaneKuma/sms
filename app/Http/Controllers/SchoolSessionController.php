@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\SchoolSession;
 use App\Http\Requests\StoreSchoolSessionRequest;
 use App\Http\Requests\UpdateSchoolSessionRequest;
+use App\Contracts\Repositories\SchoolSessionContract;
 
 class SchoolSessionController extends Controller
 {
+    public function __construct(private SchoolSessionContract $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +19,7 @@ class SchoolSessionController extends Controller
      */
     public function index()
     {
-        $sessions = SchoolSession::orderby('created_at', 'DESC')->get();
+        $sessions = $this->service->getAll();
 
         return view('sessions.index', compact('sessions'));
     }
@@ -39,9 +42,7 @@ class SchoolSessionController extends Controller
      */
     public function store(StoreSchoolSessionRequest $request)
     {
-        SchoolSession::create($request->validated());
-
-        toastr()->success('La session a bien été créée', 'Sessions - Ecole');
+        $this->service->create($request);
 
         return redirect()->route('school.sessions.index');
     }
@@ -77,9 +78,7 @@ class SchoolSessionController extends Controller
      */
     public function update(UpdateSchoolSessionRequest $request, SchoolSession $session)
     {
-        $session->update($request->validated());
-
-        toastr()->success('La session a bien été mise à jour', 'Sessions - Ecole');
+        $this->service->update($request, $session);
 
         return redirect()->route('school.sessions.index');
     }
@@ -92,9 +91,7 @@ class SchoolSessionController extends Controller
      */
     public function destroy(SchoolSession $session)
     {
-        $session->delete();
-
-        toastr()->success('La session a bien été supprimée', 'Sessions - Ecole');
+        $this->service->delete($session);
 
         return back();
     }

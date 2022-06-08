@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Contracts\Repositories\PermissionContract;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\PermissionRegistrar;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {
+    /**
+     * Create a new instance of the class
+     *
+     * @param PermissionContract $service
+     */
+    public function __construct(private PermissionContract $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::orderby('created_at', 'DESC')->get();
+        $permissions = $this->service->getAll();
 
         return view('permissions.index', compact('permissions'));
     }
@@ -40,12 +47,7 @@ class PermissionController extends Controller
      */
     public function store(StorePermissionRequest $request)
     {
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
-        Permission::create($request->validated());
-
-        toastr()->success("La permission a bien été créée", 'Permissions - Paramètres');
+        $this->service->create($request);
 
         return redirect()->route('settings.acl.permissions.index');
     }
@@ -81,11 +83,7 @@ class PermissionController extends Controller
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
-        $permission->update($request->validated());
-
-        toastr()->success("La permission a bien été mise à jour", 'Permissions - Paramètres');
+        $this->service->update($request, $permission);
 
         return redirect()->route('settings.acl.permissions.index');
     }
@@ -98,11 +96,7 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
-        $permission->delete();
-
-        toastr()->success("La permission a bien été supprimée", 'Permissions - Paramètres');
+        $this->service->delete($permission);
 
         return back();
     }

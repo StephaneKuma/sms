@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Contracts\Repositories\SchoolSessionContract;
+use App\Contracts\Repositories\SemesterContract;
 use App\Models\Semester;
-use Illuminate\Http\Request;
-use App\Models\SchoolSession;
 use App\Http\Requests\StoreSemesterRequest;
 use App\Http\Requests\UpdateSemesterRequest;
+use App\Traits\SchoolSession;
 
 class SemesterController extends Controller
 {
+    use SchoolSession;
+
+    /**
+     * Create a new instance of the class.
+     *
+     * @param SemesterContract $service
+     */
+    public function __construct(private SemesterContract $service,
+        private SchoolSessionContract $sessionService)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +29,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $semesters = Semester::orderby('created_at', 'DESC')->get();
+        $semesters = $this->service->getAllBySession($this->getCurrentSchoolSession());
 
         return view('semesters.index', compact('semesters'));
     }
@@ -30,7 +41,7 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $schoolSessions = SchoolSession::orderby('created_at', 'DESC')->get();
+        $schoolSessions = $this->sessionService->getAll();
 
         return view('semesters.form', compact('schoolSessions'));
     }
@@ -43,18 +54,7 @@ class SemesterController extends Controller
      */
     public function store(StoreSemesterRequest $request)
     {
-        $validated = $request->validated();
-        $start_at = Carbon::createFromFormat('d-m-Y', $validated['start_at'])->timestamp;
-        $end_at = Carbon::createFromFormat('d-m-Y', $validated['end_at'])->timestamp;
-
-        Semester::create([
-            'session_id' => $validated['session_id'],
-            'name' => $validated['name'],
-            'start_at' => $start_at,
-            'end_at' => $end_at,
-        ]);
-
-        toastr()->success("Le semestre a bien été créé", 'Semestres - Ecole');
+        $this->service->create($request);
 
         return redirect()->route('school.semesters.index');
     }
@@ -78,7 +78,7 @@ class SemesterController extends Controller
      */
     public function edit(Semester $semester)
     {
-        $schoolSessions = SchoolSession::orderby('created_at', 'DESC')->get();
+        $schoolSessions = $this->sessionService->getAll();
 
         return view('semesters.form', compact('semester', 'schoolSessions'));
     }
@@ -92,18 +92,7 @@ class SemesterController extends Controller
      */
     public function update(UpdateSemesterRequest $request, Semester $semester)
     {
-        $validated = $request->validated();
-        $start_at = Carbon::createFromFormat('d-m-Y', $validated['start_at'])->timestamp;
-        $end_at = Carbon::createFromFormat('d-m-Y', $validated['end_at'])->timestamp;
-
-        $semester->update([
-            'session_id' => $validated['session_id'],
-            'name' => $validated['name'],
-            'start_at' => $start_at,
-            'end_at' => $end_at,
-        ]);
-
-        toastr()->success("Le semestre a bien été mise à jour", 'Semestres - Ecole');
+        $this->service->update($request, $semester);
 
         return redirect()->route('school.semesters.index');
     }
@@ -116,9 +105,7 @@ class SemesterController extends Controller
      */
     public function destroy(Semester $semester)
     {
-        $semester->delete();
-
-        toastr()->success("Le semestre a bien supprimé", 'Semestres - Ecole');
+        $this->service->delete($semester);
 
         return back();
     }

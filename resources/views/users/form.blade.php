@@ -1,6 +1,6 @@
 @php
     $profile = auth()->user();
-    $title = isset($user) ? "Modifier l'utilisateur' : " . $user->name : "Ajouter un utilisateur";
+    $title = isset($user) ? "Modifier l'utilisateur : " . $user->name : "Ajouter un utilisateur";
     $second = "Paramètres";
     $url = route('settings.profiles.show', $profile);
     $third = "Utilisateur";
@@ -42,6 +42,8 @@
                 </a>
             </div>
             <div class="block-content block-content-full">
+                <p class="text-danger">Souvenez vous de créer des rôles et des permissions avant de continuer</p>
+
                 <form enctype="multipart/form-data" class="js-validation-material" action="{{ isset($user) ? route('settings.acl.users.update', $user) : route('settings.acl.users.store') }}" method="POST">
                     @csrf
                     @isset($user)

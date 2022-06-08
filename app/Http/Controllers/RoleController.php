@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\PermissionRegistrar;
+use App\Contracts\Repositories\RoleContract;
 
 class RoleController extends Controller
 {
+    /**
+     * Create a new instance of the class.
+     *
+     * @param RoleContract $service
+     */
+    public function __construct(private RoleContract $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderby('name')->get();
+        $roles = $this->service->getAll();
 
         return view('roles.index', compact('roles'));
     }
@@ -40,12 +47,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
-        Role::create($request->validated());
-
-        toastr()->success("Le rôle a bien été créé", 'Rôles - Paramètres');
+        $this->service->create($request);
 
         return redirect()->route('settings.acl.roles.index');
     }
@@ -81,11 +83,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
-        $role->update($request->validated());
-
-        toastr()->success("Le rôle a bien été mise à jour", 'Rôles - Paramètres');
+        $this->service->update($request, $role);
 
         return redirect()->route('settings.acl.roles.index');
     }
@@ -98,11 +96,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        
-        $role->delete();
-
-        toastr()->success("Le rôle a bien été supprimé", 'Rôles - Paramètres');
+        $this->service->delete($role);
 
         return back();
     }

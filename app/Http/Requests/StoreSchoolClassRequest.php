@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProfilePimaryInfoRequest extends FormRequest
+class StoreSchoolClassRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class UpdateProfilePimaryInfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,id',
-            'picture' => 'sometimes|nullable|image',
+            'session_id' => 'required|integer|gt:0',
+            'name' => 'required|string|max:30',
         ];
     }
 }

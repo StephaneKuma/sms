@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\ProfileContract;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\UpdateProfilePimaryInfoRequest;
+use App\Http\Requests\UpdateProfilePrimaryInfoRequest;
 
 class ProfileController extends Controller
 {
+    /**
+     * Create a new instance of the class.
+     *
+     * @param ProfileContract $service
+     */
+    public function __construct(private ProfileContract $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -65,30 +73,13 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateProfilePimaryInfoRequest  $request
+     * @param  \App\Http\Requests\UpdateProfilePrimaryInfoRequest  $request
      * @param  \App\Models\User  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfilePimaryInfoRequest $request, User $profile)
+    public function update(UpdateProfilePrimaryInfoRequest $request, User $profile)
     {
-        $validated = $request->validated();
-
-        $picture = $validated['picture'] ?? null;
-        
-        if(is_null($picture)) {
-            $profile->update($request->validated());
-        } else {
-            Storage::delete($profile->picture ?? '');
-            $path = $picture->store('users', 'public');
-            $profile->update([
-                'last_name' => $validated['last_name'],
-                'first_name' => $validated['first_name'],
-                'email' => $validated['email'],
-                'picture' => $path,
-            ]);
-        }
-
-        toastr()->success("Les informations primaire du profil ont bien été mise à jour", 'Profil');
+        $this->service->update($request, $profile);
 
         return redirect()->route('settings.profiles.show', $profile);
     }
@@ -101,6 +92,8 @@ class ProfileController extends Controller
      */
     public function destroy(User $profile)
     {
-        //
+        $this->service->delete($profile);
+
+        return back();
     }
 }

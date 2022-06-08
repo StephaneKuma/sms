@@ -23,4 +23,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Semester::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the classes for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function classes(): HasMany
+    {
+        return $this->hasMany(SchoolClass::class, 'session_id', 'id');
+    }
 }

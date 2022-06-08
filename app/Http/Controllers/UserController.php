@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\UserContract;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateUserRequest;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\PermissionRegistrar;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new instance of the class.
+     *
+     * @param UserContract $service
+     */
+    public function __construct(private UserContract $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = $this->service->getAll();
 
         return view('users.index', compact('users'));
     }
@@ -46,39 +52,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $validated = $request->validated();
-
-        $picture = $validated['picture'] ?? null;
-        $path = $picture == null ? null : $picture->store('users', 'public');
-
-        $user = User::create([
-            'last_name' => $validated['last_name'],
-            'first_name' => $validated['first_name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
-            'gender' => $validated['gender'],
-            'nationality' => $validated['nationality'],
-            'phone' => $validated['phone'],
-            'address' => $validated['address'],
-            'address2' => $validated['address2'],
-            'city' => $validated['city'],
-            'zip' => $validated['zip'],
-            'birthday' => $validated['birthday'],
-            'religion' => $validated['religion'],
-            'picture' => $path,
-        ]);
-
-        toastr()->success("L'utilisateur a bien été créé", "Utilisateurs - Paramètres");
-
-        $role = Role::findById($validated['role']);
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        $user->assignRole($role);
-        toastr()->success("Le rôle {$role->name} a bien été attribué à l'utilisateur", "Utilisateurs - Paramètres");
-        $permissions = $validated['permissions'];
-        $user->syncPermissions($permissions);
-        $total = count($permissions);
-        toastr()->success("{$total} ont bien été attribuées à l'utilisateur", "Utilisateurs - Paramètres");
+        $this->service->create($request);
 
         return redirect()->route('settings.acl.users.index');
     }
@@ -117,45 +91,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = $request->validated();
-
-        $picture = $validated['picture'] ?? null;
-        $path = $picture == null ? null : $picture->store('users', 'public');
-        $password = $validated['password'] ?? null;
-        $password = $password != null ? bcrypt($password) : $user->password;
-
-        if (!is_null($path)) {
-            Storage::delete($user->picture);
-        }
-
-        $user->update([
-            'last_name' => $validated['last_name'],
-            'first_name' => $validated['first_name'],
-            'email' => $validated['email'],
-            'password' => $password,
-            'gender' => $validated['gender'],
-            'nationality' => $validated['nationality'],
-            'phone' => $validated['phone'],
-            'address' => $validated['address'],
-            'address2' => $validated['address2'],
-            'city' => $validated['city'],
-            'zip' => $validated['zip'],
-            'birthday' => $validated['birthday'],
-            'religion' => $validated['religion'],
-            'picture' => $path,
-        ]);
-
-        toastr()->success("L'utilisateur a bien été mise à jour", "Utilisateurs - Paramètres");
-
-        $role = Role::findById($validated['role']);
-        // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        $user->assignRole($role);
-        toastr()->success("Le rôle {$role->name} a bien été attribué à l'utilisateur", "Utilisateurs - Paramètres");
-        $permissions = $validated['permissions'];
-        $user->givePermissionTo($permissions);
-        $total = count($permissions);
-        toastr()->success("{$total} ont bien été attribuées à l'utilisateur", "Utilisateurs - Paramètres");
+        $this->service->update($request, $user);
 
         return redirect()->route('settings.acl.users.index');
     }
@@ -168,11 +104,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Storage::delete($user->picture);
-
-        $user->delete();
-
-        toastr()->success("L'utilisateur a bien été supprimé", "Utilisateurs - Paramètres");
+        $this->service->delete($user);
 
         return back();
     }

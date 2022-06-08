@@ -105,6 +105,11 @@
                         <i class="si si-map"></i><span class="sidebar-mini-hide">Semestres</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">
+                        <i class="si si-layers"></i><span class="sidebar-mini-hide">Classes</span>
+                    </a>
+                </li>
 
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>
@@ -114,8 +119,9 @@
                     @php
                         $profile = $profile;
                     @endphp
-                    <a class="{{ request()->is('settings/profiles*') ? 'active' : '' }} href="{{ route('settings.profiles.show', $profile) }}">
-                        <i class="si si-user"></i><span class="sidebar-mini-hide">Profil</span>
+                    <a class="{{ request()->is('settings/profiles*') ? 'active' : '' }}" href="{{ route('settings.profiles.show', $profile) }}">
+                        <i class="si si-user"></i>
+                        <span class="sidebar-mini-hide">Profil</span>
                     </a>
                 </li>
                 <li class="{{ request()->is('settings/acl*') ? 'open' : '' }}">

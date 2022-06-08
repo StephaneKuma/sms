@@ -19,13 +19,13 @@
         <!-- Fonts and Codebase framework -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
         <link rel="stylesheet" id="css-main" href="{{ asset('css/codebase.min.css') }}">
-        
+
         @stack('css')
 
         <link rel="stylesheet" href="{{ asset('toastr.min.css') }}">
     </head>
     <body class="font-sans antialiased">
-        <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
+        <div id="page-container" class="sidebar-o enable-page-overlay side-scroll main-content-boxed">
             @include('layouts.partials._side_overlay')
 
             @include('layouts.partials._sidebar')
@@ -46,9 +46,9 @@
         <script src="{{ asset('js/codebase.core.min.js') }}"></script>
 
         <script src="{{ asset('js/codebase.app.min.js') }}"></script>
-        
+
         @stack('js')
-        
+
         <script src="{{ asset('toastr.min.js') }}"></script>
         {!! Toastr::message() !!}
     </body>

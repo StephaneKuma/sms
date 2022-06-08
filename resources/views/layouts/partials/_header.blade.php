@@ -20,6 +20,29 @@
                 <i class="fa fa-search"></i>
             </button>
             <!-- END Open Search Section -->
+
+            @php
+                $latestSchoolSession = \App\Models\SchoolSession::latest()->first();
+                $currentSchoolSessionName = null;
+                if($latestSchoolSession){
+                    $currentSchoolSessionName = $latestSchoolSession->name;
+                }
+            @endphp
+            @if (session()->has('browse_session_name') && session('browse_session_name') !== $currentSchoolSessionName)
+                <a class="btn btn-circle btn-dual-secondary text-danger disabled" href="#">
+                    <i class="bi bi-exclamation-diamond-fill me-2"></i>
+                    Navigation dans la session : {{ session('browse_session_name') }}
+                </a>
+            @elseif(\App\Models\SchoolSession::latest()->count() > 0)
+                <a class="btn btn-circle btn-dual-secondary disabled" href="#">
+                    Session académique courante :
+                    <span class="badge badge-info">{{ $currentSchoolSessionName }}</span>
+                </a>
+            @else
+                <a class="btn btn-rounded btn-dual-secondary text-danger" href="{{ route('school.sessions.create') }}">
+                    <i class="bi bi-exclamation-diamond-fill me-2"></i> Créer une session académique.
+                </a>
+            @endif
         </div>
         <!-- END Left Section -->
 
@@ -153,7 +176,7 @@
     <!-- Header Search -->
     <div id="page-header-search" class="overlay-header">
         <div class="content-header content-header-fullrow">
-            <form action="be_pages_generic_search.html" method="post">
+            <form action="#" method="post">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <!-- Close Search Section -->
@@ -163,7 +186,7 @@
                         </button>
                         <!-- END Close Search Section -->
                     </div>
-                    <input type="text" class="form-control" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                    <input type="text" class="form-control" placeholder="Rechercher ou taper ESC.." id="page-header-search-input" name="page-header-search-input">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-secondary">
                             <i class="fa fa-search"></i>
