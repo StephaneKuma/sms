@@ -43,4 +43,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Section::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the courses for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'session_id', 'id');
+    }
 }

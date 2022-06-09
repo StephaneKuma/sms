@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SemesterController;
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
 
         // Sections
         Route::resource('sections', SectionController::class)->except('show');
+
+        // Courses
+        Route::resource('courses', CourseController::class)->except('show');
     });
 
     // Settings

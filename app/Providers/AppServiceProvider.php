@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\CourseRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\SectionRepository;
 use Illuminate\Support\ServiceProvider;
@@ -14,9 +15,11 @@ use App\Services\Repositories\UserService;
 use App\Repositories\SchoolClassRepository;
 use App\Contracts\Repositories\RoleContract;
 use App\Contracts\Repositories\UserContract;
+use App\Services\Repositories\CourseService;
 use App\Repositories\SchoolSessionRepository;
 use App\Services\Repositories\ProfileService;
 use App\Services\Repositories\SectionService;
+use App\Contracts\Repositories\CourseContract;
 use App\Services\Repositories\SemesterService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
@@ -60,6 +63,12 @@ class AppServiceProvider extends ServiceProvider
             return new SectionService(new SectionRepository());
         });
         $this->app->bind(SectionContract::class, SectionService::class);
+
+        // Course
+        $this->app->bind(CourseService::class, function () {
+            return new CourseService(new CourseRepository());
+        });
+        $this->app->bind(CourseContract::class, CourseService::class);
 
 
 

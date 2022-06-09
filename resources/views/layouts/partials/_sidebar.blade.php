@@ -115,6 +115,11 @@
                         <i class="si si-control-pause"></i><span class="sidebar-mini-hide">Sections</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/courses*') ? 'active' : '' }}" href="{{ route('school.courses.index') }}">
+                        <i class="si si-book-open"></i><span class="sidebar-mini-hide">Cours</span>
+                    </a>
+                </li>
 
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>
