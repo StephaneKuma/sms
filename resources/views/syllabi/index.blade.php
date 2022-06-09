@@ -34,7 +34,7 @@
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full-pagination class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
-                <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
+                <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
                     <thead>
                         <tr>
                             <th>Session</th>

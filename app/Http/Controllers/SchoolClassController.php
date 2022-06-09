@@ -30,7 +30,7 @@ class SchoolClassController extends Controller
      */
     public function index()
     {
-        $classes = $this->service->getAllBySession($this->getCurrentSchoolSession());
+        $classes = $this->service->getAllWithSectionsAndCoursesAndSyllabiBySession($this->getCurrentSchoolSession());
 
         return view('classes.index', compact("classes"));
     }
