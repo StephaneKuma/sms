@@ -46,4 +46,12 @@ interface SchoolClassContract
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
     public function getAllBySession(int $sessionId);
+
+    /**
+     * Get all of the models from database by the session id.
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllWithCoursesBySession(int $sessionId);
 }

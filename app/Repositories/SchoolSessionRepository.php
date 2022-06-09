@@ -100,6 +100,17 @@ class SchoolSessionRepository implements SchoolSessionContract
     }
 
     /**
+     * Get all the models from database.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllWithClassesAndCourses()
+    {
+        return SchoolSession::with('classes', 'courses')
+            ->get();
+    }
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request

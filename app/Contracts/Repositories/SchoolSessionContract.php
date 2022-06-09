@@ -53,6 +53,13 @@ interface SchoolSessionContract
     public function getAll();
 
     /**
+     * Get all the models from database.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllWithClassesAndCourses();
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request

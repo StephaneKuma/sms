@@ -43,7 +43,22 @@ class SchoolClassRepository implements SchoolClassContract
      */
     public function getAllBySession(int $sessionId)
     {
-        return SchoolClass::with('session')->where('session_id', $sessionId)->get();
+        return SchoolClass::with('session')
+            ->where('session_id', $sessionId)
+            ->get();
+    }
+
+    /**
+     * Get all of the models from database by the session id.
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllWithCoursesBySession(int $sessionId)
+    {
+        return SchoolClass::with('session', 'courses')
+            ->where('session_id', $sessionId)
+            ->get();
     }
 
     /**

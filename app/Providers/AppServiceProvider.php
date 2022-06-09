@@ -9,6 +9,7 @@ use App\Repositories\ProfileRepository;
 use App\Repositories\SectionRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\SemesterRepository;
+use App\Repositories\SyllabusRepository;
 use App\Repositories\PermissionRepository;
 use App\Services\Repositories\RoleService;
 use App\Services\Repositories\UserService;
@@ -21,9 +22,11 @@ use App\Services\Repositories\ProfileService;
 use App\Services\Repositories\SectionService;
 use App\Contracts\Repositories\CourseContract;
 use App\Services\Repositories\SemesterService;
+use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
 use App\Contracts\Repositories\SemesterContract;
+use App\Contracts\Repositories\SyllabusContract;
 use App\Services\Repositories\PermissionService;
 use App\Services\Repositories\SchoolClassService;
 use App\Contracts\Repositories\PermissionContract;
@@ -69,6 +72,12 @@ class AppServiceProvider extends ServiceProvider
             return new CourseService(new CourseRepository());
         });
         $this->app->bind(CourseContract::class, CourseService::class);
+
+        // Syllabus
+        $this->app->bind(SyllabusService::class, function () {
+            return new SyllabusService(new SyllabusRepository());
+        });
+        $this->app->bind(SyllabusContract::class, SyllabusService::class);
 
 
 

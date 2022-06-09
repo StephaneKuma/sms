@@ -120,6 +120,11 @@
                         <i class="si si-book-open"></i><span class="sidebar-mini-hide">Cours</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/syllabi*') ? 'active' : '' }}" href="{{ route('school.syllabi.index') }}">
+                        <i class="si si-docs"></i><span class="sidebar-mini-hide">Syllabi</span>
+                    </a>
+                </li>
 
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>

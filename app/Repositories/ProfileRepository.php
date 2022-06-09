@@ -27,7 +27,7 @@ class ProfileRepository implements ProfileContract
         if(is_null($picture)) {
             $status = $profile->update($request->validated());
         } else {
-            Storage::delete($profile->picture);
+            Storage::disk('public')->delete($profile->picture);
             $path = $picture->store('users', 'public');
             $status = $profile->update([
                 'last_name' => $validated['last_name'],
@@ -51,7 +51,7 @@ class ProfileRepository implements ProfileContract
     public function delete(User $profile)
     {
         if (!is_null($profile->picture)) {
-            Storage::delete($profile->picture ?? '');
+            Storage::disk('public')->delete($profile->picture ?? '');
         }
 
         $profile->delete();

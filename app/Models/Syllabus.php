@@ -3,24 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Course extends Model
+class Syllabus extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'session_id',
-        'semester_id',
         'class_id',
+        'course_id',
         'name',
-        'type',
+        'path',
     ];
 
     /**
-     * Get the session that owns the Course
+     * Get the session that owns the Syllabus
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -30,17 +29,7 @@ class Course extends Model
     }
 
     /**
-     * Get the semester that owns the Course
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function semester(): BelongsTo
-    {
-        return $this->belongsTo(Semester::class);
-    }
-
-    /**
-     * Get the class that owns the Course
+     * Get the class that owns the Syllabus
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -50,12 +39,12 @@ class Course extends Model
     }
 
     /**
-     * Get all of the syllabi for the Course
+     * Get the course that owns the Syllabus
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function syllabi(): HasMany
+    public function course(): BelongsTo
     {
-        return $this->hasMany(Syllabus::class);
+        return $this->belongsTo(Course::class);
     }
 }

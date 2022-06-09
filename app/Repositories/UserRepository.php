@@ -78,7 +78,7 @@ class UserRepository implements UserContract
      */
     public function delete(User $user)
     {
-        Storage::delete($user->picture);
+        Storage::disk('public')->delete($user->picture);
 
         $status = $user->delete();
 
@@ -107,7 +107,7 @@ class UserRepository implements UserContract
 
         if (!is_null($user)) {
             if (!is_null($user->picture)) {
-                Storage::delete($user->picture);
+                Storage::disk('public')->delete($user->picture);
             }
         }
 

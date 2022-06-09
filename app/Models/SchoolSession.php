@@ -53,4 +53,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Course::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the syllabi for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function syllabi(): HasMany
+    {
+        return $this->hasMany(Syllabus::class, 'session_id', 'id');
+    }
 }

@@ -7,8 +7,10 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\SchoolSessionController;
 
 /*
@@ -23,6 +25,8 @@ use App\Http\Controllers\SchoolSessionController;
 */
 
 Route::redirect('/', 'login');
+
+Route::post('download', [DownloadFileController::class, 'getFile'])->name('download');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -45,6 +49,9 @@ Route::middleware('auth')->group(function () {
 
         // Courses
         Route::resource('courses', CourseController::class)->except('show');
+
+        // Syllabi
+        Route::resource('syllabi', SyllabusController::class)->except('show');
     });
 
     // Settings
