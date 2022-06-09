@@ -110,6 +110,11 @@
                         <i class="si si-layers"></i><span class="sidebar-mini-hide">Classes</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/sections*') ? 'active' : '' }}" href="{{ route('school.sections.index') }}">
+                        <i class="si si-control-pause"></i><span class="sidebar-mini-hide">Sections</span>
+                    </a>
+                </li>
 
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>

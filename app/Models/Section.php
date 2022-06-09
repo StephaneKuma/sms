@@ -3,21 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SchoolClass extends Model
+class Section extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'session_id',
-        'name'
+        'class_id',
+        'name',
+        'room_no',
     ];
 
     /**
-     * Get the session that owns the SchoolClass
+     * Get the session that owns the Section
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -27,12 +28,12 @@ class SchoolClass extends Model
     }
 
     /**
-     * Get all of the sections for the SchoolClass
+     * Get the class that owns the Section
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function sections(): HasMany
+    public function class(): BelongsTo
     {
-        return $this->hasMany(Section::class, 'class_id', 'id');
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 }

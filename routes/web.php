@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolSessionController;
-use App\Http\Controllers\SemesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::middleware('auth')->group(function () {
 
         // Classes
         Route::resource('classes', SchoolClassController::class)->except('show');
+
+        // Sections
+        Route::resource('sections', SectionController::class)->except('show');
     });
 
     // Settings
