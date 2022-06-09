@@ -34,8 +34,8 @@
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full-pagination class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
-                <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
-                    <thead>
+                <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
+                    <thead class="thead-light">
                         <tr>
                             <th>Nom</th>
                             <th>Début</th>
@@ -57,10 +57,10 @@
                                         @method('DELETE')
 
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.semesters.edit', $semester) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier le semestre">
+                                            <a href="{{ route('school.semesters.edit', $semester) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le semestre">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer le semestre">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le semestre">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>

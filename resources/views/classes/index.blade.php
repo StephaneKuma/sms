@@ -33,46 +33,6 @@
                 </a>
             </div>
             <div class="block-content block-content-full">
-                <!-- DataTables functionality is initialized with .js-dataTable-full-pagination class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
-                {{-- <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
-                    <thead>
-                        <tr>
-                            <th>Session</th>
-                            <th>Nom</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($classes as $class)
-                            <tr>
-                                <td>{{ $class->session->name }}</td>
-                                <td class="">
-                                    {{ $class->name }}
-                                </td>
-                                <td class="text-center">
-                                    <form action="{{ route('school.classes.destroy', $class) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('school.classes.edit', $class) }}" class="btn btn-sm btn-info" data-toggle="tooltip" title="Modifier la classe">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Supprimer la classe">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td class="text-center" colspan="3">Aucune donnée à afficher</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table> --}}
-
                 @foreach ($classes as $class)
                 <!-- Block Tabs Alternative Style -->
                     <div class="block">
@@ -142,7 +102,7 @@
                             </div>
                             <div class="tab-pane" id="class-{{ $class->id }}-syllabi" role="tabpanel">
                                 <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
-                                    <thead class="thead-dark ">
+                                    <thead class="thead-light ">
                                         <tr>
                                             <th>Nom</th>
                                             <th class="text-center">Fichier</th>
@@ -189,7 +149,7 @@
                             </div>
                             <div class="tab-pane" id="class-{{ $class->id }}-courses" role="tabpanel">
                                 <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
-                                    <thead class="thead-dark ">
+                                    <thead class="thead-light ">
                                         <tr>
                                             <th>Nom</th>
                                             <th>Type</th>
