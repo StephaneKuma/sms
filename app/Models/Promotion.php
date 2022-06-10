@@ -10,6 +10,12 @@ class Promotion extends Model
 {
     use HasFactory;
 
+    /**
+     * Array of attributes may be set through mass assignment to the model,
+     * and all others will just get ignored for security reasons.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'session_id',
         'class_id',

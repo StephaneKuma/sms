@@ -11,6 +11,12 @@ class SchoolClass extends Model
 {
     use HasFactory;
 
+    /**
+     * Array of attributes may be set through mass assignment to the model,
+     * and all others will just get ignored for security reasons.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'session_id',
         'name'
@@ -64,5 +70,15 @@ class SchoolClass extends Model
     public function promotions(): HasMany
     {
         return $this->hasMany(Promotion::class, 'class_id', 'id');
+    }
+
+    /**
+     * Get all of the exams for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exams(): HasMany
+    {
+        return $this->hasMany(Exam::class, 'class_id', 'id');
     }
 }

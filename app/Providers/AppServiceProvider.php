@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\ExamRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CourseRepository;
@@ -11,9 +12,11 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\SemesterRepository;
 use App\Repositories\SyllabusRepository;
 use App\Repositories\PermissionRepository;
+use App\Services\Repositories\ExamService;
 use App\Services\Repositories\RoleService;
 use App\Services\Repositories\UserService;
 use App\Repositories\SchoolClassRepository;
+use App\Contracts\Repositories\ExamContract;
 use App\Contracts\Repositories\RoleContract;
 use App\Contracts\Repositories\UserContract;
 use App\Services\Repositories\CourseService;
@@ -78,6 +81,12 @@ class AppServiceProvider extends ServiceProvider
             return new SyllabusService(new SyllabusRepository());
         });
         $this->app->bind(SyllabusContract::class, SyllabusService::class);
+
+        // Exam
+        $this->app->bind(ExamService::class, function () {
+            return new ExamService(new ExamRepository());
+        });
+        $this->app->bind(ExamContract::class, ExamService::class);
 
 
 

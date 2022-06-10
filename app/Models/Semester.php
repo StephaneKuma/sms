@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +11,12 @@ class Semester extends Model
 {
     use HasFactory;
 
+    /**
+     * Array of attributes may be set through mass assignment to the model,
+     * and all others will just get ignored for security reasons.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'session_id',
         'name',
@@ -29,9 +34,15 @@ class Semester extends Model
         'end_at' => 'datetime',
     ];
 
-    protected function serializeDate(DateTimeInterface $date)
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
     {
-        return $date->format('d-m-Y H:i:s');
+        return $date->format('d-m-Y H:i');
     }
 
     /**
@@ -52,5 +63,15 @@ class Semester extends Model
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
+    }
+
+    /**
+     * Get all of the exams for the Semester
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function exams(): HasMany
+    {
+        return $this->hasMany(Exam::class);
     }
 }

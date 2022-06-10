@@ -92,8 +92,15 @@
                             <div class="form-group row{{ $errors->has('start_at') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="text" class="js-flatpickr form-control" data-date-format="d-m-Y" id="start_at" name="start_at" value="{{ isset($session) ? $session->start_at : old('start_at') }}">
+                                        <input type="text" class="js-flatpickr form-control"
+                                            data-date-format="d-m-Y" id="start_at"
+                                            name="start_at" value="{{ old('start_at') }}">
                                         <label for="start_at">Date de début</label>
+                                        @isset($semester)
+                                            <div class="form-text text-muted text-right">
+                                                {{ $semester->start_at }}
+                                            </div>
+                                        @endisset
                                     </div>
                                     @error('start_at')
                                         <div class="invalid-feedback animated fadeInDown">
@@ -107,8 +114,15 @@
                             <div class="form-group row{{ $errors->has('end_at') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
-                                        <input type="text" class="js-flatpickr form-control" data-date-format="d-m-Y" id="end_at" name="end_at" value="{{ isset($session) ? $session->end_at : old('end_at') }}">
+                                        <input type="text" class="js-flatpickr form-control"
+                                            data-date-format="d-m-Y" id="end_at"
+                                            name="end_at" value="{{ old('end_at') }}">
                                         <label for="end_at">Date de fin</label>
+                                        @isset($semester)
+                                            <div class="form-text text-muted text-right">
+                                                {{ $semester->end_at }}
+                                            </div>
+                                        @endisset
                                     </div>
                                     @error('end_at')
                                         <div class="invalid-feedback animated fadeInDown">

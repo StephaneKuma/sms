@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
@@ -56,6 +57,9 @@ Route::middleware('auth')->group(function () {
 
         // Promotions
         Route::resource('promotions', PromotionController::class)->except('show');
+
+        // Exams
+        Route::resource('exams', ExamController::class)->except('show');
     });
 
     // Settings

@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Course extends Model
+class Exam extends Model
 {
     use HasFactory;
 
@@ -18,15 +17,38 @@ class Course extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
+        'start_at',
+        'end_at',
         'session_id',
         'semester_id',
         'class_id',
-        'name',
-        'type',
+        'course_id',
     ];
 
     /**
-     * Get the session that owns the Course
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('d-m-Y H:i');
+    }
+
+    /**
+     * Get the session that owns the Exam
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -36,7 +58,7 @@ class Course extends Model
     }
 
     /**
-     * Get the semester that owns the Course
+     * Get the semester that owns the Exam
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -46,7 +68,7 @@ class Course extends Model
     }
 
     /**
-     * Get the class that owns the Course
+     * Get the class that owns the Exam
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -56,22 +78,12 @@ class Course extends Model
     }
 
     /**
-     * Get all of the syllabi for the Course
+     * Get the course that owns the Exam
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function syllabi(): HasMany
+    public function course(): BelongsTo
     {
-        return $this->hasMany(Syllabus::class);
-    }
-
-    /**
-     * Get all of the exams for the Course
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function exams(): HasMany
-    {
-        return $this->hasMany(Exam::class);
+        return $this->belongsTo(Course::class);
     }
 }

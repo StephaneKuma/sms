@@ -76,6 +76,12 @@ class SemesterRepository implements SemesterContract
         return $status;
     }
 
+    /**
+     * Validate form request
+     *
+     * @param FormRequest $request
+     * @return mixed|array
+     */
     private function validate(FormRequest $request)
     {
         $validated = $request->validated();
