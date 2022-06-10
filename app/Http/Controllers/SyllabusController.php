@@ -40,7 +40,7 @@ class SyllabusController extends Controller
     public function create()
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
+        $classes = $this->classService->getAllBySession($sessionId);
 
         return view('syllabi.form', compact('sessionId', 'classes'));
     }
@@ -78,7 +78,7 @@ class SyllabusController extends Controller
     public function edit(Syllabus $syllabus)
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
+        $classes = $this->classService->getAllBySession($sessionId);
 
         return view('syllabi.form', compact('syllabus', 'sessionId', 'classes'));
     }

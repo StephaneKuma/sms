@@ -41,6 +41,20 @@ class CourseRepository implements CourseContract
      * Get all the models from database.
      *
      * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllByClassId(int $sessionId, int $classId)
+    {
+        return Course::where('session_id', $sessionId)
+            ->where('class_id', $classId)
+            ->get();
+    }
+
+    /**
+     * Get all the models from database.
+     *
+     * @param integer $sessionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
     public function getAllBySession(int $sessionId)

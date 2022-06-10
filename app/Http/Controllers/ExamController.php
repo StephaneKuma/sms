@@ -45,7 +45,7 @@ class ExamController extends Controller
     {
         $sessionId =  $this->getCurrentSchoolSession();
         $semesters = $this->semesterService->getAllBySession($sessionId);
-        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
+        $classes = $this->classService->getAllBySession($sessionId);
 
         return view('exams.form', compact('sessionId', 'semesters', 'classes'));
     }
@@ -84,7 +84,7 @@ class ExamController extends Controller
     {
         $sessionId =  $this->getCurrentSchoolSession();
         $semesters = $this->semesterService->getAllBySession($sessionId);
-        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
+        $classes = $this->classService->getAllBySession($sessionId);
 
         return view('exams.form', compact('exam', 'sessionId', 'semesters', 'classes'));
     }

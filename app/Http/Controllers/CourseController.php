@@ -35,6 +35,19 @@ class CourseController extends Controller
     }
 
     /**
+     * get all the model from database by class id.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getByClassId(Request $request)
+    {
+        $classId = $request->query('class_id', 0);
+        $courses = $this->service->getAllByClassId($this->getCurrentSchoolSession(), $classId);
+
+        return response()->json(compact('courses'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
         // Courses
         Route::resource('courses', CourseController::class)->except('show');
+        Route::get('courses/by_class', [CourseController::class, 'getByClassId'])->name('courses.by.class.id');
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');

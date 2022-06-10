@@ -139,7 +139,7 @@
                             <div class="form-group row{{ $errors->has('class_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
-                                        <select id="class_id" class="js-select2 form-control" name="class_id" data-placeholder="Choisissez une classe">
+                                        <select onchange="getCourses(this)" id="class_id" class="js-select2 form-control" name="class_id" data-placeholder="Choisissez une classe">
                                             <option></option>
                                             @forelse ($classes as $class)
                                                 <option value="{{ $class->id }}" {{ ((isset($exam) && $exam->class_id == $class->id) || old('class_id') == $class->id) ? 'selected' : '' }}>{{ $class->name }}</option>
@@ -161,15 +161,7 @@
                             <div class="form-group row{{ $errors->has('course_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
-                                        <select id="course_id" class="js-select2 form-control" name="course_id" data-placeholder="Choisissez un cours">
-                                            <option></option>
-                                            @forelse ($classes as $class)
-                                                @foreach ($class->courses as $course)
-                                                    <option value="{{ $course->id }}" {{ ((isset($exam) && $exam->course_id == $course->id) || old('course_id') == $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
-                                                @endforeach
-                                            @empty
-                                                <option value="-1"><a href="{{ route('school.courses.create') }}">Veuillez créer un cours</a></option>
-                                            @endforelse
+                                        <select id="course_id" class="js-select2 form-control" name="course_id">
                                         </select>
                                         <label for="course_id">Cours</label>
                                     </div>
@@ -195,4 +187,6 @@
             </div>
         </div>
     </div>
+
+    @include('shared._courses')
 @endsection
