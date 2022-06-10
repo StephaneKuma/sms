@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Traits\SchoolSession;
 use App\Http\Requests\StoreSyllabusRequest;
 use App\Http\Requests\UpdateSyllabusRequest;
-use App\Contracts\Repositories\CourseContract;
 use App\Contracts\Repositories\SyllabusContract;
 use App\Contracts\Repositories\SchoolClassContract;
 use App\Contracts\Repositories\SchoolSessionContract;
@@ -18,8 +17,7 @@ class SyllabusController extends Controller
 
     public function __construct(private SyllabusContract $service,
         private SchoolSessionContract $sessionService,
-        private SchoolClassContract $classService,
-        private CourseContract $courseService)
+        private SchoolClassContract $classService)
     {}
 
     /**
@@ -41,9 +39,10 @@ class SyllabusController extends Controller
      */
     public function create()
     {
-        $sessions = $this->sessionService->getAllWithClassesAndCourses();
+        $sessionId = $this->getCurrentSchoolSession();
+        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
 
-        return view('syllabi.form', compact('sessions'));
+        return view('syllabi.form', compact('sessionId', 'classes'));
     }
 
     /**
@@ -54,7 +53,7 @@ class SyllabusController extends Controller
      */
     public function store(StoreSyllabusRequest $request)
     {
-        $this->service->create($request, $this->getCurrentSchoolSession());
+        $this->service->create($request);
 
         return redirect()->route('school.syllabi.index');
     }
@@ -78,9 +77,10 @@ class SyllabusController extends Controller
      */
     public function edit(Syllabus $syllabus)
     {
-        $sessions = $this->sessionService->getAllWithClassesAndCourses();
+        $sessionId = $this->getCurrentSchoolSession();
+        $classes = $this->classService->getAllWithCoursesBySession($sessionId);
 
-        return view('syllabi.form', compact('syllabus', 'sessions'));
+        return view('syllabi.form', compact('syllabus', 'sessionId', 'classes'));
     }
 
     /**
@@ -92,7 +92,7 @@ class SyllabusController extends Controller
      */
     public function update(UpdateSyllabusRequest $request, Syllabus $syllabus)
     {
-        $this->service->update($request, $syllabus, $this->getCurrentSchoolSession());
+        $this->service->update($request, $syllabus);
 
         return redirect()->route('school.syllabi.index');
     }

@@ -11,10 +11,9 @@ interface SectionContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId);
+    public function create(FormRequest $request);
 
     /**
      * Get all the models from database.
@@ -44,10 +43,9 @@ interface SectionContract
      *
      * @param FormRequest $request
      * @param Section $section
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function update(FormRequest $request, Section $section, int $currentSessionId);
+    public function update(FormRequest $request, Section $section);
 
     /**
      * Delete the model from database.

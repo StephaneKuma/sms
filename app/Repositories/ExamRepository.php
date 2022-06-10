@@ -13,22 +13,17 @@ class ExamRepository implements ExamContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
         $validated = $this->validate($request);
         $status = false;
 
-        if ($validated['session_id'] == $currentSessionId) {
-            Exam::create($validated);
-            $status = true;
+        Exam::create($validated);
+        $status = true;
 
-            toastr()->success('L\'examen a bien été créé', 'Examens - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! L'examen a été assigné à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Examens - Ecole');
-        }
+        toastr()->success('L\'examen a bien été créé', 'Examens - Ecole');
 
         return $status;
     }
@@ -58,24 +53,18 @@ class ExamRepository implements ExamContract
      * Update the model in database.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @param Exam $exam
      * @return bool
      */
-    public function update(FormRequest $request, Exam $exam, int $currentSessionId)
+    public function update(FormRequest $request, Exam $exam)
     {
         $validated = $this->validate($request);
         $status = false;
 
-        if ($validated['session_id'] == $currentSessionId) {
-            $_status = $exam->update($validated);
-            $status = $_status;
+        $_status = $exam->update($validated);
+        $status = $_status;
 
-            toastr()->success('L\'examen a bien été mise à jour', 'Examens - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! L'examen a été assigné à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Examens - Ecole');
-        }
-
+        toastr()->success('L\'examen a bien été mise à jour', 'Examens - Ecole');
 
         return $status;
     }

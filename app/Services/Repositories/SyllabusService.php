@@ -21,12 +21,11 @@ class SyllabusService implements SyllabusContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
-        return $this->repository->create($request, $currentSessionId);
+        return $this->repository->create($request);
     }
 
     /**
@@ -54,13 +53,12 @@ class SyllabusService implements SyllabusContract
      * Update the model in database.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @param Syllabus $syllabus
      * @return bool
      */
-    public function update(FormRequest $request, Syllabus $syllabus, int $currentSessionId)
+    public function update(FormRequest $request, Syllabus $syllabus)
     {
-        return $this->repository->update($request, $syllabus, $currentSessionId);
+        return $this->repository->update($request, $syllabus);
     }
 
     /**

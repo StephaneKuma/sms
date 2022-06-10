@@ -41,9 +41,9 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $schoolSessions = $this->sessionService->getAll();
+        $sessionId = $this->getCurrentSchoolSession();
 
-        return view('semesters.form', compact('schoolSessions'));
+        return view('semesters.form', compact('sessionId'));
     }
 
     /**
@@ -78,9 +78,9 @@ class SemesterController extends Controller
      */
     public function edit(Semester $semester)
     {
-        $schoolSessions = $this->sessionService->getAll();
+        $sessionId = $this->getCurrentSchoolSession();
 
-        return view('semesters.form', compact('semester', 'schoolSessions'));
+        return view('semesters.form', compact('semester', 'sessionId'));
     }
 
     /**

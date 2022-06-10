@@ -21,12 +21,11 @@ class SectionService implements SectionContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
-        return $this->repository->create($request, $currentSessionId);
+        return $this->repository->create($request);
     }
 
     /**
@@ -66,12 +65,11 @@ class SectionService implements SectionContract
      *
      * @param FormRequest $request
      * @param Section $section
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function update(FormRequest $request, Section $section, int $currentSessionId)
+    public function update(FormRequest $request, Section $section)
     {
-        return $this->repository->update($request, $section, $currentSessionId);
+        return $this->repository->update($request, $section);
     }
 
     /**

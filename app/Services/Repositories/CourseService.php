@@ -21,12 +21,11 @@ class CourseService implements CourseContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
-        return $this->repository->create($request, $currentSessionId);
+        return $this->repository->create($request);
     }
 
     /**
@@ -55,12 +54,11 @@ class CourseService implements CourseContract
      *
      * @param FormRequest $request
      * @param Course $course
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function update(FormRequest $request, Course $course, int $currentSessionId)
+    public function update(FormRequest $request, Course $course)
     {
-        return $this->repository->update($request, $course, $currentSessionId);
+        return $this->repository->update($request, $course);
     }
 
     /**

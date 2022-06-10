@@ -37,7 +37,6 @@
                 <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
                     <thead class="thead-light">
                         <tr>
-                            <th>Session</th>
                             <th>Classe</th>
                             <th>Cours</th>
                             <th class="">Nom</th>
@@ -48,7 +47,6 @@
                     <tbody>
                         @forelse ($syllabi as $syllabus)
                             <tr>
-                                <td>{{ $syllabus->session->name }}</td>
                                 <td>{{ $syllabus->class->name }}</td>
                                 <td>{{ $syllabus->course->name }}</td>
                                 <td>{{ $syllabus->name }}</td>
@@ -80,7 +78,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="6">Aucune donnée à afficher</td>
+                                <td class="text-center" colspan="5">Aucune donnée à afficher</td>
                             </tr>
                         @endforelse
                     </tbody>

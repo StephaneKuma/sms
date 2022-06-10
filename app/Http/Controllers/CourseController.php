@@ -42,11 +42,10 @@ class CourseController extends Controller
     public function create()
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $sessions = $this->sessionService->getAll();
         $semesters = $this->semesterService->getAllBySession($sessionId);
         $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('courses.form', compact('sessions', 'semesters', 'classes'));
+        return view('courses.form', compact('sessionId', 'semesters', 'classes'));
     }
 
     /**
@@ -57,7 +56,7 @@ class CourseController extends Controller
      */
     public function store(StoreCourseRequest $request)
     {
-        $this->service->create($request, $this->getCurrentSchoolSession());
+        $this->service->create($request);
 
         return redirect()->route('school.courses.index');
     }
@@ -82,11 +81,10 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $sessions = $this->sessionService->getAll();
         $semesters = $this->semesterService->getAllBySession($sessionId);
         $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('courses.form', compact('course', 'sessions', 'semesters', 'classes'));
+        return view('courses.form', compact('course', 'sessionId', 'semesters', 'classes'));
     }
 
     /**
@@ -98,7 +96,7 @@ class CourseController extends Controller
      */
     public function update(UpdateCourseRequest $request, Course $course)
     {
-        $this->service->update($request, $course, $this->getCurrentSchoolSession());
+        $this->service->update($request, $course);
 
         return redirect()->route('school.courses.index');
     }

@@ -13,22 +13,17 @@ class SyllabusRepository implements SyllabusContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
         $data = $this->validate($request);
         $status = false;
 
-        if ($data['session_id'] == $currentSessionId) {
-            Syllabus::create($data);
-            $status = true;
+        Syllabus::create($data);
+        $status = true;
 
-            toastr()->success('Le syllabus a bie été créé', 'Syllabi - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! Le syllabus a été assigné à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Cours - Ecole');
-        }
+        toastr()->success('Le syllabus a bie été créé', 'Syllabi - Ecole');
 
         return $status;
     }
@@ -60,23 +55,18 @@ class SyllabusRepository implements SyllabusContract
      * Update the model in database.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @param Syllabus $syllabus
      * @return bool
      */
-    public function update(FormRequest $request, Syllabus $syllabus, int $currentSessionId)
+    public function update(FormRequest $request, Syllabus $syllabus)
     {
         $data = $this->validate($request, $syllabus);
         $status = false;
 
-        if ($data['session_id'] == $currentSessionId) {
-            $_status = $syllabus->update($data);
-            $status = $_status;
+        $_status = $syllabus->update($data);
+        $status = $_status;
 
-            toastr()->success('Le syllabus a bie été mise à jour', 'Syllabi - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! Le syllabus a été assigné à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Cours - Ecole');
-        }
+        toastr()->success('Le syllabus a bie été mise à jour', 'Syllabi - Ecole');
 
         return $status;
     }

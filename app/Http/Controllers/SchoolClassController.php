@@ -42,9 +42,9 @@ class SchoolClassController extends Controller
      */
     public function create()
     {
-        $schoolSessions = SchoolSession::orderby('created_at', 'DESC')->get();
+        $sessionId = $this->getCurrentSchoolSession();
 
-        return view('classes.form', compact('schoolSessions'));
+        return view('classes.form', compact('sessionId'));
     }
 
     /**
@@ -79,9 +79,9 @@ class SchoolClassController extends Controller
      */
     public function edit(SchoolClass $class)
     {
-        $schoolSessions = SchoolSession::orderby('created_at', 'DESC')->get();
+        $sessionId = $this->getCurrentSchoolSession();
 
-        return view('classes.form', compact('class', 'schoolSessions'));
+        return view('classes.form', compact('class', 'sessionId'));
     }
 
     /**

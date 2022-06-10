@@ -11,10 +11,9 @@ interface CourseContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId);
+    public function create(FormRequest $request);
 
     /**
      * Get all the models from database.
@@ -35,11 +34,10 @@ interface CourseContract
      * Update the model in database.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @param Course $course
      * @return bool
      */
-    public function update(FormRequest $request, Course $course, int $currentSessionId);
+    public function update(FormRequest $request, Course $course);
 
     /**
      * Delete the model from database.

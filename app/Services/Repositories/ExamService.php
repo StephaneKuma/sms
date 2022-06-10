@@ -21,12 +21,11 @@ class ExamService implements ExamContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
-        return $this->repository->create($request, $currentSessionId);
+        return $this->repository->create($request);
     }
 
     /**
@@ -55,12 +54,11 @@ class ExamService implements ExamContract
      *
      * @param FormRequest $request
      * @param Exam $exam
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function update(FormRequest $request, Exam $exam, int $currentSessionId)
+    public function update(FormRequest $request, Exam $exam)
     {
-        return $this->repository->update($request, $exam, $currentSessionId);
+        return $this->repository->update($request, $exam);
     }
 
     /**

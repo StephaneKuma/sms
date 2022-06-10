@@ -13,21 +13,17 @@ class SectionRepository implements SectionContract
      * Create a new instance of the model.
      *
      * @param FormRequest $request
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function create(FormRequest $request, int $currentSessionId)
+    public function create(FormRequest $request)
     {
+        $data = $request->validated();
         $status = false;
 
-        if ($currentSessionId == $this->validate($request)['sessionId']) {
-            Section::create($this->validate($request)['validated']);
-            $status = true;
+        Section::create($data);
+        $status = true;
 
-            toastr()->success('La section a bien été créée', 'Sections - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! La section a été assignée à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Sections - Ecole');
-        }
+        toastr()->success('La section a bien été créée', 'Sections - Ecole');
 
         return $status;
     }
@@ -69,21 +65,17 @@ class SectionRepository implements SectionContract
      *
      * @param FormRequest $request
      * @param Section $section
-     * @param integer $currentSessionId
      * @return bool
      */
-    public function update(FormRequest $request, Section $section, int $currentSessionId)
+    public function update(FormRequest $request, Section $section)
     {
+        $data = $request->validated();
         $status = false;
 
-        if ($this->validate($request)['sessionId'] == $currentSessionId) {
-            $_status = $section->update($this->validate($request)['validated']);
-            $status = $_status;
+        $_status = $section->update($data);
+        $status = $_status;
 
-            toastr()->success('La section a bien été mise à jour', 'Sections - Ecole');
-        } else {
-            toastr()->warning("Ooops!!! La section a été assignée à une session académique antérieure. Nous ne pouvons donner suite au traitement.", 'Sections - Ecole');
-        }
+        toastr()->success('La section a bien été mise à jour', 'Sections - Ecole');
 
         return $status;
     }
@@ -101,19 +93,5 @@ class SectionRepository implements SectionContract
         toastr()->success('La section a bien été supprimée', 'Sections - Ecole');
 
         return $status;
-    }
-
-    /**
-     * Validate FormRequest
-     *
-     * @param FormRequest $request
-     * @return array
-     */
-    private function validate(FormRequest $request)
-    {
-        $validated = $request->validated();
-        $sessionId = $validated['session_id'];
-
-        return compact('validated', 'sessionId');
     }
 }

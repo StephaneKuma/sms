@@ -43,10 +43,10 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $sessions = $this->sessionService->getAll();
-        $classes = $this->classService->getAllBySession($this->getCurrentSchoolSession());
+        $sessionId =  $this->getCurrentSchoolSession();
+        $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('sections.form', compact('sessions', 'classes'));
+        return view('sections.form', compact('sessionId', 'classes'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SectionController extends Controller
      */
     public function store(StoreSectionRequest $request)
     {
-        if($this->service->create($request, $this->getCurrentSchoolSession())) {
+        if($this->service->create($request)) {
             return redirect()->route('school.sections.index');
         } else {
             return back();
@@ -83,10 +83,10 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        $sessions = $this->sessionService->getAll();
-        $classes = $this->classService->getAllBySession($this->getCurrentSchoolSession());
+        $sessionId =  $this->getCurrentSchoolSession();
+        $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('sections.form', compact('section', 'sessions', 'classes'));
+        return view('sections.form', compact('section', 'sessionId', 'classes'));
     }
 
     /**
@@ -98,7 +98,7 @@ class SectionController extends Controller
      */
     public function update(UpdateSectionRequest $request, Section $section)
     {
-        $this->service->update($request, $section, $this->getCurrentSchoolSession());
+        $this->service->update($request, $section);
 
         return redirect()->route('school.sections.index');
     }

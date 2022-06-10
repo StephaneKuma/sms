@@ -35,7 +35,7 @@
             <div class="block-content block-content-full">
                 @foreach ($classes as $class)
                 <!-- Block Tabs Alternative Style -->
-                    <div class="block">
+                    <div class="block mb-5">
                         <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" href="#class-{{ $class->id }}">{{ $class->name }}</a>
@@ -51,10 +51,6 @@
                                     <span>
                                         Total section : <span class="badge badge-info">{{ $class->sections_count }}</span>
                                     </span>
-                                    <a href="{{ route('school.classes.edit', $class) }}" class="btn btn-sm btn-outline-info"
-                                    data-toggle="tooltip" title="Modifier la classe">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
                                     <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"><i class="si si-arrow-up"></i></button>
                                 </div>
@@ -184,6 +180,16 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="block-footer">
+                            <div class="row mt-3 mb-3">
+                                <div class="col"></div>
+                                <div class="col-1">
+                                    <a href="{{ route('school.classes.edit', $class) }}" class="btn btn-outline-info" data-toggle="tooltip" title="Modifier la classe">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

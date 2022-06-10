@@ -44,11 +44,10 @@ class ExamController extends Controller
     public function create()
     {
         $sessionId =  $this->getCurrentSchoolSession();
-        $sessions = $this->sessionService->getAll();
         $semesters = $this->semesterService->getAllBySession($sessionId);
         $classes = $this->classService->getAllWithCoursesBySession($sessionId);
 
-        return view('exams.form', compact('sessions', 'semesters', 'classes'));
+        return view('exams.form', compact('sessionId', 'semesters', 'classes'));
     }
 
     /**
@@ -59,7 +58,7 @@ class ExamController extends Controller
      */
     public function store(StoreExamRequest $request)
     {
-        $this->service->create($request, $this->getCurrentSchoolSession());
+        $this->service->create($request);
 
         return redirect()->route('school.exams.index');
     }
@@ -84,11 +83,10 @@ class ExamController extends Controller
     public function edit(Exam $exam)
     {
         $sessionId =  $this->getCurrentSchoolSession();
-        $sessions = $this->sessionService->getAll();
         $semesters = $this->semesterService->getAllBySession($sessionId);
         $classes = $this->classService->getAllWithCoursesBySession($sessionId);
 
-        return view('exams.form', compact('exam', 'sessions', 'semesters', 'classes'));
+        return view('exams.form', compact('exam', 'sessionId', 'semesters', 'classes'));
     }
 
     /**
@@ -100,7 +98,7 @@ class ExamController extends Controller
      */
     public function update(UpdateExamRequest $request, Exam $exam)
     {
-        $this->service->update($request, $exam, $this->getCurrentSchoolSession());
+        $this->service->update($request, $exam);
 
         return redirect()->route('school.exams.index');
     }

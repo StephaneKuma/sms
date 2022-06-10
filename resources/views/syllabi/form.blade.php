@@ -81,42 +81,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-4">
-                            <div class="form-group row{{ $errors->has('session_id') ? 'is-invalid' : '' }}">
-                                <div class="col-12">
-                                    <div class="form-material">
-                                        <select id="session_id" class="js-select2 form-control" name="session_id" data-placeholder="Choisissez une session">
-                                            <option></option>
-                                            @forelse ($sessions as $session)
-                                                <option value="{{ $session->id }}" {{ ((isset($syllabus) && $syllabus->session_id == $session->id) || old('session_id') == $session->id) ? 'selected' : '' }}>{{ $session->name }}</option>
-                                            @empty
-                                                <option value="-1"><a href="{{ route('school.sessions.create') }}">Veuillez créer une session</a></option>
-                                            @endforelse
-                                        </select>
-                                        <label for="session_id">Session</label>
-                                    </div>
-                                    @error('session_id')
-                                        <div class="invalid-feedback animated fadeInDown">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <input type="hidden" name="session_id" value="{{ $sessionId }}">
+                        <div class="col-md-6">
                             <div class="form-group row{{ $errors->has('class_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
                                         <select id="class_id" class="js-select2 form-control" name="class_id" data-placeholder="Choisissez une classe">
                                             <option></option>
-                                            @forelse ($sessions as $session)
-                                                <optgroup label="{{ $session->name }}">
-                                                    @forelse ($session->classes as $class)
-                                                        <option value="{{ $class->id }}" {{ ((isset($syllabus) && $syllabus->class_id == $class->id) || old('class_id') == $class->id) ? 'selected' : '' }}>{{ $class->name }}</option>
-                                                    @empty
-                                                        <option value="-1"><a href="{{ route('school.classes.create') }}">Veuillez créer une classe</a></option>
-                                                    @endforelse
-                                                </optgroup>
+                                            @forelse ($classes as $class)
+                                                <option value="{{ $class->id }}" {{ ((isset($syllabus) && $syllabus->class_id == $class->id) || old('class_id') == $class->id) ? 'selected' : '' }}>{{ $class->name }}</option>
                                             @empty
                                                 <option value="-1"><a href="{{ route('school.classes.create') }}">Veuillez créer une classe</a></option>
                                             @endforelse
@@ -131,24 +104,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group row{{ $errors->has('course_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
                                         <select id="course_id" class="js-select2 form-control" name="course_id" data-placeholder="Choisissez un semestre">
                                             <option></option>
-                                            @forelse ($sessions as $session)
-                                                @forelse ($session->classes as $class)
-                                                    <optgroup label="{{ $class->name }}">
-                                                        @forelse ($class->courses as $course)
-                                                            <option value="{{ $course->id }}" {{ ((isset($syllabus) && $syllabus->course_id == $course->id) || old('course_id') == $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
-                                                        @empty
-                                                            <option value="-1"><a href="{{ route('school.courses.create') }}">Veuillez créer un cours</a></option>
-                                                        @endforelse
-                                                    </optgroup>
-                                                @empty
-                                                    <option value="-1"><a href="{{ route('school.courses.create') }}">Veuillez créer un cours</a></option>
-                                                @endforelse
+                                            @forelse ($classes as $class)
+                                                <optgroup label="{{ $class->name }}">
+                                                    @forelse ($class->courses as $course)
+                                                        <option value="{{ $course->id }}" {{ ((isset($syllabus) && $syllabus->course_id == $course->id) || old('course_id') == $course->id) ? 'selected' : '' }}>{{ $course->name }}</option>
+                                                    @empty
+                                                        <option value="-1"><a href="{{ route('school.courses.create') }}">Veuillez créer un cours</a></option>
+                                                    @endforelse
+                                                </optgroup>
                                             @empty
                                                 <option value="-1"><a href="{{ route('school.courses.create') }}">Veuillez créer un cours</a></option>
                                             @endforelse

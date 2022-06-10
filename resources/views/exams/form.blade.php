@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="block-content block-content-full">
-                <p class="text-danger">Souvenez vous de créer une session, une classe et un cours avant de continuer</p>
+                <p class="text-danger">Souvenez vous de créer un semestre, une classe et un cours avant de continuer</p>
 
                 <form class="js-validation-material" action="{{ isset($exam) ? route('school.exams.update', $exam) : route('school.exams.store') }}" method="POST">
                     @csrf
@@ -112,29 +112,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-md-3">
-                            <div class="form-group row{{ $errors->has('session_id') ? 'is-invalid' : '' }}">
-                                <div class="col-12">
-                                    <div class="form-material">
-                                        <select id="session_id" class="js-select2 form-control" name="session_id" data-placeholder="Choisissez une session">
-                                            <option></option>
-                                            @forelse ($sessions as $session)
-                                                <option value="{{ $session->id }}" {{ ((isset($exam) && $exam->session_id == $session->id) || old('session_id') == $session->id) ? 'selected' : '' }}>{{ $session->name }}</option>
-                                            @empty
-                                                <option value="-1"><a href="{{ route('school.sessions.create') }}">Veuillez créer une session</a></option>
-                                            @endforelse
-                                        </select>
-                                        <label for="session_id">Session</label>
-                                    </div>
-                                    @error('session_id')
-                                        <div class="invalid-feedback animated fadeInDown">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <input type="hidden" name="session_id" value="{{ $sessionId }}">
+                        <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('semester_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
@@ -156,7 +135,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('class_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
@@ -178,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('course_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">

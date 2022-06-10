@@ -37,22 +37,18 @@
                 <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
                     <thead class="thead-light">
                         <tr>
-                            <th>Session</th>
-                            <th>Classe</th>
                             <th>Nom</th>
                             <th>Salle N°</th>
+                            <th>Classe</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($sections as $section)
                             <tr>
-                                <td>{{ $section->session->name }}</td>
-                                <td>{{ $section->class->name }}</td>
-                                <td class="">
-                                    {{ $section->name }}
-                                </td>
+                                <td>{{ $section->name }}</td>
                                 <td>{{ $section->room_no }}</td>
+                                <td>{{ $section->class->name }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('school.sections.destroy', $section) }}" method="POST">
                                         @csrf
@@ -71,7 +67,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="5">Aucune donnée à afficher</td>
+                                <td class="text-center" colspan="4">Aucune donnée à afficher</td>
                             </tr>
                         @endforelse
                     </tbody>

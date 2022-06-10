@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="block-content block-content-full">
-                <p class="text-danger">Souvenez vous de créer une session et une classe avant de continuer</p>
+                <p class="text-danger">Souvenez vous de créer une classe avant de continuer</p>
 
                 <form class="js-validation-material" action="{{ isset($section) ? route('school.sections.update', $section) : route('school.sections.store') }}" method="POST">
                     @csrf
@@ -49,7 +49,8 @@
                     @endisset
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <input type="hidden" name="session_id" value="{{ $sessionId }}">
+                        <div class="col-md-4">
                             <div class="form-group row {{ $errors->has('name') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
@@ -64,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group row {{ $errors->has('room_no') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
@@ -79,31 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <div class="form-group row{{ $errors->has('session_id') ? 'is-invalid' : '' }}">
-                                <div class="col-12">
-                                    <div class="form-material">
-                                        <select id="session_id" class="js-select2 form-control" name="session_id" data-placeholder="Choisissez une session">
-                                            <option></option>
-                                            @forelse ($sessions as $session)
-                                                <option value="{{ $session->id }}" {{ ((isset($section) && $section->session_id == $session->id) || old('session_id') == $session->id) ? 'selected' : '' }}>{{ $session->name }}</option>
-                                            @empty
-                                                <option value="-1"><a href="{{ route('school.sessions.create') }}">Veuillez créer une session</a></option>
-                                            @endforelse
-                                        </select>
-                                        <label for="session_id">Session</label>
-                                    </div>
-                                    @error('session_id')
-                                        <div class="invalid-feedback animated fadeInDown">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group row{{ $errors->has('class_id') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material">
