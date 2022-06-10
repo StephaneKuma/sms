@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SyllabusController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');
+
+        // Promotions
+        Route::resource('promotions', PromotionController::class)->except('show');
     });
 
     // Settings

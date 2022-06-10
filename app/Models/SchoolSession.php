@@ -63,4 +63,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Syllabus::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the promotions for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class, 'session_id', 'id');
+    }
 }

@@ -55,4 +55,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(SYllabus::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the promotions for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(Promotion::class, 'class_id', 'id');
+    }
 }
