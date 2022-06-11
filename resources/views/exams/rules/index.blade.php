@@ -64,10 +64,10 @@
                                         @method('DELETE')
 
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.exams.rules.edit', compact('exam', 'rule')) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
+                                            <a href="{{ route('school.exams.rules.edit', compact('exam', 'rule')) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier la condition">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le cours">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer la condition">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
