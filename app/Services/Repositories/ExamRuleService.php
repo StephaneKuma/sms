@@ -31,22 +31,24 @@ class ExamRuleService implements ExamRuleContract
     /**
      * Get all the models from database.
      *
+     * @param integer $examId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAll()
+    public function getAll(int $examId)
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($examId);
     }
 
     /**
      * Get all the models from database.
      *
      * @param integer $sessionId
+     * @param integer $examId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAllBySession(int $sessionId)
+    public function getAllBySession(int $sessionId, int $examId)
     {
-        return $this->repository->getAllBySession($sessionId);
+        return $this->repository->getAllBySession($sessionId, $examId);
     }
 
     /**

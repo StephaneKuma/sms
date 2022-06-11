@@ -60,12 +60,18 @@ Route::middleware('auth')->group(function () {
         // Promotions
         Route::resource('promotions', PromotionController::class)->except('show');
 
-        // Exams
+        // Exams & Grades
         Route::resource('exams', ExamController::class)->except('show');
 
         // Exam Rules
         Route::prefix('exams')->name('exams.')->group(function () {
-            Route::resource('rules', ExamRuleController::class)->except('show');
+            // Route::resource('rules', ExamRuleController::class)->except('show');
+            Route::get('{exam}/rules', [ExamRuleController::class, 'index'])->name('rules.index');
+            Route::get('{exam}/rules/create', [ExamRuleController::class, 'create'])->name('rules.create');
+            Route::post('{exam}/rules', [ExamRuleController::class, 'store'])->name('rules.store');
+            Route::get('{exam}/rules/{rule}/edit', [ExamRuleController::class, 'edit'])->name('rules.edit');
+            Route::patch('{exam}/rules/{rule}', [ExamRuleController::class, 'update'])->name('rules.update');
+            Route::delete('rules/{rule}', [ExamRuleController::class, 'destroy'])->name('rules.destroy');
         });
     });
 

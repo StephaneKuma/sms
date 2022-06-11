@@ -39,8 +39,6 @@
                         <tr>
                             <th>Nom</th>
                             <th>Cours</th>
-                            <th>Classe</th>
-                            <th>Semestre</th>
                             <th>Créé le</th>
                             <th>Début</th>
                             <th>Fin</th>
@@ -52,8 +50,6 @@
                             <tr>
                                 <td>{{ $exam->name }}</td>
                                 <td>{{ $exam->course->name }}</td>
-                                <td>{{ $exam->class->name }}</td>
-                                <td>{{ $exam->semester->name }}</td>
                                 <td>{{ $exam->created_at }}</td>
                                 <th>{{ $exam->start_at }}</th>
                                 <th>{{ $exam->end_at }}</th>
@@ -62,11 +58,20 @@
                                         @csrf
                                         @method('DELETE')
 
+                                        <div class="btn-group mr-5" role="group">
+                                            <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ajouter une condition">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                            <a href="{{ route('school.exams.rules.index', $exam) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Voir la condition">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
+
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.exams.edit', $exam) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
+                                            <a href="{{ route('school.exams.edit', $exam) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier l'examen">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le cours">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer l'examen">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
@@ -75,7 +80,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center" colspan="8">Aucune donnée à afficher</td>
+                                <td class="text-center" colspan="6">Aucune donnée à afficher</td>
                             </tr>
                         @endforelse
                     </tbody>

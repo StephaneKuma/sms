@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
+use App\Models\Exam;
 use App\Models\ExamRule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Contracts\Repositories\ExamRuleContract;
@@ -31,22 +31,26 @@ class ExamRuleRepository implements ExamRuleContract
     /**
      * Get all the models from database.
      *
+     * @param integer $examId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAll()
+    public function getAll(int $examId)
     {
-        return ExamRule::all();
+        return ExamRule::where('exam_id', $examId)->get();
     }
 
     /**
      * Get all the models from database.
      *
      * @param integer $sessionId
+     * @param integer $examId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAllBySession(int $sessionId)
+    public function getAllBySession(int $sessionId, int $examId)
     {
-        return ExamRule::with('session', 'exam')->where('session_id', $sessionId)->get();
+        return ExamRule::with('session', 'exam')
+            ->where('session_id', $sessionId)
+            ->where('exam_id', $examId)->get();
     }
 
     /**

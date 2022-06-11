@@ -1,9 +1,11 @@
 @php
-    $title = isset($rule) ? "Modifier la condition de l'examen : " . $rule->exam->name . ' - ' . $rule->exam->course->name : "Ajouter une condition à l'examen";
+    $title = isset($rule) ? "Modifier la condition" : "Ajouter une condition";
     $second = "Ecole";
     $url = route('school.sessions.index');
     $third = "Examen";
-    $url2 =  route('school.exams.rules.index');
+    $url2 =  route('school.exams.index');
+    $fourth = $exam->name . ' - ' . $exam->course->name;
+    $url3 = route('school.exams.rules.index', $exam);
     $bread = $title;
 @endphp
 
@@ -35,21 +37,22 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('school.exams.rules.index') }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-arrow-left mr-5"></i> Liste des conditions
+                <a href="{{ route('school.exams.rules.index', $exam) }}" class="btn btn-rounded btn-noborder btn-primary">
+                    <i class="fa fa-arrow-left mr-5"></i> {{ $fourth }}
                 </a>
             </div>
             <div class="block-content block-content-full">
                 <p class="text-danger">Souvenez vous de créer un semestre, une classe et un cours avant de continuer</p>
 
-                <form class="js-validation-material" action="{{ isset($rule) ? route('school.exams.rules.update', $rule) : route('school.exams.rules.store') }}" method="POST">
+                <form class="js-validation-material"
+                    action="{{ isset($rule) ? route('school.exams.rules.update', compact('exam', 'rule')) : route('school.exams.rules.store', $exam) }}" method="POST">
                     @csrf
                     @isset($rule)
                         @method('PATCH')
                     @endisset
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group row {{ $errors->has('total_mark') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
@@ -64,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group row {{ $errors->has('pass_mark') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">
@@ -79,34 +82,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
                         <input type="hidden" name="session_id" value="{{ $sessionId }}">
-                        <div class="col-md-6">
-                            <div class="form-group row{{ $errors->has('exam_id') ? 'is-invalid' : '' }}">
-                                <div class="col-12">
-                                    <div class="form-material">
-                                        <select id="exam_id" class="js-select2 form-control" name="exam_id" data-placeholder="Choisissez un examen">
-                                            <option></option>
-                                            @forelse ($exams as $exam)
-                                                <option value="{{ $exam->id }}" {{ ((isset($rule) && $rule->exam_id == $exam->id) || old('exam_id') == $exam->id) ? 'selected' : '' }}>
-                                                    {{ $exam->name . ' - ' . $exam->course->name }}
-                                                </option>
-                                            @empty
-                                                <option value="-1"><a href="{{ route('school.exams.create') }}">Veuillez créer un examen</a></option>
-                                            @endforelse
-                                        </select>
-                                        <label for="exam_id">Examen</label>
-                                    </div>
-                                    @error('exam_id')
-                                        <div class="invalid-feedback animated fadeInDown">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <input type="hidden" name="exam_id" value="{{ $exam->id }}">
+                        <div class="col-md-4">
                             <div class="form-group row {{ $errors->has('note') ? 'is-invalid' : '' }}">
                                 <div class="col-12">
                                     <div class="form-material floating">

@@ -99,4 +99,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(ExamRule::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the marks for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function marks(): HasMany
+    {
+        return $this->hasMany(Mark::class, 'session_id', 'id');
+    }
 }

@@ -81,4 +81,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Exam::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the marks for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function marks(): HasMany
+    {
+        return $this->hasMany(Mark::class, 'class_id', 'id');
+    }
 }

@@ -74,4 +74,14 @@ class Course extends Model
     {
         return $this->hasMany(Exam::class);
     }
+
+    /**
+     * Get all of the marks for the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function marks(): HasMany
+    {
+        return $this->hasMany(Mark::class);
+    }
 }

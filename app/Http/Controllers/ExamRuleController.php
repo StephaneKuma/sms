@@ -6,18 +6,17 @@ use App\Models\ExamRule;
 use Illuminate\Http\Request;
 use App\Traits\SchoolSession;
 use App\Http\Requests\StoreExamRuleRequest;
-use App\Contracts\Repositories\ExamContract;
 use App\Http\Requests\UpdateExamRuleRequest;
 use App\Contracts\Repositories\ExamRuleContract;
 use App\Contracts\Repositories\SchoolSessionContract;
+use App\Models\Exam;
 
 class ExamRuleController extends Controller
 {
     use SchoolSession;
 
     public function __construct(private ExamRuleContract $service,
-        private SchoolSessionContract $sessionService,
-        private ExamContract $examService)
+        private SchoolSessionContract $sessionService)
     {}
 
     /**
@@ -25,37 +24,38 @@ class ExamRuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Exam $exam)
     {
-        $rules = $this->service->getAllBySession($this->getCurrentSchoolSession());
+        $rules = $this->service->getAllBySession($this->getCurrentSchoolSession(), $exam->id);
 
-        return view('exams.rules.index', compact('rules'));
+        return view('exams.rules.index', compact('exam', 'rules'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Exam $exam
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Exam $exam)
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $exams = $this->examService->getAllBySession($sessionId);
 
-        return view('exams.rules.form', compact('sessionId', 'exams'));
+        return view('exams.rules.form', compact('sessionId', 'exam'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param  \App\Models\Exam  $exam
      * @param  StoreExamRuleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreExamRuleRequest $request)
+    public function store(Exam $exam, StoreExamRuleRequest $request)
     {
         $this->service->create($request);
 
-        return redirect()->route('school.exams.rules.index');
+        return redirect()->route('school.exams.rules.index', $exam);
     }
 
     /**
@@ -75,26 +75,26 @@ class ExamRuleController extends Controller
      * @param  \App\Models\ExamRule  $rule
      * @return \Illuminate\Http\Response
      */
-    public function edit(ExamRule $rule)
+    public function edit(Exam $exam, ExamRule $rule)
     {
         $sessionId = $this->getCurrentSchoolSession();
-        $exams = $this->examService->getAllBySession($sessionId);
 
-        return view('exams.rules.form', compact('rule', 'sessionId', 'exams'));
+        return view('exams.rules.form', compact('rule', 'sessionId', 'exam'));
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param  \App\Models\Exam  $exam
      * @param  UpdateExamRuleRequest  $request
      * @param  \App\Models\ExamRule  $rule
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateExamRuleRequest $request, ExamRule $rule)
+    public function update(Exam $exam, UpdateExamRuleRequest $request, ExamRule $rule)
     {
         $this->service->update($request, $rule);
 
-        return redirect()->route('school.exams.rules.index');
+        return redirect()->route('school.exams.rules.index', $exam);
     }
 
     /**

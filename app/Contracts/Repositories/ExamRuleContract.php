@@ -18,17 +18,19 @@ interface ExamRuleContract
     /**
      * Get all the models from database.
      *
+     * @param integer $examId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAll();
+    public function getAll(int $examId);
 
     /**
      * Get all the models from database.
      *
+     * @param integer $examId
      * @param integer $sessionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAllBySession(int $sessionId);
+    public function getAllBySession(int $sessionId, int $examId);
 
     /**
      * Update the model in database.

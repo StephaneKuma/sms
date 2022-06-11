@@ -125,15 +125,25 @@
                         <i class="si si-docs"></i><span class="sidebar-mini-hide">Syllabi</span>
                     </a>
                 </li>
-                <li>
-                    <a class="{{ request()->is('school/exams*') ? 'active' : '' }}" href="{{ route('school.exams.index') }}">
-                        <i class="si si-graduation"></i><span class="sidebar-mini-hide">Examens</span>
+                <li class="{{ request()->is('school/exams*') ? 'open' : '' }}">
+                    <a href="javascript:void(0)" class="nav-submenu" data-toggle="nav-submenu">
+                        <i class="si si-graduation"></i>
+                        <span class="sidebar-mini-hide">Examens / Graduations</span>
                     </a>
-                </li>
-                <li>
-                    <a class="{{ request()->is('school/exams/rules*') ? 'active' : '' }}" href="{{ route('school.exams.rules.index') }}">
-                        <i class="si si-directions"></i><span class="sidebar-mini-hide">Conditions</span>
-                    </a>
+                    <ul>
+                        <li>
+                            <a class="{{ request()->is('school/exams*') ? 'active' : '' }}"
+                                href="{{ route('school.exams.index') }}">
+                                Examens
+                            </a>
+                        </li>
+                        {{-- <li>
+                            <a class="{{ request()->is('school/exams/rules*') ? 'active' : '' }}"
+                                href="{{ route('school.exams.rules.index') }}">
+                                Conditions
+                            </a>
+                        </li> --}}
+                    </ul>
                 </li>
 
                 <li class="nav-main-heading">

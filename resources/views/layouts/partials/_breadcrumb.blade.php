@@ -7,6 +7,9 @@
         @isset($third)
             <a class="breadcrumb-item" href="{{ $url2 }}">{{ $third }}</a>
         @endisset
+        @isset($fourth)
+            <a class="breadcrumb-item" href="{{ $url3 }}">{{ $fourth }}</a>
+        @endisset
         <span class="breadcrumb-item active">{{  $bread }}<span>
     </nav>
 @endisset

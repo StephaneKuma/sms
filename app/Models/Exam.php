@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -89,12 +90,22 @@ class Exam extends Model
     }
 
     /**
-     * Get all of the rules for the Exam
+     * Get the rule associated with the Exam
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function rules(): HasMany
+    public function rule(): HasOne
     {
-        return $this->hasMany(ExamRule::class, 'exam_id', 'id');
+        return $this->hasOne(ExamRule::class, 'exam_id', 'id');
+    }
+
+    /**
+     * Get the mark associated with the Exam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mark(): HasOne
+    {
+        return $this->hasOne(Mark::class);
     }
 }

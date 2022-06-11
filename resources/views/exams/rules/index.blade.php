@@ -1,8 +1,10 @@
 @php
-    $title = "Liste des conditions de réussite d'examen";
-    $bread = "Cours";
+    $title = "Liste des conditions : " . $exam->name . ' - ' . $exam->course->name;
     $second = "Ecole";
     $url = route('school.sessions.index');
+    $third = "Examen";
+    $url2 =  route('school.exams.index');
+    $bread = $exam->name . ' - ' . $exam->course->name;
 @endphp
 
 @extends('layouts.app')
@@ -28,8 +30,11 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('school.exams.rules.create') }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-plus mr-5"></i> Ajouter une condition de réussite examen
+                <a href="{{ route('school.exams.index') }}" class="btn btn-rounded btn-noborder btn-info mr-5">
+                    <i class="fa fa-arrow-left mr-5"></i> Examens
+                </a>
+                <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-rounded btn-noborder btn-primary">
+                    <i class="fa fa-plus mr-5"></i> Ajouter une condition
                 </a>
             </div>
             <div class="block-content block-content-full">
@@ -59,7 +64,7 @@
                                         @method('DELETE')
 
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.exams.rules.edit', $rule) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
+                                            <a href="{{ route('school.exams.rules.edit', compact('exam', 'rule')) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                             <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le cours">
