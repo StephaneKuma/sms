@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -85,5 +86,15 @@ class Exam extends Model
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    /**
+     * Get all of the rules for the Exam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rules(): HasMany
+    {
+        return $this->hasMany(ExamRule::class, 'exam_id', 'id');
     }
 }

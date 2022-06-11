@@ -89,4 +89,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Exam::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the examRules for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function examRules(): HasMany
+    {
+        return $this->hasMany(ExamRule::class, 'session_id', 'id');
+    }
 }

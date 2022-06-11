@@ -9,6 +9,7 @@ use App\Repositories\CourseRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\SectionRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\ExamRuleRepository;
 use App\Repositories\SemesterRepository;
 use App\Repositories\SyllabusRepository;
 use App\Repositories\PermissionRepository;
@@ -24,10 +25,12 @@ use App\Repositories\SchoolSessionRepository;
 use App\Services\Repositories\ProfileService;
 use App\Services\Repositories\SectionService;
 use App\Contracts\Repositories\CourseContract;
+use App\Services\Repositories\ExamRuleService;
 use App\Services\Repositories\SemesterService;
 use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
+use App\Contracts\Repositories\ExamRuleContract;
 use App\Contracts\Repositories\SemesterContract;
 use App\Contracts\Repositories\SyllabusContract;
 use App\Services\Repositories\PermissionService;
@@ -87,6 +90,12 @@ class AppServiceProvider extends ServiceProvider
             return new ExamService(new ExamRepository());
         });
         $this->app->bind(ExamContract::class, ExamService::class);
+
+        // Exam Rule
+        $this->app->bind(ExamRuleService::class, function () {
+            return new ExamRuleService(new ExamRuleRepository());
+        });
+        $this->app->bind(ExamRuleContract::class, ExamRuleService::class);
 
 
 

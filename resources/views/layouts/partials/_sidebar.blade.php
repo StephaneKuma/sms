@@ -130,6 +130,11 @@
                         <i class="si si-graduation"></i><span class="sidebar-mini-hide">Examens</span>
                     </a>
                 </li>
+                <li>
+                    <a class="{{ request()->is('school/exams/rules*') ? 'active' : '' }}" href="{{ route('school.exams.rules.index') }}">
+                        <i class="si si-directions"></i><span class="sidebar-mini-hide">Conditions</span>
+                    </a>
+                </li>
 
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\ExamRuleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\PromotionController;
@@ -61,6 +62,11 @@ Route::middleware('auth')->group(function () {
 
         // Exams
         Route::resource('exams', ExamController::class)->except('show');
+
+        // Exam Rules
+        Route::prefix('exams')->name('exams.')->group(function () {
+            Route::resource('rules', ExamRuleController::class)->except('show');
+        });
     });
 
     // Settings
