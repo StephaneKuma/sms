@@ -39,8 +39,6 @@ Route::middleware('auth')->group(function () {
 
     // School
     Route::prefix('school')->name('school.')->group(function () {
-        // Semesters
-        Route::resource('semesters', SemesterController::class)->except('show');
 
         // Classes
         Route::resource('classes', SchoolClassController::class)->except('show');
@@ -79,6 +77,9 @@ Route::middleware('auth')->group(function () {
         // Sessions
         Route::resource('sessions', SchoolSessionController::class)->except('show');
         Route::post('sessions/browse', [SchoolSessionController::class, 'browse'])->name('sessions.browse');
+
+        // Semesters
+        Route::resource('semesters', SemesterController::class)->except('show');
 
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);

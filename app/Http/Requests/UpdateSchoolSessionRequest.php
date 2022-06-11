@@ -24,7 +24,7 @@ class UpdateSchoolSessionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:10|unique:school_sessions,id',
+            'session_name' => 'required|string|max:10|unique:school_sessions,id',
         ];
     }
 }

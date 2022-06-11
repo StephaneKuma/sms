@@ -100,11 +100,11 @@
                         <i class="si si-badge"></i><span class="sidebar-mini-hide">Sessions</span>
                     </a>
                 </li> --}}
-                <li>
+                {{-- <li>
                     <a class="{{ request()->is('school/semesters*') ? 'active' : '' }}" href="{{ route('school.semesters.index') }}">
                         <i class="si si-map"></i><span class="sidebar-mini-hide">Semestres</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="{{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">
                         <i class="si si-layers"></i><span class="sidebar-mini-hide">Classes</span>

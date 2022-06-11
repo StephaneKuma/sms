@@ -31,7 +31,7 @@ class SemesterController extends Controller
     {
         $semesters = $this->service->getAllBySession($this->getCurrentSchoolSession());
 
-        return view('semesters.index', compact('semesters'));
+        return view('settings.semesters.index', compact('semesters'));
     }
 
     /**
@@ -43,7 +43,7 @@ class SemesterController extends Controller
     {
         $sessionId = $this->getCurrentSchoolSession();
 
-        return view('semesters.form', compact('sessionId'));
+        return view('settings.semesters.form', compact('sessionId'));
     }
 
     /**
@@ -56,7 +56,7 @@ class SemesterController extends Controller
     {
         $this->service->create($request);
 
-        return redirect()->route('school.semesters.index');
+        return back();
     }
 
     /**
@@ -80,7 +80,7 @@ class SemesterController extends Controller
     {
         $sessionId = $this->getCurrentSchoolSession();
 
-        return view('semesters.form', compact('semester', 'sessionId'));
+        return view('settings.semesters.form', compact('semester', 'sessionId'));
     }
 
     /**
@@ -94,7 +94,7 @@ class SemesterController extends Controller
     {
         $this->service->update($request, $semester);
 
-        return redirect()->route('school.semesters.index');
+        return back();
     }
 
     /**
