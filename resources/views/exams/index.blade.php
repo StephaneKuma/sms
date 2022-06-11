@@ -1,8 +1,8 @@
 @php
     $title = "Liste des examens";
-    $bread = "Cours";
     $second = "Ecole";
     $url = route('school.sessions.index');
+    $bread = "Examens";
 @endphp
 
 @extends('layouts.app')
