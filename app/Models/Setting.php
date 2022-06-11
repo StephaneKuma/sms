@@ -27,4 +27,14 @@ class Setting extends Model
         'attendance_type',
         'mark_submission_status',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'mark_submission_status' => 'boolean'
+    ]
+    ;
 }

@@ -39,16 +39,8 @@ Route::middleware('auth')->group(function () {
 
     // School
     Route::prefix('school')->name('school.')->group(function () {
-
         // Classes
-        Route::resource('classes', SchoolClassController::class)->except('show');
-
-        // Sections
-        Route::resource('sections', SectionController::class)->except('show');
-
-        // Courses
-        Route::resource('courses', CourseController::class)->except('show');
-        Route::get('courses/by_class', [CourseController::class, 'getByClassId'])->name('courses.by.class.id');
+        Route::resource('classes', SchoolClassController::class)->only(['index', 'edit']);
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');
@@ -80,6 +72,18 @@ Route::middleware('auth')->group(function () {
 
         // Semesters
         Route::resource('semesters', SemesterController::class)->except('show');
+
+        // Classes
+        Route::post('classes', [SchoolClassController::class, 'store'])->name('classes.store');
+        Route::patch('classes/{class}', [SchoolClassController::class, 'update'])->name('classes.update');
+        Route::delete('classes/{class}', [SchoolClassController::class, 'destroy'])->name('classes.destroy');
+
+        // Sections
+        Route::resource('sections', SectionController::class)->except(['show', 'index']);
+
+        // Courses
+        Route::resource('courses', CourseController::class)->except('show');
+        Route::get('courses/by_class', [CourseController::class, 'getByClassId'])->name('courses.by.class.id');
 
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);

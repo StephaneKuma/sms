@@ -2,7 +2,7 @@
     function getCourses(obj) {
         let class_id = obj.options[obj.selectedIndex].value
 
-        let url = "{{ route('school.courses.by.class.id') }}?class_id=" + class_id
+        let url = "{{ route('settings.courses.by.class.id') }}?class_id=" + class_id
 
         fetch(url)
         .then((resp) => resp.json())

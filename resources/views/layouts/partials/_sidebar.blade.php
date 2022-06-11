@@ -95,34 +95,23 @@
                     <span class="sidebar-mini-visible">ECOLE</span>
                     <span class="sidebar-mini-hidden">école</span>
                 </li>
-                {{-- <li>
-                    <a class="{{ request()->is('school/sessions*') ? 'active' : '' }}" href="{{ route('school.sessions.index') }}">
-                        <i class="si si-badge"></i><span class="sidebar-mini-hide">Sessions</span>
-                    </a>
-                </li> --}}
-                {{-- <li>
-                    <a class="{{ request()->is('school/semesters*') ? 'active' : '' }}" href="{{ route('school.semesters.index') }}">
-                        <i class="si si-map"></i><span class="sidebar-mini-hide">Semestres</span>
-                    </a>
-                </li> --}}
                 <li>
-                    <a class="{{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">
-                        <i class="si si-layers"></i><span class="sidebar-mini-hide">Classes</span>
+                    <a class="d-flex align-items-center justify-content-between {{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">
+                        <i class="si si-layers"></i>
+                        <span class="sidebar-mini-hide">Classes</span>
+                        {{-- <span class="badge badge-info">5</span> --}}
                     </a>
                 </li>
                 <li>
-                    <a class="{{ request()->is('school/sections*') ? 'active' : '' }}" href="{{ route('school.sections.index') }}">
-                        <i class="si si-control-pause"></i><span class="sidebar-mini-hide">Sections</span>
+                    <a class="" href="#">
+                        <i class="si si-users"></i>
+                        <span class="sidebar-mini-hide">Elèves</span>
                     </a>
                 </li>
                 <li>
-                    <a class="{{ request()->is('school/courses*') ? 'active' : '' }}" href="{{ route('school.courses.index') }}">
-                        <i class="si si-book-open"></i><span class="sidebar-mini-hide">Cours</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="{{ request()->is('school/syllabi*') ? 'active' : '' }}" href="{{ route('school.syllabi.index') }}">
-                        <i class="si si-docs"></i><span class="sidebar-mini-hide">Syllabi</span>
+                    <a class="" href="#">
+                        <i class="si si-briefcase"></i>
+                        <span class="sidebar-mini-hide">Enseignants</span>
                     </a>
                 </li>
                 <li class="{{ request()->is('school/exams*') ? 'open' : '' }}">
@@ -137,13 +126,37 @@
                                 Examens
                             </a>
                         </li>
-                        {{-- <li>
-                            <a class="{{ request()->is('school/exams/rules*') ? 'active' : '' }}"
-                                href="{{ route('school.exams.rules.index') }}">
-                                Conditions
-                            </a>
-                        </li> --}}
                     </ul>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <i class="si si-speech"></i>
+                        <span class="sidebar-mini-hide">Notice</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <i class="si si-calendar"></i>
+                        <span class="sidebar-mini-hide">Evènements</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <i class="si si-docs"></i>
+                        <span class="sidebar-mini-hide">Syllabus</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <i class="si si-speedometer"></i>
+                        <span class="sidebar-mini-hide">Routine</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="#">
+                        <i class="si si-equalizer"></i>
+                        <span class="sidebar-mini-hide">Promotion</span>
+                    </a>
                 </li>
 
                 <li class="nav-main-heading">

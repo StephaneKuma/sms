@@ -33,7 +33,7 @@ class SectionController extends Controller
     {
         $sections = $this->service->getAllBySession($this->getCurrentSchoolSession());
 
-        return view('sections.index', compact('sections'));
+        return view('settings.sections.index', compact('sections'));
     }
 
     /**
@@ -46,7 +46,7 @@ class SectionController extends Controller
         $sessionId =  $this->getCurrentSchoolSession();
         $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('sections.form', compact('sessionId', 'classes'));
+        return view('settings.sections.form', compact('sessionId', 'classes'));
     }
 
     /**
@@ -57,11 +57,9 @@ class SectionController extends Controller
      */
     public function store(StoreSectionRequest $request)
     {
-        if($this->service->create($request)) {
-            return redirect()->route('school.sections.index');
-        } else {
-            return back();
-        }
+        $this->service->create($request);
+
+        return back();
     }
 
     /**
@@ -86,7 +84,7 @@ class SectionController extends Controller
         $sessionId =  $this->getCurrentSchoolSession();
         $classes = $this->classService->getAllBySession($sessionId);
 
-        return view('sections.form', compact('section', 'sessionId', 'classes'));
+        return view('settings.sections.form', compact('section', 'sessionId', 'classes'));
     }
 
     /**
@@ -100,7 +98,7 @@ class SectionController extends Controller
     {
         $this->service->update($request, $section);
 
-        return redirect()->route('school.sections.index');
+        return back();
     }
 
     /**

@@ -32,7 +32,7 @@ class SchoolClassController extends Controller
     {
         $classes = $this->service->getAllWithSectionsAndCoursesAndSyllabiBySession($this->getCurrentSchoolSession());
 
-        return view('classes.index', compact("classes"));
+        return view('settings.classes.index', compact("classes"));
     }
 
     /**
@@ -44,7 +44,7 @@ class SchoolClassController extends Controller
     {
         $sessionId = $this->getCurrentSchoolSession();
 
-        return view('classes.form', compact('sessionId'));
+        return view('settings.classes.form', compact('sessionId'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SchoolClassController extends Controller
     {
         $this->service->create($request);
 
-        return redirect()->route('school.classes.index');
+        return back();
     }
 
     /**
@@ -81,7 +81,7 @@ class SchoolClassController extends Controller
     {
         $sessionId = $this->getCurrentSchoolSession();
 
-        return view('classes.form', compact('class', 'sessionId'));
+        return view('settings.classes.form', compact('class', 'sessionId'));
     }
 
     /**
@@ -95,7 +95,7 @@ class SchoolClassController extends Controller
     {
         $this->service->update($request, $class);
 
-        return redirect()->route('school.classes.index');
+        return back();
     }
 
     /**

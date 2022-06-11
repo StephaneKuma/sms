@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\SchoolClassContract;
 use App\Contracts\Repositories\SchoolSessionContract;
+use App\Contracts\Repositories\SemesterContract;
 use App\Models\Setting;
 use App\Traits\SchoolSession;
 use Illuminate\Http\Request;
@@ -11,7 +13,9 @@ class SettingController extends Controller
 {
     use SchoolSession;
 
-    public function __construct(private SchoolSessionContract $sessionService)
+    public function __construct(private SchoolSessionContract $sessionService,
+        private SchoolClassContract $classService,
+        private SemesterContract $semesterService)
     {}
 
     /**
@@ -24,8 +28,10 @@ class SettingController extends Controller
         $currentSessionId = $this->getCurrentSchoolSession();
         $latestSessionId = $this->sessionService->getLatest()->id;
         $sessions = $this->sessionService->getAll();
+        $semesters = $this->semesterService->getAllBySession($currentSessionId);
+        $classes = $this->classService->getAllBySession($currentSessionId);
 
-        return view('settings.index', compact('currentSessionId', 'latestSessionId', 'sessions'));
+        return view('settings.index', compact('currentSessionId', 'latestSessionId', 'sessions', 'semesters', 'classes'));
     }
 
     /**

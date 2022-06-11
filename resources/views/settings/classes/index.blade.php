@@ -2,7 +2,7 @@
     $title = "Liste des classes";
     $bread = "Classes";
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
 @endphp
 
 @extends('layouts.app')
@@ -28,9 +28,9 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('school.classes.create') }}" class="btn btn-rounded btn-noborder btn-primary">
+                {{-- <a href="{{ route('school.classes.create') }}" class="btn btn-rounded btn-noborder btn-primary">
                     <i class="fa fa-plus mr-5"></i> Ajouter une classe
-                </a>
+                </a> --}}
             </div>
             <div class="block-content block-content-full">
                 @foreach ($classes as $class)
@@ -76,13 +76,13 @@
                                                     <p class="lead d-flex justify-content-between">
                                                         <span>Salle N°: {{ $section->room_no }}</span>
                                                         <span>
-                                                            <a href="{{ route('school.sections.edit', $section) }}"
+                                                            <a href="{{ route('settings.sections.edit', $section) }}"
                                                                 role="button" class="btn btn-sm btn-outline-primary">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                         </span>
                                                     </p>
-                                                    <div class="list-group mb-3">
+                                                    <div class="list-group mb-4">
                                                         <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                                             Voir les élèves
                                                         </a>
@@ -158,12 +158,12 @@
                                                 <td>{{ $course->name }}</td>
                                                 <td>{{ $course->type }}</td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('school.courses.destroy', $course) }}" method="POST">
+                                                    <form action="{{ route('settings.courses.destroy', $course) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
 
                                                         <div class="btn-group" role="group">
-                                                            <a href="{{ route('school.courses.edit', $course) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
+                                                            <a href="{{ route('settings.courses.edit', $course) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le cours">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                             <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le cours">
