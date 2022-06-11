@@ -82,10 +82,10 @@ class SchoolSessionService implements SchoolSessionContract
     /**
      * Set model id in app session
      *
-     * @param mixed $request
+     * @param FormRequest $request
      * @return void
      */
-    public function browse($request)
+    public function browse(FormRequest $request)
     {
         $this->repository->browse($request);
     }

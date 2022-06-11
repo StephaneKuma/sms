@@ -19,9 +19,9 @@ class SchoolSessionRepository implements SchoolSessionContract
         try {
             SchoolSession::create($request->validated());
 
-            toastr()->success('La session a bien été créée', 'Sessions - Ecole');
+            toastr()->success('La session a bien été créée', 'Sessions - Paramètres');
         } catch (\Exception $e) {
-            toastr()->error("Ooops!!! Nous n'avons pas pu créer la session", 'Sessions - Ecole');
+            toastr()->error("Ooops!!! Nous n'avons pas pu créer la session", 'Sessions - Paramètres');
         }
     }
 
@@ -70,22 +70,27 @@ class SchoolSessionRepository implements SchoolSessionContract
     /**
      * Set model id in app session
      *
-     * @param mixed $request
+     * @param FormRequest $request
      * @return void
      */
-    public function browse($request)
+    public function browse(FormRequest $request)
     {
+        $data = $request->validated();
+
         try {
             if(session()->has('browse_session_id')
-                && ($request['session_id'] == $this->getLatest()->id)
+                && ($data['session_id'] == $this->getLatest()->id)
             ) {
                 session()->forget(['browse_session_id', 'browse_session_name']);
             } else {
-                session(['browse_session_id' => $request['session_id']]);
-                session(['browse_session_name' => $this->getById($request['session_id'])->name]);
+                session(['browse_session_id' => $data['session_id']]);
+                session(['browse_session_name' => $this->getById($data['session_id'])->name]);
+
+                toastr()->success('La session académique a bien été mise à jour.', 'Sessions - Paramètres');
             }
         } catch (\Exception $e) {
-            throw new \Exception('Impossible de mettre en session la session d\'école pour la recherche. '.$e->getMessage());
+            // throw new \Exception('Impossible de mettre en session la session d\'école pour la recherche. '.$e->getMessage());
+            toastr()->error('Impossible de changer la session d\'école pour la navigation.', 'Sessions - Paramètres');
         }
     }
 
@@ -122,11 +127,11 @@ class SchoolSessionRepository implements SchoolSessionContract
         try {
             $status = $session->update($request->validated());
 
-            toastr()->success('La session a bien été mise à jour', 'Sessions - Ecole');
+            toastr()->success('La session a bien été mise à jour', 'Sessions - Paramètres');
 
             return $status;
         } catch (\Exception $e) {
-            toastr()->error('Ooops!!! Nous n\'avons pas pu mettre à jour la session', 'Session - Ecole');
+            toastr()->error('Ooops!!! Nous n\'avons pas pu mettre à jour la session', 'Session - Paramètres');
         }
     }
 
@@ -140,7 +145,7 @@ class SchoolSessionRepository implements SchoolSessionContract
     {
         $status = $session->delete();
 
-        toastr()->success('La session a bien été supprimée', 'Sessions - Ecole');
+        toastr()->success('La session a bien été supprimée', 'Sessions - Paramètres');
 
         return $status;
     }

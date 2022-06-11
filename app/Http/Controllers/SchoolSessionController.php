@@ -6,6 +6,7 @@ use App\Models\SchoolSession;
 use App\Http\Requests\StoreSchoolSessionRequest;
 use App\Http\Requests\UpdateSchoolSessionRequest;
 use App\Contracts\Repositories\SchoolSessionContract;
+use App\Http\Requests\BrowseSchoolSessionRequest;
 
 class SchoolSessionController extends Controller
 {
@@ -21,7 +22,14 @@ class SchoolSessionController extends Controller
     {
         $sessions = $this->service->getAll();
 
-        return view('sessions.index', compact('sessions'));
+        return view('settings.sessions.index', compact('sessions'));
+    }
+
+    public function browse(BrowseSchoolSessionRequest $request)
+    {
+        $this->service->browse($request);
+
+        return back();
     }
 
     /**
@@ -31,7 +39,7 @@ class SchoolSessionController extends Controller
      */
     public function create()
     {
-        return view('sessions.form');
+        return view('settings.sessions.form');
     }
 
     /**
@@ -44,7 +52,7 @@ class SchoolSessionController extends Controller
     {
         $this->service->create($request);
 
-        return redirect()->route('school.sessions.index');
+        return back();
     }
 
     /**
@@ -66,7 +74,7 @@ class SchoolSessionController extends Controller
      */
     public function edit(SchoolSession $session)
     {
-        return view('sessions.form', compact('session'));
+        return view('settings.sessions.form', compact('session'));
     }
 
     /**
@@ -80,7 +88,7 @@ class SchoolSessionController extends Controller
     {
         $this->service->update($request, $session);
 
-        return redirect()->route('school.sessions.index');
+        return back();
     }
 
     /**

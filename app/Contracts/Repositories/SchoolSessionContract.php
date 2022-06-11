@@ -40,10 +40,10 @@ interface SchoolSessionContract
     /**
      * Set model id in app session
      *
-     * @param mixed $request
+     * @param FormRequest $request
      * @return void
      */
-    public function browse($request);
+    public function browse(FormRequest $request);
 
     /**
      * Get all the models from database.

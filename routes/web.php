@@ -15,6 +15,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\SchoolSessionController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,6 @@ Route::middleware('auth')->group(function () {
 
     // School
     Route::prefix('school')->name('school.')->group(function () {
-        // Sessions
-        Route::resource('sessions', SchoolSessionController::class)->except('show');
-
         // Semesters
         Route::resource('semesters', SemesterController::class)->except('show');
 
@@ -76,7 +74,12 @@ Route::middleware('auth')->group(function () {
     });
 
     // Settings
+    Route::resource('settings', SettingController::class)->except(['show', 'create', 'destroy']);
     Route::prefix('settings')->name('settings.')->group(function () {
+        // Sessions
+        Route::resource('sessions', SchoolSessionController::class)->except('show');
+        Route::post('sessions/browse', [SchoolSessionController::class, 'browse'])->name('sessions.browse');
+
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);
 

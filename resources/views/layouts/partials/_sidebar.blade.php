@@ -95,11 +95,11 @@
                     <span class="sidebar-mini-visible">ECOLE</span>
                     <span class="sidebar-mini-hidden">école</span>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="{{ request()->is('school/sessions*') ? 'active' : '' }}" href="{{ route('school.sessions.index') }}">
                         <i class="si si-badge"></i><span class="sidebar-mini-hide">Sessions</span>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="{{ request()->is('school/semesters*') ? 'active' : '' }}" href="{{ route('school.semesters.index') }}">
                         <i class="si si-map"></i><span class="sidebar-mini-hide">Semestres</span>
@@ -149,6 +149,12 @@
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">PARAM</span>
                     <span class="sidebar-mini-hidden">Paramètres</span>
+                </li>
+                <li>
+                    <a class="{{ request()->is('settings*') ? 'active' : '' }}" href="{{ route('settings.index') }}">
+                        <i class="si si-settings"></i>
+                        <span class="sidebar-mini-hide">Académie</span>
+                    </a>
                 </li>
                 <li>
                     @php
