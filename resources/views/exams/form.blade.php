@@ -1,7 +1,7 @@
 @php
     $title = isset($exam) ? "Modifier l'examen : " . $exam->name . ' - ' . $exam->course->name : "Ajouter un examen";
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
     $third = "Examen";
     $url2 =  route('school.exams.index');
     $bread = $title;

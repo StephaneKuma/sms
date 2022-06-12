@@ -1,7 +1,7 @@
 @php
     $title = "Liste des examens";
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
     $bread = "Examens";
 @endphp
 
@@ -59,12 +59,16 @@
                                         @method('DELETE')
 
                                         <div class="btn-group mr-5" role="group">
-                                            <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ajouter une condition">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <a href="{{ route('school.exams.rules.index', $exam) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Voir la condition">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
+                                            @if (!$exam->rule)
+                                                <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ajouter une condition">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            @endif
+                                            @if ($exam->rule)
+                                                <a href="{{ route('school.exams.rules.index', $exam) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Voir la condition">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            @endif
                                         </div>
 
                                         <div class="btn-group" role="group">

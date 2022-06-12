@@ -1,7 +1,7 @@
 @php
     $title = "Liste des conditions : " . $exam->name . ' - ' . $exam->course->name;
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
     $third = "Examen";
     $url2 =  route('school.exams.index');
     $bread = $exam->name . ' - ' . $exam->course->name;
@@ -33,9 +33,11 @@
                 <a href="{{ route('school.exams.index') }}" class="btn btn-rounded btn-noborder btn-info mr-5">
                     <i class="fa fa-arrow-left mr-5"></i> Examens
                 </a>
-                <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-plus mr-5"></i> Ajouter une condition
-                </a>
+                @if (!$exam->rule)
+                    <a href="{{ route('school.exams.rules.create', $exam) }}" class="btn btn-rounded btn-noborder btn-primary">
+                        <i class="fa fa-plus mr-5"></i> Ajouter une condition
+                    </a>
+                @endif
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full-pagination class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->

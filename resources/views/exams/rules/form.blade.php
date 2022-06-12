@@ -1,7 +1,7 @@
 @php
     $title = isset($rule) ? "Modifier la condition" : "Ajouter une condition";
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
     $third = "Examen";
     $url2 =  route('school.exams.index');
     $fourth = $exam->name . ' - ' . $exam->course->name;
