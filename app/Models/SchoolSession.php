@@ -109,4 +109,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Mark::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the gradingSystems for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gradingSystems(): HasMany
+    {
+        return $this->hasMany(GradingSystem::class, 'session_id', 'id');
+    }
 }

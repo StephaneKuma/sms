@@ -91,4 +91,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Mark::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the gradingSystems for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gradingSystems(): HasMany
+    {
+        return $this->hasMany(GradingSystem::class, 'class_id', 'id');
+    }
 }

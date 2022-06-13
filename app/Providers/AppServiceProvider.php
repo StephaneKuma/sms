@@ -21,6 +21,7 @@ use App\Contracts\Repositories\ExamContract;
 use App\Contracts\Repositories\RoleContract;
 use App\Contracts\Repositories\UserContract;
 use App\Services\Repositories\CourseService;
+use App\Repositories\GradingSystemRepository;
 use App\Repositories\SchoolSessionRepository;
 use App\Services\Repositories\ProfileService;
 use App\Services\Repositories\SectionService;
@@ -37,7 +38,9 @@ use App\Services\Repositories\PermissionService;
 use App\Services\Repositories\SchoolClassService;
 use App\Contracts\Repositories\PermissionContract;
 use App\Contracts\Repositories\SchoolClassContract;
+use App\Services\Repositories\GradingSystemService;
 use App\Services\Repositories\SchoolSessionService;
+use App\Contracts\Repositories\GradingSystemContract;
 use App\Contracts\Repositories\SchoolSessionContract;
 
 class AppServiceProvider extends ServiceProvider
@@ -96,6 +99,12 @@ class AppServiceProvider extends ServiceProvider
             return new ExamRuleService(new ExamRuleRepository());
         });
         $this->app->bind(ExamRuleContract::class, ExamRuleService::class);
+
+        // drades
+        $this->app->bind(GradingSystemService::class, function () {
+            return new GradingSystemService(new GradingSystemRepository());
+        });
+        $this->app->bind(GradingSystemContract::class, GradingSystemService::class);
 
 
 

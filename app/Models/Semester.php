@@ -74,4 +74,14 @@ class Semester extends Model
     {
         return $this->hasMany(Exam::class);
     }
+
+    /**
+     * Get all of the gradingSystems for the Semester
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function gradingSystems(): HasMany
+    {
+        return $this->hasMany(GradingSystem::class);
+    }
 }

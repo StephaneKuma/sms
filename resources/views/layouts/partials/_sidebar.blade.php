@@ -126,6 +126,12 @@
                                 Examens
                             </a>
                         </li>
+                        <li>
+                            <a class="{{ request()->is('school/exams/grading/systems*') ? 'active' : '' }}"
+                                href="{{ route('school.exams.grading.systems.index') }}">
+                                Systèmes de gradution
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li>

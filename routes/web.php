@@ -14,6 +14,7 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
+use App\Http\Controllers\GradingSystemController;
 use App\Http\Controllers\SchoolSessionController;
 use App\Http\Controllers\SettingController;
 
@@ -48,7 +49,7 @@ Route::middleware('auth')->group(function () {
         // Promotions
         Route::resource('promotions', PromotionController::class)->except('show');
 
-        // Exams & Grades
+        // Exams
         Route::resource('exams', ExamController::class)->except('show');
 
         // Exam Rules
@@ -60,6 +61,11 @@ Route::middleware('auth')->group(function () {
             Route::get('{exam}/rules/{rule}/edit', [ExamRuleController::class, 'edit'])->name('rules.edit');
             Route::patch('{exam}/rules/{rule}', [ExamRuleController::class, 'update'])->name('rules.update');
             Route::delete('rules/{rule}', [ExamRuleController::class, 'destroy'])->name('rules.destroy');
+
+            // Grades
+            Route::prefix('grading')->name('grading.')->group(function () {
+                Route::resource('systems', GradingSystemController::class)->except('show');
+            });
         });
     });
 
