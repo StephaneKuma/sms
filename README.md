@@ -5,6 +5,12 @@
 ![Screeshoot 3](public/docs/3.png)
 ![Screeshoot 4](public/docs/4.png)
 
+# Requirements
+
+- PHP 8.1.4
+- Composer
+- SGBDR (phpMyAdmin)
+
 ## About STK SMS
 
 STK SMS is a school management system developed with version 9 of the Laravel framework. Its purpose is to computerize the management that is done manually in some schools, and to facilitate access to various resources that will be made available such as:
@@ -37,9 +43,9 @@ git clone https://github.com/StephaneKuma/sms.git
 
     - On Windows
 
-    ```shell
-    copy .env.example .env
-    ```
+        ```shell
+        copy .env.example .env
+        ```
 
 3. Create a database and fill in the following information in the environment file
 
