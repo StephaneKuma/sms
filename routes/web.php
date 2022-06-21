@@ -7,16 +7,17 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ExamRuleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SyllabusController;
+use App\Http\Controllers\GradeRuleController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\GradingSystemController;
 use App\Http\Controllers\SchoolSessionController;
-use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,14 @@ Route::middleware('auth')->group(function () {
             // Grades
             Route::prefix('grading')->name('grading.')->group(function () {
                 Route::resource('systems', GradingSystemController::class)->except('show');
+                Route::prefix('systems')->name('systems.')->group(function () {
+                    Route::get('{system}/rules', [GradeRuleController::class, 'index'])->name('rules.index');
+                    Route::get('{system}/rules/create', [GradeRuleController::class, 'create'])->name('rules.create');
+                    Route::post('{system}/rules', [GradeRuleController::class, 'store'])->name('rules.store');
+                    Route::get('{system}/rules/{rule}/edit', [GradeRuleController::class, 'edit'])->name('rules.edit');
+                    Route::patch('{system}/rules/{rule}', [GradeRuleController::class, 'update'])->name('rules.update');
+                    Route::delete('rules/{rule}', [GradeRuleController::class, 'destroy'])->name('rules.destroy');
+                });
             });
         });
     });

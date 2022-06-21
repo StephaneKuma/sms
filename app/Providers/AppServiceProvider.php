@@ -12,6 +12,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\ExamRuleRepository;
 use App\Repositories\SemesterRepository;
 use App\Repositories\SyllabusRepository;
+use App\Repositories\GradeRuleRepository;
 use App\Repositories\PermissionRepository;
 use App\Services\Repositories\ExamService;
 use App\Services\Repositories\RoleService;
@@ -31,10 +32,12 @@ use App\Services\Repositories\SemesterService;
 use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
+use App\Services\Repositories\GradeRuleService;
 use App\Contracts\Repositories\ExamRuleContract;
 use App\Contracts\Repositories\SemesterContract;
 use App\Contracts\Repositories\SyllabusContract;
 use App\Services\Repositories\PermissionService;
+use App\Contracts\Repositories\GradeRuleContract;
 use App\Services\Repositories\SchoolClassService;
 use App\Contracts\Repositories\PermissionContract;
 use App\Contracts\Repositories\SchoolClassContract;
@@ -100,11 +103,17 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(ExamRuleContract::class, ExamRuleService::class);
 
-        // drades
+        // Grades
         $this->app->bind(GradingSystemService::class, function () {
             return new GradingSystemService(new GradingSystemRepository());
         });
         $this->app->bind(GradingSystemContract::class, GradingSystemService::class);
+
+        // Grade Rule
+        $this->app->bind(GradeRuleService::class, function () {
+            return new GradeRuleService(new GradeRuleRepository());
+        });
+        $this->app->bind(GradeRuleContract::class, GradeRuleService::class);
 
 
 

@@ -1,8 +1,10 @@
 @php
-    $title = "Liste des systèmes de graduations";
+    $title = "Liste des règles : " . $system->name . ' - ' . $system->semester->name;
     $second = "Ecole";
     $url = route('school.classes.index');
-    $bread = "Graduations";
+    $third = "Examen";
+    $url2 =  route('school.exams.grading.systems.index');
+    $bread = $system->name . ' - ' . $system->semester->name;
 @endphp
 
 @extends('layouts.app')
@@ -28,52 +30,44 @@
         <div class="block">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
-                <a href="{{ route('school.exams.grading.systems.create') }}" class="btn btn-rounded btn-noborder btn-primary">
-                    <i class="fa fa-plus mr-5"></i> Ajouter un système
+                <a href="{{ route('school.exams.grading.systems.index') }}" class="btn btn-rounded btn-noborder btn-info mr-5">
+                    <i class="fa fa-arrow-left mr-5"></i> Système de graduation
                 </a>
+                @if (!$system->rules)
+                    <a href="{{ route('school.exams.grading.systems.rules.create', $system) }}" class="btn btn-rounded btn-noborder btn-primary">
+                        <i class="fa fa-plus mr-5"></i> Ajouter une règle
+                    </a>
+                @endif
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full-pagination class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
                 <table class="table table-borderless table-striped table-vcenter js-dataTable-full-pagination">
                     <thead class="thead-light">
                         <tr>
-                            <th>Nom</th>
-                            <th>Classe</th>
-                            <th>Semestre</th>
-                            <th>Créé le</th>
+                            <th>Point</th>
+                            <th>Mention</th>
+                            <th>Début</th>
+                            <th>Fin</th>
                             <th class="d-none d-sm-table-cell text-center" style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($systems as $system)
+                        @forelse ($rules as $rule)
                             <tr>
-                                <td>{{ $system->name }}</td>
-                                <td>{{ $system->class->name }}</td>
-                                <td>{{ $system->semester->name }}</td>
-                                <th>{{ $system->created_at }}</th>
+                                <td>{{ $rule->mark }}</td>
+                                <td>{{ $rule->grade }}</td>
+                                <td>{{ $rule->start_at }}</td>
+                                <td>{{ $rule->end_at }}</td>
                                 <td class="text-center">
-                                    <form action="{{ route('school.exams.grading.systems.destroy', $system) }}" method="POST">
+                                    <form action="{{ route('school.exams.grading.systems.rules.destroy', $rule) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
 
-                                        <div class="btn-group mr-5" role="group">
-                                            @if (!$system->rules)
-                                                <a href="{{ route('school.exams.grading.systems.rules.create', $system) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Ajouter une condition">
-                                                    <i class="fa fa-plus"></i>
-                                                </a>
-                                            @endif
-                                            @if ($system->rules)
-                                                <a href="{{ route('school.exams.grading.systems.rules.index', $system) }}" class="btn btn-sm btn-outline-primary" data-toggle="tooltip" title="Voir la condition">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            @endif
-                                        </div>
-
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('school.exams.grading.systems.edit', $system) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier le système">
+                                            <a href="{{ route('school.exams.grading.systems.rules.edit', compact('system', 'rule')) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier la règle">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer le système">
+                                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" title="Supprimer la règle">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
