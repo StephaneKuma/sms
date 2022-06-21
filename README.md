@@ -1,9 +1,9 @@
 # STK SMS
 
-[Screeshoot 1](public/docs/1.png)
-[Screeshoot 2](public/docs/2.png)
-[Screeshoot 3](public/docs/3.png)
-[Screeshoot 4](public/docs/4.png)
+![Screeshoot 1](public/docs/1.png)
+![Screeshoot 2](public/docs/2.png)
+![Screeshoot 3](public/docs/3.png)
+![Screeshoot 4](public/docs/4.png)
 
 ## About STK SMS
 
