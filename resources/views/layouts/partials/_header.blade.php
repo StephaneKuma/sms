@@ -53,6 +53,9 @@
                 <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user d-sm-none"></i>
                     <span class="d-none d-sm-inline-block">
+                        <span class="badge badge-primary mr-1">
+                            {{ Str::ucfirst(auth()->user()->getRoleNames()->first()) }}
+                        </span>
                         {{ $profile->name }}
                     </span>
                     <i class="fa fa-angle-down ml-5"></i>
