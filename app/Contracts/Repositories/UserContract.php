@@ -23,6 +23,27 @@ interface UserContract
     public function getAll();
 
     /**
+     * Get all the models from database whith the admin role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAdmins();
+
+    /**
+     * Get all the models from database whith the teacher role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getTeachers();
+
+    /**
+     * Get all the models from database whith the student role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudents();
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request

@@ -51,6 +51,36 @@ class UserRepository implements UserContract
     }
 
     /**
+     * Get all the models from database whith the admin role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAdmins()
+    {
+        return $this->getUsersWithRole('admin');
+    }
+
+    /**
+     * Get all the models from database whith the teacher role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getTeachers()
+    {
+        return $this->getUsersWithRole('teacher');
+    }
+
+    /**
+     * Get all the models from database whith the student role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudents()
+    {
+        return $this->getUsersWithRole('student');
+    }
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request
@@ -145,5 +175,18 @@ class UserRepository implements UserContract
         $user->givePermissionTo($this->permissions);
         $total = count($this->permissions);
         toastr()->success("{$total} ont bien été attribuées à l'utilisateur", "Utilisateurs - Paramètres");
+    }
+
+    /**
+     * Get all the models from database whith the specified role.
+     *
+     * @param string $role
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    private function getUsersWithRole(string $role)
+    {
+        return User::whereHas('roles', function ($query) use ($role) {
+            $query->where('name', $role);
+        })->get();
     }
 }

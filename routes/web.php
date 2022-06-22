@@ -5,6 +5,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingController;
@@ -35,9 +36,7 @@ Route::redirect('/', 'login');
 Route::post('download', [DownloadFileController::class, 'getFile'])->name('download');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     // School
     Route::prefix('school')->name('school.')->group(function () {

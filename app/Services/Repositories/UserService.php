@@ -39,6 +39,36 @@ class UserService implements UserContract
     }
 
     /**
+     * Get all the models from database whith the admin role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAdmins()
+    {
+        return $this->repository->getAdmins();
+    }
+
+    /**
+     * Get all the models from database whith the teacher role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getTeachers()
+    {
+        return $this->repository->getTeachers();
+    }
+
+    /**
+     * Get all the models from database whith the student role.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudents()
+    {
+        return $this->repository->getStudents();
+    }
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request
