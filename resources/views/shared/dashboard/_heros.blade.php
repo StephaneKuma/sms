@@ -1,11 +1,11 @@
-<div class="row js-appear-enabled animated fadeIn mt-4" data-toggle="appear">
+<div class="row js-appear-enabled animated fadeIn mt-4" data-toggle="appear" data-class="animated fadeIn">
     <!-- Row #4 -->
     <div class="col-md-6">
         <a class="block block-rounded block-link-shadow overflow-hidden" href="javascript:void(0)">
             <div class="block-content block-content-full bg-blue">
                 <div class="row py-20">
                     <div class="col">
-                        <div class="js-appear-enabled animated fadeInRight" data-toggle="appear" data-class="animated fadeInRight">
+                        <div class="js-appear-enabled animated fadeInLeft" data-toggle="appear" data-class="animated fadeInLeft">
                             {{-- <div class="font-size-h3 font-w600">2</div> --}}
                             <h3>Bienvenue à STK SMS</h3>
                             <div class="font-size-sm font-w600 text-uppercase">
