@@ -3,10 +3,16 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\PromotionContract;
+use App\Contracts\Repositories\UserContract;
 use App\Models\Promotion;
+use App\Models\User;
+use App\Services\Repositories\UserService;
 
 class PromotionRepository implements PromotionContract
 {
+    // public function __construct(private UserContract $userService)
+    // {}
+
     /**
      * Get all the model from database.
      *
@@ -18,10 +24,10 @@ class PromotionRepository implements PromotionContract
     public function getAll(int $sessionId, int $classId, int $sectionId)
     {
         return Promotion::with(['student', 'section'])
-                ->where('session_id', $sessionId)
-                ->where('class_id', $classId)
-                ->where('section_id', $sectionId)
-                ->get();
+            ->where('session_id', $sessionId)
+            ->where('class_id', $classId)
+            ->where('section_id', $sectionId)
+            ->get();
     }
 
     /**
@@ -71,6 +77,21 @@ class PromotionRepository implements PromotionContract
             ->where('session_id', $sessionId)
             ->distinct('section_id')
             ->get();
+    }
+
+    /**
+     * Get the model male students from database.
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getMaleStudentsBySession(int $sessionId)
+    {
+        $students = Promotion::where('session_id', $sessionId)
+            ->pluck('student_id')
+            ->toArray();
+
+        return (new UserService(new UserRepository($this)))->getMaleStudents($students);
     }
 
     /**

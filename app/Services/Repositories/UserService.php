@@ -69,6 +69,17 @@ class UserService implements UserContract
     }
 
     /**
+     * Get all the models with gender equals to M from database.
+     *
+     * @param array $ids
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getMaleStudents(array $ids)
+    {
+        return $this->repository->getMaleStudents($ids);
+    }
+
+    /**
      * Get all the models from database whith the student role.
      *
      * @param integer $sessionId

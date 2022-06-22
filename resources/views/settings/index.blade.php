@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div class="masonry ">
+        <div class="masonry">
             @if ($currentSessionId == $latestSessionId)
                 <div class="myBlock">
                     <div class="block block-rounded">

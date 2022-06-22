@@ -87,6 +87,20 @@ class UserRepository implements UserContract
     }
 
     /**
+     * Get all the models with gender equals to M from database.
+     *
+     * @param array $ids
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getMaleStudents(array $ids)
+    {
+        return $this->getUserWithRoleQuery('student')
+            ->where('gender', 'M')
+            ->whereIn('id', $ids)
+            ->get();
+    }
+
+    /**
      * Get all the models from database whith the student role.
      *
      * @param integer $sessionId
@@ -220,8 +234,19 @@ class UserRepository implements UserContract
      */
     private function getUsersWithRole(string $role)
     {
+        return $this->getUserWithRoleQuery($role)->get();
+    }
+
+    /**
+     * Return a query builder
+     *
+     * @param string $role
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    private function getUserWithRoleQuery(string $role)
+    {
         return User::whereHas('roles', function ($query) use ($role) {
             $query->where('name', $role);
-        })->get();
+        });
     }
 }

@@ -149,20 +149,4 @@ class SchoolSessionRepository implements SchoolSessionContract
 
         return $status;
     }
-
-    /**
-     * Validate form request
-     *
-     * @param FormRequest $request
-     * @return mixed|array
-     */
-    // private function validate(FormRequest $request)
-    // {
-    //     $validated = $request->validated();
-    //     dd($validated);
-
-    //     return [
-    //         'name' => $validated['session_name'],
-    //     ];
-    // }
 }
