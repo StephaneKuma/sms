@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Contracts\Repositories\PromotionContract;
 use App\Models\User;
+use App\Models\Section;
+use App\Models\SchoolClass;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\PermissionRegistrar;
@@ -11,6 +14,9 @@ use App\Contracts\Repositories\UserContract;
 
 class UserRepository implements UserContract
 {
+    public function __construct(private PromotionContract $promotionService)
+    {}
+
     /**
      *
      * @var int
@@ -78,6 +84,35 @@ class UserRepository implements UserContract
     public function getStudents()
     {
         return $this->getUsersWithRole('student');
+    }
+
+    /**
+     * Get all the models from database whith the student role.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @param integer $sectionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudentsByClassAndSection(int $sessionId, int $classId, int $sectionId)
+    {
+        if($classId == 0 || $sectionId == 0) {
+            $schoolClass = SchoolClass::where('session_id', $sessionId)->first();
+            $section = Section::where('session_id', $sessionId)->first();
+
+            if($schoolClass == null || $section == null){
+                toastr()->warning("Il n'y a aucune classe ou section");
+            } else {
+                $classId = $schoolClass->id;
+                $sectionId = $section->id;
+            }
+
+        }
+        try {
+            return $this->promotionService->getAll($sessionId, $classId, $sectionId);
+        } catch (\Exception $e) {
+            toastr()->error('Echec dans le processus de récupérations des élèves.');
+        }
     }
 
     /**

@@ -28,6 +28,17 @@ class SchoolClassRepository implements SchoolClassContract
     /**
      * Get all the models from database.
      *
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getById(int $id)
+    {
+        return SchoolClass::find($id);
+    }
+
+    /**
+     * Get all the models from database.
+     *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
     public function getAll()

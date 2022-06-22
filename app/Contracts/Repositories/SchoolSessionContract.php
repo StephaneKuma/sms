@@ -33,7 +33,7 @@ interface SchoolSessionContract
     /**
      * Get the model before the last from database
      *
-     * @return SchoolSession
+     * @return array|SchoolSession
      */
     public function getPrevious();
 

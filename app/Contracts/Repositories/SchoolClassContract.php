@@ -35,6 +35,14 @@ interface SchoolClassContract
     /**
      * Get all the models from database.
      *
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getById(int $id);
+
+    /**
+     * Get all the models from database.
+     *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
     public function getAll();

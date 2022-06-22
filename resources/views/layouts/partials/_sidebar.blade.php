@@ -159,7 +159,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="#">
+                    <a class="{{ request()->is('school/promotions*') ? 'active' : '' }}" href="{{ route('school.promotions.index') }}">
                         <i class="si si-equalizer"></i>
                         <span class="sidebar-mini-hide">Promotion</span>
                     </a>

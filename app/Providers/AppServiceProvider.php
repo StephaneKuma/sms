@@ -13,6 +13,7 @@ use App\Repositories\ExamRuleRepository;
 use App\Repositories\SemesterRepository;
 use App\Repositories\SyllabusRepository;
 use App\Repositories\GradeRuleRepository;
+use App\Repositories\PromotionRepository;
 use App\Repositories\PermissionRepository;
 use App\Services\Repositories\ExamService;
 use App\Services\Repositories\RoleService;
@@ -33,11 +34,13 @@ use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
 use App\Services\Repositories\GradeRuleService;
+use App\Services\Repositories\PromotionService;
 use App\Contracts\Repositories\ExamRuleContract;
 use App\Contracts\Repositories\SemesterContract;
 use App\Contracts\Repositories\SyllabusContract;
 use App\Services\Repositories\PermissionService;
 use App\Contracts\Repositories\GradeRuleContract;
+use App\Contracts\Repositories\PromotionContract;
 use App\Services\Repositories\SchoolClassService;
 use App\Contracts\Repositories\PermissionContract;
 use App\Contracts\Repositories\SchoolClassContract;
@@ -115,6 +118,12 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->bind(GradeRuleContract::class, GradeRuleService::class);
 
+        // Promotion
+        $this->app->bind(PromotionService::class, function () {
+            return new PromotionService(new PromotionRepository());
+        });
+        $this->app->bind(PromotionContract::class, PromotionService::class);
+
 
 
         // Profile
@@ -137,7 +146,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Users
         $this->app->bind(UserService::class, function () {
-            return new UserService(new UserRepository());
+            return new UserService(new UserRepository(new PromotionRepository()));
         });
         $this->app->bind(UserContract::class, UserService::class);
     }

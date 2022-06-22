@@ -21,7 +21,8 @@ class SectionController extends Controller
      * @param SectionContract $service
      */
     public function __construct(private SectionContract $service,
-        private SchoolClassContract $classService, private SchoolSessionContract $sessionService)
+        private SchoolClassContract $classService,
+        private SchoolSessionContract $sessionService)
     {}
 
     /**
@@ -34,6 +35,20 @@ class SectionController extends Controller
         $sections = $this->service->getAllBySession($this->getCurrentSchoolSession());
 
         return view('settings.sections.index', compact('sections'));
+    }
+
+    /**
+     * get all the model from database by class id.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getByClassId(Request $request)
+    {
+        $classId = $request->query('class_id', 0);
+        $latestSchoolSessionId = $this->sessionService->getLatest()->id;
+        $sections = $this->service->getAllByClassId($latestSchoolSessionId, $classId);
+
+        return response()->json(compact('sections'));
     }
 
     /**

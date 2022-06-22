@@ -44,6 +44,16 @@ interface UserContract
     public function getStudents();
 
     /**
+     * Get all the models from database whith the student role.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @param integer $sectionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudentsByClassAndSection(int $sessionId, int $classId, int $sectionId);
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request

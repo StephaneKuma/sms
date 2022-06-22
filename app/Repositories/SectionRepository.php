@@ -29,6 +29,31 @@ class SectionRepository implements SectionContract
     }
 
     /**
+     * Get all the model from database.
+     *
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getById(int $id)
+    {
+        return Section::find($id);
+    }
+
+    /**
+     * Get all the models from database.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllByClassId(int $sessionId, int $classId)
+    {
+        return Section::where('session_id', $sessionId)
+            ->where('class_id', $classId)
+            ->get();
+    }
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>

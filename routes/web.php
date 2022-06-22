@@ -47,7 +47,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('syllabi', SyllabusController::class)->except('show');
 
         // Promotions
-        Route::resource('promotions', PromotionController::class)->except('show');
+        Route::resource('promotions', PromotionController::class)->only('index');
+        Route::get('promotions/promote', [PromotionController::class, 'create'])->name('promotions.create');
+        Route::post('promotions/promote', [PromotionController::class, 'store'])->name('promotions.store');
 
         // Exams
         Route::resource('exams', ExamController::class)->except('show');
@@ -94,6 +96,7 @@ Route::middleware('auth')->group(function () {
 
         // Sections
         Route::resource('sections', SectionController::class)->except(['show', 'index']);
+        Route::get('sections/by_class', [SectionController::class, 'getByClassId'])->name('sections.by.class.id');
 
         // Courses
         Route::resource('courses', CourseController::class)->except('show');

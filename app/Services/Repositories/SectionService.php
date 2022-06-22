@@ -29,6 +29,29 @@ class SectionService implements SectionContract
     }
 
     /**
+     * Get all the model from database.
+     *
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getById(int $id)
+    {
+        return $this->repository->getById($id);
+    }
+
+    /**
+     * Get all the models from database.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getAllByClassId(int $sessionId, int $classId)
+    {
+        return $this->repository->getAllByClassId($sessionId, $classId);
+    }
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
