@@ -37,7 +37,7 @@
         <a class="block block-rounded block-link-shadow text-right" href="javascript:void(0)">
             <div class="block-content block-content-full clearfix">
                 <div class="float-left mt-10 d-none d-sm-block">
-                    <i class="si si-book-open fa-3x text-body-bg-dark"></i>
+                    <i class="si si-notebook fa-3x text-body-bg-dark"></i>
                 </div>
                 <div class="font-size-h3 font-w600 js-count-to-enabled" data-toggle="countTo" data-speed="1" data-to="650">650</div>
                 <div class="font-size-sm font-w600 text-uppercase text-muted">Livres</div>
