@@ -21,28 +21,30 @@
             </button>
             <!-- END Open Search Section -->
 
-            @php
-                $latestSchoolSession = \App\Models\SchoolSession::latest()->first();
-                $currentSchoolSessionName = null;
-                if($latestSchoolSession){
-                    $currentSchoolSessionName = $latestSchoolSession->name;
-                }
-            @endphp
-            @if (session()->has('browse_session_name') && session('browse_session_name') !== $currentSchoolSessionName)
-                <a class="btn btn-circle btn-dual-secondary text-danger disabled" href="#">
-                    <i class="bi bi-exclamation-diamond-fill me-2"></i>
-                    Navigation dans la session : {{ session('browse_session_name') }}
-                </a>
-            @elseif(\App\Models\SchoolSession::latest()->count() > 0)
-                <a class="btn btn-circle btn-dual-secondary disabled" href="#">
-                    Session académique courante :
-                    <span class="badge badge-info">{{ $currentSchoolSessionName }}</span>
-                </a>
-            @else
-                <a class="btn btn-rounded btn-dual-secondary text-danger" href="{{ route('school.sessions.create') }}">
-                    <i class="bi bi-exclamation-diamond-fill me-2"></i> Créer une session académique.
-                </a>
-            @endif
+            @auth
+                @php
+                    $latestSchoolSession = \App\Models\SchoolSession::latest()->first();
+                    $currentSchoolSessionName = null;
+                    if($latestSchoolSession){
+                        $currentSchoolSessionName = $latestSchoolSession->name;
+                    }
+                @endphp
+                @if (session()->has('browse_session_name') && session('browse_session_name') !== $currentSchoolSessionName)
+                    <a class="btn btn-circle btn-dual-secondary text-danger disabled" href="#">
+                        <i class="bi bi-exclamation-diamond-fill me-2"></i>
+                        Navigation dans la session : {{ session('browse_session_name') }}
+                    </a>
+                @elseif(\App\Models\SchoolSession::latest()->count() > 0)
+                    <a class="btn btn-circle btn-dual-secondary disabled" href="#">
+                        Session académique courante :
+                        <span class="badge badge-info">{{ $currentSchoolSessionName }}</span>
+                    </a>
+                @else
+                    <a class="btn btn-rounded btn-dual-secondary text-danger" href="{{ route('settings.sections.create') }}">
+                        <i class="bi bi-exclamation-diamond-fill me-2"></i> Créer une session académique.
+                    </a>
+                @endif
+            @endauth
         </div>
         <!-- END Left Section -->
 
