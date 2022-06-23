@@ -1,7 +1,7 @@
 @php
     $title = isset($syllabus) ? "Modifier le syllabus : " . $syllabus->name : "Ajouter un syllabus";
     $second = "Ecole";
-    $url = route('school.sessions.index');
+    $url = route('school.classes.index');
     $third = "Syllabi";
     $url2 =  route('school.syllabi.index');
     $bread = $title;

@@ -208,7 +208,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/syllabi*') ? 'active' : '' }}" href="{{ route('school.syllabi.index') }}">
                             <i class="si si-docs"></i>
                             <span class="sidebar-mini-hide">Syllabus</span>
                         </a>
