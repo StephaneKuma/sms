@@ -114,7 +114,7 @@
                 @endcan
                 @unlessrole('student')
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/students*') ? 'active' : '' }}" href="{{ route('school.students.index') }}">
                             <i class="si si-users"></i>
                             <span class="sidebar-mini-hide">Elèves</span>
                         </a>

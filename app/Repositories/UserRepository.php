@@ -80,6 +80,32 @@ class UserRepository implements UserContract
     }
 
     /**
+     * Create a new instance of the model.
+     *
+     * @param FormRequest $request
+     * @return void
+     */
+    public function createStudent(FormRequest $request)
+    {
+        $student = User::create($this->validateTeacherAndStudent($request));
+        $student->assignRole($this->role);
+        $student->givePermissionTo(
+            'view attendances',
+            'view assignments',
+            'submit assignments',
+            'view exams',
+            'view marks',
+            'view users',
+            'view routines',
+            'view syllabi',
+            'view events',
+            'view notices',
+        );
+
+        toastr()->success("L'élève a bien été créé", "Elèves - Ecole");
+    }
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
@@ -214,6 +240,24 @@ class UserRepository implements UserContract
         $status = $teacher->update($data);
 
         toastr()->success("L'enseignant a bien été mise à jour", "Enseignants - Ecole");
+
+        return $status;
+    }
+
+    /**
+     * Update the model in database.
+     *
+     * @param FormRequest $request
+     * @param User $student
+     * @return bool
+     */
+    public function updateStudent(FormRequest $request, User $student)
+    {
+        $data = $this->validateTeacherAndStudent($request, $student);
+
+        $status = $student->update($data);
+
+        toastr()->success("L'élève a bien été mise à jour", "Elèves - Ecole");
 
         return $status;
     }

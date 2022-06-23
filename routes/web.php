@@ -8,6 +8,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ExamRuleController;
 use App\Http\Controllers\SemesterController;
@@ -45,7 +46,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('classes', SchoolClassController::class)->only(['index', 'edit']);
 
         // Teachers
-        Route::resource('teachers', TeacherController::class)->except(['show', 'destroy']);
+        Route::resource('teachers', TeacherController::class)
+            ->except(['show', 'destroy'])
+            ->middleware('role:admin|teacher');
+
+        // Students
+        Route::resource('students', StudentController::class)
+            ->except(['show', 'destroy'])
+            ->middleware('role:admin|teacher');
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');

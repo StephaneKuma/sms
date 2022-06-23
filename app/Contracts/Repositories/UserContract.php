@@ -24,6 +24,14 @@ interface UserContract
     public function createTeacher(FormRequest $request);
 
     /**
+     * Create a new instance of the model.
+     *
+     * @param FormRequest $request
+     * @return void
+     */
+    public function createStudent(FormRequest $request);
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
@@ -95,6 +103,15 @@ interface UserContract
      * @return bool
      */
     public function updateTeacher(FormRequest $request, User $user);
+
+    /**
+     * Update the model in database.
+     *
+     * @param FormRequest $request
+     * @param User $user
+     * @return bool
+     */
+    public function updateStudent(FormRequest $request, User $user);
 
     /**
      * Delete the model from database.

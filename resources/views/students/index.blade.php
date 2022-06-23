@@ -1,6 +1,6 @@
 @php
-    $title = "Liste des enseignants";
-    $bread = "Enseignants";
+    $title = "Liste des élèves";
+    $bread = "Elèves";
     $second = "Ecole";
     $url = route('school.classes.index');
 @endphp
@@ -29,8 +29,8 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
                 @can('create users')
-                    <a href="{{ route('school.teachers.create') }}" class="btn btn-rounded btn-noborder btn-primary">
-                        <i class="fa fa-plus mr-5"></i> Ajouter un enseignant
+                    <a href="{{ route('school.students.create') }}" class="btn btn-rounded btn-noborder btn-primary">
+                        <i class="fa fa-plus mr-5"></i> Ajouter un élève
                     </a>
                 @endcan
             </div>
@@ -48,29 +48,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($teachers as $teacher)
+                        @forelse ($students as $student)
                             <tr>
                                 <td class="">
-                                    @if (is_null($teacher->picture))
-                                        <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $teacher->name }}">
+                                    @if (is_null($student->picture))
+                                        <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $student->name }}">
                                     @else
-                                        <img class="img-avatar img-avatar32" src="{{ Storage::url($teacher->picture) }}" alt="{{ $teacher->name }}">
+                                        <img class="img-avatar img-avatar32" src="{{ Storage::url($student->picture) }}" alt="{{ $student->name }}">
                                     @endif
-                                    {{ Str::ucfirst($teacher->name) }}
+                                    {{ Str::ucfirst($student->name) }}
                                 </td>
                                 <td>
-                                    <a href="mailto:{{ $teacher->email }}" data-toggle="tooltip" title="Cliquer pour envoyer un mail">
-                                        {{ $teacher->email }}
+                                    <a href="mailto:{{ $student->email }}" data-toggle="tooltip" title="Cliquer pour envoyer un mail">
+                                        {{ $student->email }}
                                         <i class="si si-paper-plane ml-1"></i>
                                     </a>
                                 </td>
-                                {{-- <td class="text-center"><span class="badge badge-info">{{ $teacher->getDirectPermissions()->count() }}</span></td> --}}
-                                <td class="text-center">{{ $teacher->gender }}</td>
-                                <td>{{ $teacher->nationality }}</td>
+                                {{-- <td class="text-center"><span class="badge badge-info">{{ $student->getDirectPermissions()->count() }}</span></td> --}}
+                                <td class="text-center">{{ $student->gender }}</td>
+                                <td>{{ $student->nationality }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" user="group">
                                         @can('edit users')
-                                            <a href="{{ route('school.teachers.edit', $teacher) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier l'enseignant">
+                                            <a href="{{ route('school.students.edit', $student) }}" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Modifier l'élève">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         @endcan
