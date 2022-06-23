@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\SchoolClassContract;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\SchoolSession;
@@ -16,19 +17,27 @@ class StudentController extends Controller
     use SchoolSession;
 
     public function __construct(private UserContract $service,
-        private SchoolSessionContract $sessionService)
+        private SchoolSessionContract $sessionService,
+        private SchoolClassContract $classService)
     {}
 
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = $this->service->getStudents($this->getCurrentSchoolSession());
+        $classId = $request->query('class_id', 0);
+        $sectionId = $request->query('section_id', 0);
 
-        return view('students.index', compact('students'));
+        $sessionId = $this->getCurrentSchoolSession();
+        $classes = $this->classService->getAllBySession($sessionId);
+
+        $students = $this->service->getStudentsByClassAndSection($sessionId, $classId, $sectionId);
+
+        return view('students.index', compact('classes', 'students'));
     }
 
     /**

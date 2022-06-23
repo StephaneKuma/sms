@@ -30,7 +30,7 @@
     <div class="content">
         @include('layouts.partials._breadcrumb')
 
-        <div class="block">
+        <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
             </div>

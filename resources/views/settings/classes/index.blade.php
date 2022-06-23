@@ -83,7 +83,12 @@
                                                         </span>
                                                     </p>
                                                     <div class="list-group mb-4">
-                                                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                                        {{-- <form action="{{ route('school.students.index') }}" method="GET">
+                                                        </form> --}}
+                                                        <a href="{{ route('school.students.index', [
+                                                            'class_id' => $class->id,
+                                                            'section_id' => $section->id,
+                                                        ]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                                             Voir les élèves
                                                         </a>
                                                         <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">

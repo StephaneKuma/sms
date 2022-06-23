@@ -364,6 +364,8 @@ class DatabaseSeeder extends Seeder
         }
         
         $year = now()->year;
+        $month = now()->month;
+        $prefix = "$year-$month-";
 
         foreach ($students as $key => $student) {
             switch ($key) {
@@ -373,7 +375,7 @@ class DatabaseSeeder extends Seeder
                         'class_id' => $class1->id,
                         'section_id' => $section1->id,
                         'student_id' => $student1->id,
-                        'id_card_number' => uniqid("$year")
+                        'id_card_number' => uniqid($prefix)
                     ]);
                     break;
 
@@ -383,7 +385,7 @@ class DatabaseSeeder extends Seeder
                         'class_id' => $class2->id,
                         'section_id' => $section2->id,
                         'student_id' => $student2->id,
-                        'id_card_number' => uniqid("$year")
+                        'id_card_number' => uniqid($prefix)
                     ]);
                     break;
 
@@ -393,7 +395,7 @@ class DatabaseSeeder extends Seeder
                         'class_id' => $class3->id,
                         'section_id' => $section3->id,
                         'student_id' => $student3->id,
-                        'id_card_number' => uniqid("$year")
+                        'id_card_number' => uniqid($prefix)
                     ]);
                     break;
 
@@ -403,7 +405,7 @@ class DatabaseSeeder extends Seeder
                         'class_id' => $class4->id,
                         'section_id' => $section4->id,
                         'student_id' => $student4->id,
-                        'id_card_number' => uniqid("$year")
+                        'id_card_number' => uniqid($prefix)
                     ]);
                     break;
             }
