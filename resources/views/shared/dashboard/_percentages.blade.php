@@ -13,12 +13,14 @@
             $femaleStudentPercentage = round((($studentCount - $maleStudentsCount) / $studentCount), 2) * 100;
             $femaleStudentPercentageStyle = "style='background-color: #49a4fe; width: $femaleStudentPercentage%'";
         @endphp
-        <div class="col-9 progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar" {!!$maleStudentPercentageStyle!!} aria-valuenow="{{ $maleStudentPercentage }}" aria-valuemin="0" aria-valuemax="100">
-                {{$maleStudentPercentage}}%
-            </div>
-            <div class="progress-bar progress-bar-striped" role="progressbar" {!!$femaleStudentPercentageStyle!!} aria-valuenow="{{ $femaleStudentPercentage }}" aria-valuemin="0" aria-valuemax="100">
-                {{$femaleStudentPercentage}}%
+        <div class="col-9">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" {!!$maleStudentPercentageStyle!!} aria-valuenow="{{ $maleStudentPercentage }}" aria-valuemin="0" aria-valuemax="100">
+                    {{$maleStudentPercentage}}%
+                </div>
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" {!!$femaleStudentPercentageStyle!!} aria-valuenow="{{ $femaleStudentPercentage }}" aria-valuemin="0" aria-valuemax="100">
+                    {{$femaleStudentPercentage}}%
+                </div>
             </div>
         </div>
     </div>
