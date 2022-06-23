@@ -30,7 +30,7 @@ class DashboardController extends Controller
     {
         $sessionId = $this->getCurrentSchoolSession();
 
-        $studentCount = $this->userService->getStudents()->count();
+        $studentCount = $this->userService->getStudents($sessionId)->count();
 
         $teacherCount = $this->userService->getTeachers()->count();
 

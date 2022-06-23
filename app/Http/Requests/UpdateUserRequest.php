@@ -14,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->can('edit users');
     }
 
     /**
@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users,id',
             'password' => ['sometimes', 'nullable', 'confirmed', Rules\Password::defaults()],
             'gender' => 'sometimes|nullable|string|max:255',
+            'blood_type' => 'sometimes|nullable|string|max:255',
             'nationality' => 'sometimes|nullable|string|max:255',
             'phone' => 'sometimes|nullable|string|max:255',
             'address' => 'sometimes|nullable|string|max:255',

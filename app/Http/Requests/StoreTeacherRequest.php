@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
-class StoreUserRequest extends FormRequest
+class StoreTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -40,8 +40,7 @@ class StoreUserRequest extends FormRequest
             'picture' => 'sometimes|nullable|image',
             'birthday' => 'sometimes|nullable|date',
             'religion' => 'sometimes|nullable|string|max:255',
-            'role' => 'sometimes|nullable|integer|gt:0',
-            'permissions' => 'sometimes|nullable|array',
+            'role' => 'required|integer|gt:0',
         ];
     }
 }

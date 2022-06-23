@@ -5,13 +5,14 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ExamRuleController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SyllabusController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeRuleController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PermissionController;
@@ -42,6 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('school')->name('school.')->group(function () {
         // Classes
         Route::resource('classes', SchoolClassController::class)->only(['index', 'edit']);
+
+        // Teachers
+        Route::resource('teachers', TeacherController::class)->except(['show', 'destroy']);
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');

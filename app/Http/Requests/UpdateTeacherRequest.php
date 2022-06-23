@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
+use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateTeacherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('create users');
+        return auth()->user()->can('edit users');
     }
 
     /**
@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['sometimes', 'nullable', 'confirmed', Rules\Password::defaults()],
             'gender' => 'sometimes|nullable|string|max:255',
             'blood_type' => 'sometimes|nullable|string|max:255',
             'nationality' => 'sometimes|nullable|string|max:255',
@@ -40,8 +40,7 @@ class StoreUserRequest extends FormRequest
             'picture' => 'sometimes|nullable|image',
             'birthday' => 'sometimes|nullable|date',
             'religion' => 'sometimes|nullable|string|max:255',
-            'role' => 'sometimes|nullable|integer|gt:0',
-            'permissions' => 'sometimes|nullable|array',
+            'role' => 'required|integer|gt:0',
         ];
     }
 }

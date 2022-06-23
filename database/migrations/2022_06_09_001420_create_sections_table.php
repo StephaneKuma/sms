@@ -16,13 +16,15 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('session_id')
+                ->nullable()
                 ->constrained('school_sessions')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->foreignId('class_id')
+                ->nullable()
                 ->constrained('school_classes')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
             $table->string('name');
             $table->string('room_no')->nullable();
             $table->timestamps();

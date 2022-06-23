@@ -16,6 +16,14 @@ interface UserContract
     public function create(FormRequest $request);
 
     /**
+     * Create a new instance of the model.
+     *
+     * @param FormRequest $request
+     * @return void
+     */
+    public function createTeacher(FormRequest $request);
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
@@ -39,9 +47,18 @@ interface UserContract
     /**
      * Get all the models from database whith the student role.
      *
+     * @param integer $sessionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getStudents();
+    public function getStudents(int $sessionId);
+
+    /**
+     * Get all the students by session
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    // public function getStudentsBySession(int $sessionId);
 
     /**
      * Get all the models with gender equals to M from database.
@@ -69,6 +86,15 @@ interface UserContract
      * @return bool
      */
     public function update(FormRequest $request, User $user);
+
+    /**
+     * Update the model in database.
+     *
+     * @param FormRequest $request
+     * @param User $user
+     * @return bool
+     */
+    public function updateTeacher(FormRequest $request, User $user);
 
     /**
      * Delete the model from database.

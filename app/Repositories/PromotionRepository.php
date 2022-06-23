@@ -80,6 +80,21 @@ class PromotionRepository implements PromotionContract
     }
 
     /**
+     * Get the model students from database.
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getStudentsBySession(int $sessionId)
+    {
+        $students = Promotion::where('session_id', $sessionId)
+            ->pluck('student_id')
+            ->toArray();
+
+        return (new UserService(new UserRepository($this)))->getStudents($students);
+    }
+
+    /**
      * Get the model male students from database.
      *
      * @param integer $sessionId

@@ -29,6 +29,17 @@ class UserService implements UserContract
     }
 
     /**
+     * Create a new instance of the model.
+     *
+     * @param FormRequest $request
+     * @return void
+     */
+    public function createTeacher(FormRequest $request)
+    {
+        $this->repository->createTeacher($request);
+    }
+
+    /**
      * Get all the models from database.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
@@ -61,11 +72,12 @@ class UserService implements UserContract
     /**
      * Get all the models from database whith the student role.
      *
+     * @param integer $sessionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getStudents()
+    public function getStudents(int $sessionId)
     {
-        return $this->repository->getStudents();
+        return $this->repository->getStudents($sessionId);
     }
 
     /**
@@ -102,6 +114,18 @@ class UserService implements UserContract
     public function update(FormRequest $request, User $user)
     {
         return $this->repository->update($request, $user);
+    }
+
+    /**
+     * Update the model in database.
+     *
+     * @param FormRequest $request
+     * @param User $teacher
+     * @return bool
+     */
+    public function updateTeacher(FormRequest $request, User $teacher)
+    {
+        return $this->repository->updateTeacher($request, $teacher);
     }
 
     /**

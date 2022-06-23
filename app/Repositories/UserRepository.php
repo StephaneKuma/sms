@@ -2,15 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Contracts\Repositories\PromotionContract;
 use App\Models\User;
 use App\Models\Section;
+use App\Models\Promotion;
 use App\Models\SchoolClass;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Contracts\Repositories\UserContract;
+use App\Contracts\Repositories\PromotionContract;
 
 class UserRepository implements UserContract
 {
@@ -41,9 +42,41 @@ class UserRepository implements UserContract
 
         $user = User::create($data);
 
-        toastr()->success("L'utilisateur a bien été créé", "Utilisateurs - Paramètres");
-
         $this->assignRoleAndPermissions($user);
+
+        toastr()->success("L'utilisateur a bien été créé", "Utilisateurs - Paramètres");
+    }
+
+    /**
+     * Create a new instance of the model.
+     *
+     * @param FormRequest $request
+     * @return void
+     */
+    public function createTeacher(FormRequest $request)
+    {
+        $teacher = User::create($this->validateTeacherAndStudent($request));
+        $teacher->assignRole($this->role);
+        $teacher->givePermissionTo(
+            'create exams',
+            'view exams',
+            'create exams rule',
+            'view exams rule',
+            'edit exams rule',
+            'delete exams rule',
+            'take attendances',
+            'view attendances',
+            'create assignments',
+            'view assignments',
+            'save marks',
+            'view users',
+            'view routines',
+            'view syllabi',
+            'view events',
+            'view notices',
+        );
+
+        toastr()->success("L'enseignant a bien été créé", "Enseignants - Ecole");
     }
 
     /**
@@ -79,12 +112,30 @@ class UserRepository implements UserContract
     /**
      * Get all the models from database whith the student role.
      *
+     * @param integer $sessionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getStudents()
+    public function getStudents(int $sessionId)
     {
-        return $this->getUsersWithRole('student');
+        $students = Promotion::where('session_id', $sessionId)
+            ->pluck('student_id')
+            ->toArray();
+
+        return $this->getUserWithRoleQuery('student')
+            ->whereIn('id', $students)
+            ->get();
     }
+
+    /**
+     * Get all the students by session
+     *
+     * @param integer $sessionId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    // public function getStudentsBySession(int $sessionId)
+    // {
+    //     return $this->promotionService->getStudents($ids);
+    // }
 
     /**
      * Get all the models with gender equals to M from database.
@@ -150,6 +201,24 @@ class UserRepository implements UserContract
     }
 
     /**
+     * Update the model in database.
+     *
+     * @param FormRequest $request
+     * @param User $teacher
+     * @return bool
+     */
+    public function updateTeacher(FormRequest $request, User $teacher)
+    {
+        $data = $this->validateTeacherAndStudent($request, $teacher);
+
+        $status = $teacher->update($data);
+
+        toastr()->success("L'enseignant a bien été mise à jour", "Enseignants - Ecole");
+
+        return $status;
+    }
+
+    /**
      * Delete the model from database.
      *
      * @param User $user
@@ -196,6 +265,49 @@ class UserRepository implements UserContract
             'email' => $validated['email'],
             'password' => $password != null ? bcrypt($password) : $user->password,
             'gender' => $validated['gender'],
+            'blood_type' => $validated['blood_type'],
+            'nationality' => $validated['nationality'],
+            'phone' => $validated['phone'],
+            'address' => $validated['address'],
+            'address2' => $validated['address2'],
+            'city' => $validated['city'],
+            'zip' => $validated['zip'],
+            'birthday' => $validated['birthday'],
+            'religion' => $validated['religion'],
+            'picture' => $path,
+        ];
+    }
+
+    /**
+     * Validate form request
+     *
+     * @param FormRequest $request
+     * @param User|null $user
+     * @return mixed|array
+     */
+    private function validateTeacherAndStudent(FormRequest $request, User $user = null)
+    {
+        $validated = $request->validated();
+
+        $this->role = $validated['role'];
+
+        $picture = $validated['picture'] ?? null;
+        $path = $picture == null ? null : $picture->store('users', 'public');
+        $password = $validated['password'] ?? null;
+
+        if (!is_null($user)) {
+            if (!is_null($user->picture)) {
+                Storage::disk('public')->delete($user->picture);
+            }
+        }
+
+        return [
+            'last_name' => $validated['last_name'],
+            'first_name' => $validated['first_name'],
+            'email' => $validated['email'],
+            'password' => $password != null ? bcrypt($password) : $user->password,
+            'gender' => $validated['gender'],
+            'blood_type' => $validated['blood_type'],
             'nationality' => $validated['nationality'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],

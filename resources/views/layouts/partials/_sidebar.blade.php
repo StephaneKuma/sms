@@ -120,7 +120,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/teachers*') ? 'active' : '' }}" href="{{ route('school.teachers.index') }}">
                             <i class="si si-briefcase"></i>
                             <span class="sidebar-mini-hide">Enseignants</span>
                         </a>
