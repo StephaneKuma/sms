@@ -42,9 +42,9 @@
                             <th>Nom</th>
                             <th>Email</th>
                             {{-- <th>Permissions</th> --}}
-                            <th>Sexe</th>
-                            <th>Nationalité</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Actions</th>
+                            <th class="text-center" style="width: 2%">Sexe</th>
+                            <th class="text-center">Nationalité</th>
+                            <th class="d-none d-sm-table-cell text-center" style="width: 15%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,7 +66,7 @@
                                 </td>
                                 {{-- <td class="text-center"><span class="badge badge-info">{{ $teacher->getDirectPermissions()->count() }}</span></td> --}}
                                 <td class="text-center">{{ $teacher->gender }}</td>
-                                <td>{{ $teacher->nationality }}</td>
+                                <td class="text-center">{{ $teacher->nationality }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" user="group">
                                         @can('edit users')
