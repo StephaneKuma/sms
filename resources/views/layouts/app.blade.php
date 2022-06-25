@@ -26,7 +26,7 @@
     </head>
     <body class="font-sans antialiased">
         <div id="page-container" class="sidebar-o enable-page-overlay side-scroll main-content-boxed">
-            @include('layouts.partials._side_overlay')
+            {{-- @include('layouts.partials._side_overlay') --}}
 
             @include('layouts.partials._sidebar')
 
