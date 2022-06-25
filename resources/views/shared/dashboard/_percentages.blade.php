@@ -21,6 +21,7 @@
                 <div class="progress-bar progress-bar-striped" role="progressbar" {!! $femaleStudentPercentageStyle !!} aria-valuenow="{{ $femaleStudentPercentage }}" aria-valuemin="0" aria-valuemax="100">
                     {{ $femaleStudentPercentage }}%
                 </div>
+            </div>
         </div>
     </div>
 @endif
