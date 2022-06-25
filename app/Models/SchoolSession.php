@@ -129,4 +129,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(GradeRule::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the notices for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notices(): HasMany
+    {
+        return $this->hasMany(Notice::class, 'session_id', 'id');
+    }
 }

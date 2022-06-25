@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Repositories\NoticeContract;
 use App\Contracts\Repositories\PromotionContract;
 use App\Contracts\Repositories\SchoolClassContract;
 use App\Contracts\Repositories\SchoolSessionContract;
@@ -17,7 +18,8 @@ class DashboardController extends Controller
     public function __construct(private SchoolSessionContract $sessionService,
         private UserContract $userService,
         private SchoolClassContract $classService,
-        private PromotionContract $promotionService)
+        private PromotionContract $promotionService,
+        private NoticeContract $noticeService)
     {}
 
     /**
@@ -38,6 +40,8 @@ class DashboardController extends Controller
 
         $maleStudents = $this->promotionService->getMaleStudentsBySession($sessionId);
 
-        return view('dashboard', compact('studentCount', 'teacherCount', 'classCount', 'maleStudents'));
+        $notices = $this->noticeService->getAllWithPagination($sessionId, 3);
+
+        return view('dashboard', compact('studentCount', 'teacherCount', 'classCount', 'maleStudents', 'notices'));
     }
 }

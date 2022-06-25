@@ -6,6 +6,7 @@ use App\Repositories\ExamRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CourseRepository;
+use App\Repositories\NoticeRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\SectionRepository;
 use Illuminate\Support\ServiceProvider;
@@ -23,11 +24,13 @@ use App\Contracts\Repositories\ExamContract;
 use App\Contracts\Repositories\RoleContract;
 use App\Contracts\Repositories\UserContract;
 use App\Services\Repositories\CourseService;
+use App\Services\Repositories\NoticeService;
 use App\Repositories\GradingSystemRepository;
 use App\Repositories\SchoolSessionRepository;
 use App\Services\Repositories\ProfileService;
 use App\Services\Repositories\SectionService;
 use App\Contracts\Repositories\CourseContract;
+use App\Contracts\Repositories\NoticeContract;
 use App\Services\Repositories\ExamRuleService;
 use App\Services\Repositories\SemesterService;
 use App\Services\Repositories\SyllabusService;
@@ -123,6 +126,12 @@ class AppServiceProvider extends ServiceProvider
             return new PromotionService(new PromotionRepository());
         });
         $this->app->bind(PromotionContract::class, PromotionService::class);
+
+        // Notice
+        $this->app->bind(NoticeService::class, function () {
+            return new NoticeService(new NoticeRepository());
+        });
+        $this->app->bind(NoticeContract::class, NoticeService::class);
 
 
 

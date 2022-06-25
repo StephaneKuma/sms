@@ -50,7 +50,8 @@ class ExamRuleRepository implements ExamRuleContract
     {
         return ExamRule::with('session', 'exam')
             ->where('session_id', $sessionId)
-            ->where('exam_id', $examId)->get();
+            ->where('exam_id', $examId)
+            ->get();
     }
 
     /**

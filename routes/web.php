@@ -20,6 +20,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\GradingSystemController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SchoolSessionController;
 
 /*
@@ -89,6 +90,9 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
+    
+        // Notices
+        Route::resource('notices', NoticeController::class)->only(['create', 'store']);
     });
 
     // Settings

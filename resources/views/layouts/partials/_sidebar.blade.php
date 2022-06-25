@@ -196,7 +196,7 @@
                 @endhasanyrole
                 @role('admin')
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/notices*') ? 'active' : '' }}" href="{{ route('school.notices.create') }}">
                             <i class="si si-speech"></i>
                             <span class="sidebar-mini-hide">Notice</span>
                         </a>

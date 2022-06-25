@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        
+
                     </div>
                 </div>
             </div>
@@ -73,7 +73,31 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        
+                        <div id="accordion">
+                            @foreach ($notices as $notice)
+                                <div class="card">
+                                    <div class="card-header" id="heading-{{ $notice->id }}">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link{{ $loop->first ? ' collapsed' : '' }}"
+                                                data-toggle="collapse"
+                                                data-target="#collapse-{{ $notice->id }}"
+                                                aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                                aria-controls="collapse-{{ $notice->id }}">
+                                                Publier le : {{ $notice->created_at }}
+                                            </button>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapse-{{ $notice->id }}" class="collapse{{ $loop->first ? ' show' : '' }}"
+                                        aria-labelledby="heading-{{ $notice->id }}"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            {!! $notice->content !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                          </div>
                     </div>
                 </div>
             </div>
