@@ -60,7 +60,7 @@
                                         <a href="#" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Voir les syllabi">
                                             <i class="si si-docs"></i>
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Voir les exercices">
+                                        <a href="#" class="btn btn-sm btn-outline-info" data-toggle="tooltip" title="Voir les devoirs">
                                             <i class="si si-notebook"></i>
                                         </a>
                                     </div>

@@ -152,24 +152,6 @@
                     </li>
                     <li>
                         <a class="" href="#">
-                            <i class="si si-book-open"></i>
-                            <span class="sidebar-mini-hide">Devoirs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <i class="si si-puzzle"></i>
-                            <span class="sidebar-mini-hide">Note</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
-                            <i class="si si-docs"></i>
-                            <span class="sidebar-mini-hide">Syllabus</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="#">
                             <i class="si si-speedometer"></i>
                             <span class="sidebar-mini-hide">Routine</span>
                         </a>
