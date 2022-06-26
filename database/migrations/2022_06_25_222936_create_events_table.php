@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->foreignId('session_id')
+                ->nullable()
+                ->constrained('school_sessions')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -26,6 +34,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('session_id');
+        });
         Schema::dropIfExists('events');
     }
 };

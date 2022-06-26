@@ -202,7 +202,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/events*') ? 'active' : '' }}" href="{{ route('school.events.index') }}">
                             <i class="si si-calendar"></i>
                             <span class="sidebar-mini-hide">Evènements</span>
                         </a>

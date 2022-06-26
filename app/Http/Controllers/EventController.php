@@ -4,17 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Traits\SchoolSession;
+use App\Contracts\Repositories\SchoolSessionContract;
 
 class EventController extends Controller
 {
+    use SchoolSession;
+
+    public function __construct(private SchoolSessionContract $sessionService)
+    {}
+
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()) {
+            $currentSchoolSessionId = $this->getSchoolCurrentSession();
+
+            $data = Event::whereDate('start', '>=', $request->start)
+                        ->whereDate('end',   '<=', $request->end)
+                        ->where('session_id', $currentSchoolSessionId)
+                        ->get(['id', 'title', 'start', 'end']);
+
+            return response()->json($data);
+        }
+        return view('events.index');
     }
 
     /**
@@ -35,7 +53,37 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $current_school_session_id = $this->getSchoolCurrentSession();
+        $event = null;
+
+        switch ($request->type) {
+            case 'create':
+                $event = Event::create([
+                    'title' => $request->title,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'session_id' => $current_school_session_id
+                ]);
+                break;
+
+            case 'edit':
+                $event = Event::find($request->id)->update([
+                    'title' => $request->title,
+                    'start' => $request->start,
+                    'end' => $request->end,
+                ]);
+                break;
+
+            case 'delete':
+                $event = Event::find($request->id)->delete();
+                break;
+
+            default:
+                break;
+        }
+        // dd($event);
+
+        return response()->json($event);
     }
 
     /**

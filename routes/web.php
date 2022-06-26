@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SettingController;
@@ -20,7 +22,6 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\GradingSystemController;
-use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SchoolSessionController;
 
 /*
@@ -90,9 +91,13 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
-    
+
         // Notices
         Route::resource('notices', NoticeController::class)->only(['create', 'store']);
+
+        // Events
+        Route::get('events', [EventController::class, 'index'])->name('events.index');
+        Route::post('events-ajax', [EventController::class, 'store'])->name('events.ajax');
     });
 
     // Settings
