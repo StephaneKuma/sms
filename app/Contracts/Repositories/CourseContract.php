@@ -25,11 +25,10 @@ interface CourseContract
     /**
      * Get all the models from database.
      *
-     * @param integer $sessionId
      * @param integer $classId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAllByClassId(int $sessionId, int $classId);
+    public function getAllByClassId(int $classId);
 
     /**
      * Get all the models from database.

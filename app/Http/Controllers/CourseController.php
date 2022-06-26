@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Traits\SchoolSession;
 use App\Http\Requests\StoreCourseRequest;
 use App\Contracts\Repositories\CourseContract;
+use App\Contracts\Repositories\PromotionContract;
 use App\Contracts\Repositories\SemesterContract;
 use App\Contracts\Repositories\SchoolClassContract;
 use App\Contracts\Repositories\SchoolSessionContract;
 use App\Http\Requests\UpdateCourseRequest;
+use App\Models\Promotion;
+use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -19,7 +22,8 @@ class CourseController extends Controller
     public function __construct(private CourseContract $service,
         private SchoolSessionContract $sessionService,
         private SemesterContract $semesterService,
-        private SchoolClassContract $classService)
+        private SchoolClassContract $classService,
+        private PromotionContract $promotionService)
     {}
 
     /**
@@ -32,6 +36,15 @@ class CourseController extends Controller
         $courses = $this->service->getAllBySession($this->getCurrentSchoolSession());
 
         return view('settings.courses.index', compact('courses'));
+    }
+
+    public function getStudentCourses(User $student)
+    {
+        $sessionId = $this->getCurrentSchoolSession();
+        $promotion = $this->promotionService->getByStudent($sessionId, $student->id);
+        $courses = $this->service->getAllByClassId($promotion->class_id);
+
+        return view('students.courses', compact('promotion', 'courses'));
     }
 
     /**

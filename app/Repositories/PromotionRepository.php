@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Contracts\Repositories\PromotionContract;
 use App\Contracts\Repositories\UserContract;
 use App\Models\Promotion;
-use App\Models\User;
 use App\Services\Repositories\UserService;
 
 class PromotionRepository implements PromotionContract
@@ -92,6 +91,23 @@ class PromotionRepository implements PromotionContract
             ->toArray();
 
         return (new UserService(new UserRepository($this)))->getStudents($students);
+    }
+
+    /**
+     * Get the model students from database.
+     *
+     * @param integer $sessionId
+     * @param integer $studentId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getByStudent(int $sessionId, int $studentId)
+    {
+        return Promotion::with('student', 'class', 'section')
+            ->select('class_id')
+            ->where('session_id', $sessionId)
+            ->where('student_id', $studentId)
+            ->distinct('class_id')
+            ->first();
     }
 
     /**

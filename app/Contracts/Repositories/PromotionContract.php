@@ -52,6 +52,15 @@ interface PromotionContract
     public function getStudentsBySession(int $sessionId);
 
     /**
+     * Get the model students from database.
+     *
+     * @param integer $sessionId
+     * @param integer $studentId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getByStudent(int $sessionId, int $studentId);
+
+    /**
      * Get the model male students from database.
      *
      * @param integer $sessionId

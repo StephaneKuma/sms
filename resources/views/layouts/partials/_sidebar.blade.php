@@ -135,6 +135,9 @@
                     </li>
                 @endrole
                 @role('student')
+                    @php
+                        $student = auth()->user();
+                    @endphp
                     <li>
                         <a class="" href="#">
                             <i class="fa fa-calendar"></i>
@@ -142,7 +145,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/courses/student*') ? 'active' : '' }}" href="{{ route('school.show.students.courses', $student) }}">
                             <i class="fa fa-drivers-license-o"></i>
                             <span class="sidebar-mini-hide">Mes cours</span>
                         </a>

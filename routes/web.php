@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('students', StudentController::class)
             ->except(['show', 'destroy'])
             ->middleware('role:admin|teacher');
+        Route::get('courses/student/{student}', [CourseController::class, 'getStudentCourses'])->name('show.students.courses');
 
         // Syllabi
         Route::resource('syllabi', SyllabusController::class)->except('show');

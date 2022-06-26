@@ -41,13 +41,12 @@ class CourseService implements CourseContract
     /**
      * Get all the models from database.
      *
-     * @param integer $sessionId
      * @param integer $classId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getAllByClassId(int $sessionId, int $classId)
+    public function getAllByClassId(int $classId)
     {
-        return $this->repository->getAllByClassId($sessionId, $classId);
+        return $this->repository->getAllByClassId($classId);
     }
 
     /**

@@ -69,6 +69,18 @@ class PromotionService implements PromotionContract
     }
 
     /**
+     * Get the model students from database.
+     *
+     * @param integer $sessionId
+     * @param integer $studentId
+     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     */
+    public function getByStudent(int $sessionId, int $studentId)
+    {
+        return $this->repository->getByStudent($sessionId, $studentId);
+    }
+
+    /**
      * Get the model male students from database.
      *
      * @param integer $sessionId
