@@ -23,11 +23,11 @@ class EventController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $currentSchoolSessionId = $this->getSchoolCurrentSession();
+            $sessionId = $this->getCurrentSchoolSession();
 
             $data = Event::whereDate('start', '>=', $request->start)
                         ->whereDate('end',   '<=', $request->end)
-                        ->where('session_id', $currentSchoolSessionId)
+                        ->where('session_id', $sessionId)
                         ->get(['id', 'title', 'start', 'end']);
 
             return response()->json($data);
@@ -53,8 +53,9 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $current_school_session_id = $this->getSchoolCurrentSession();
+        $sessionId = $this->getCurrentSchoolSession();
         $event = null;
+        // dd($request->title);
 
         switch ($request->type) {
             case 'create':
@@ -62,7 +63,7 @@ class EventController extends Controller
                     'title' => $request->title,
                     'start' => $request->start,
                     'end' => $request->end,
-                    'session_id' => $current_school_session_id
+                    'session_id' => $sessionId
                 ]);
                 break;
 
