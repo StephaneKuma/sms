@@ -103,6 +103,16 @@ class SchoolClass extends Model
     }
 
     /**
+     * Get all of the assignedTeachers for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTeachers(): HasMany
+    {
+        return $this->hasMany(AssignedTeacher::class, 'class_id', 'id');
+    }
+
+    /**
      * Get all of the attendances for the SchoolClass
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -36,6 +36,7 @@ use App\Services\Repositories\SemesterService;
 use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
 use App\Contracts\Repositories\SectionContract;
+use App\Repositories\AssignedTeacherRepository;
 use App\Services\Repositories\GradeRuleService;
 use App\Services\Repositories\PromotionService;
 use App\Contracts\Repositories\ExamRuleContract;
@@ -51,6 +52,8 @@ use App\Services\Repositories\GradingSystemService;
 use App\Services\Repositories\SchoolSessionService;
 use App\Contracts\Repositories\GradingSystemContract;
 use App\Contracts\Repositories\SchoolSessionContract;
+use App\Services\Repositories\AssignedTeacherService;
+use App\Contracts\Repositories\AssignedTeacherContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -90,6 +93,12 @@ class AppServiceProvider extends ServiceProvider
             return new CourseService(new CourseRepository());
         });
         $this->app->bind(CourseContract::class, CourseService::class);
+
+        // Assigned Teacher
+        $this->app->bind(AssignedTeacherService::class, function () {
+            return new AssignedTeacherService(new AssignedTeacherRepository());
+        });
+        $this->app->bind(AssignedTeacherContract::class, AssignedTeacherService::class);
 
         // Syllabus
         $this->app->bind(SyllabusService::class, function () {

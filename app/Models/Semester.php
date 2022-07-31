@@ -84,4 +84,14 @@ class Semester extends Model
     {
         return $this->hasMany(GradingSystem::class);
     }
+
+    /**
+     * Get all of the assignedTeachers for the Semester
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTeachers(): HasMany
+    {
+        return $this->hasMany(AssignedTeacher::class);
+    }
 }

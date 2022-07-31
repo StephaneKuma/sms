@@ -15,7 +15,8 @@ class SchoolClassService implements SchoolClassContract
      * @param SchoolClassRepository $repository
      */
     public function __construct(private SchoolClassRepository $repository)
-    {}
+    {
+    }
 
     /**
      * Create a new instance of the model.
@@ -80,6 +81,18 @@ class SchoolClassService implements SchoolClassContract
     public function getAllWithSectionsAndCoursesAndSyllabiBySession(int $sessionId)
     {
         return $this->repository->getAllWithSectionsAndCoursesAndSyllabiBySession($sessionId);
+    }
+
+    /**
+     * get all the model from database by class id.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Http\Response
+     */
+    public function getSectionsAndCoursesByClassId(int $sessionId, int $classId)
+    {
+        return $this->repository->getSectionsAndCoursesByClassId($sessionId, $classId);
     }
 
     /**

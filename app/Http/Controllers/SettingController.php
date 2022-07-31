@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\SchoolClassContract;
 use App\Contracts\Repositories\SchoolSessionContract;
 use App\Contracts\Repositories\SemesterContract;
+use App\Contracts\Repositories\UserContract;
 use App\Http\Requests\UpdateSettingRequest;
 use App\Models\Setting;
 use App\Traits\SchoolSession;
@@ -14,10 +15,13 @@ class SettingController extends Controller
 {
     use SchoolSession;
 
-    public function __construct(private SchoolSessionContract $sessionService,
+    public function __construct(
+        private SchoolSessionContract $sessionService,
         private SchoolClassContract $classService,
-        private SemesterContract $semesterService)
-    {}
+        private SemesterContract $semesterService,
+        private UserContract $userService,
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -32,8 +36,17 @@ class SettingController extends Controller
         $sessions = $this->sessionService->getAll();
         $semesters = $this->semesterService->getAllBySession($currentSessionId);
         $classes = $this->classService->getAllBySession($currentSessionId);
+        $teachers = $this->userService->getTeachers();
 
-        return view('settings.index', compact('currentSessionId', 'latestSessionId', 'setting', 'sessions', 'semesters', 'classes'));
+        return view('settings.index', compact(
+            'currentSessionId',
+            'latestSessionId',
+            'setting',
+            'sessions',
+            'semesters',
+            'classes',
+            'teachers',
+        ));
     }
 
     /**

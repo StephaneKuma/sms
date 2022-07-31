@@ -95,14 +95,14 @@
                     <span class="sidebar-mini-visible">ECOLE</span>
                     <span class="sidebar-mini-hidden">école</span>
                 </li>
-                @hasanyrole('teacher')
+                {{-- @hasanyrole('teacher')
                     <li>
                         <a class="" href="#">
                             <i class="fa fa-calendar"></i>
                             <span class="sidebar-mini-hide">Présences</span>
                         </a>
                     </li>
-                @endhasanyrole
+                @endhasanyrole --}}
                 @can ('view classes')
                     <li>
                         <a class="d-flex align-items-center justify-content-between {{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">

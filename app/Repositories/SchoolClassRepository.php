@@ -87,6 +87,23 @@ class SchoolClassRepository implements SchoolClassContract
     }
 
     /**
+     * get all the model from database by class id.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Http\Response
+     */
+    public function getSectionsAndCoursesByClassId(int $sessionId, int $classId)
+    {
+        return SchoolClass::with('sections', 'courses')
+            ->withCount('sections')
+            ->withCount('courses')
+            ->where('session_id', $sessionId)
+            ->where('id', $classId)
+            ->first();
+    }
+
+    /**
      * Update the model in database.
      *
      * @param FormRequest $request

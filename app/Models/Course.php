@@ -86,6 +86,16 @@ class Course extends Model
     }
 
     /**
+     * Get all of the assignedTeachers for the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTeachers(): HasMany
+    {
+        return $this->hasMany(AssignedTeacher::class);
+    }
+
+    /**
      * Get all of the attendances for the Course
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

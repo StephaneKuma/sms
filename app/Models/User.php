@@ -73,6 +73,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all of the assignedTeachers for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTeachers(): HasMany
+    {
+        return $this->hasMany(AssignedTeacher::class, 'teacher_id', 'id');
+    }
+
+    /**
      * Get all of the attendances for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

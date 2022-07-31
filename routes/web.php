@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignedTeacherController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
@@ -115,6 +116,7 @@ Route::middleware('auth')->group(function () {
         Route::post('classes', [SchoolClassController::class, 'store'])->name('classes.store');
         Route::patch('classes/{class}', [SchoolClassController::class, 'update'])->name('classes.update');
         Route::delete('classes/{class}', [SchoolClassController::class, 'destroy'])->name('classes.destroy');
+        Route::get('sections_and_courses/by_class', [SchoolClassController::class, 'getSectionsAndCoursesByClassId'])->name('courses.and.sections.by.class.id');
 
         // Sections
         Route::resource('sections', SectionController::class)->except(['show', 'index']);
@@ -123,6 +125,9 @@ Route::middleware('auth')->group(function () {
         // Courses
         Route::resource('courses', CourseController::class)->except('show');
         Route::get('courses/by_class', [CourseController::class, 'getByClassId'])->name('courses.by.class.id');
+
+        // Assigned Teacher
+        Route::resource('assignedTeachers', AssignedTeacherController::class)->except(['index','create','show']);
 
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);

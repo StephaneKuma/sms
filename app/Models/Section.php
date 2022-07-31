@@ -55,6 +55,16 @@ class Section extends Model
     }
 
     /**
+     * Get all of the assignedTeachers for the Section
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedTeachers(): HasMany
+    {
+        return $this->hasMany(AssignedTeacher::class);
+    }
+
+    /**
      * Get all of the attendances for the Section
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

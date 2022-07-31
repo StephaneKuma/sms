@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
+use Illuminate\Http\Request;
 use App\Models\SchoolSession;
 use App\Http\Requests\StoreSchoolClassRequest;
 use App\Http\Requests\UpdateSchoolClassRequest;
@@ -19,9 +20,11 @@ class SchoolClassController extends Controller
      *
      * @param SchoolClassContract $service
      */
-    public function __construct(private SchoolClassContract $service,
-        private SchoolSessionContract $sessionService)
-    {}
+    public function __construct(
+        private SchoolClassContract $service,
+        private SchoolSessionContract $sessionService
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -33,6 +36,20 @@ class SchoolClassController extends Controller
         $classes = $this->service->getAllWithSectionsAndCoursesAndSyllabiBySession($this->getCurrentSchoolSession());
 
         return view('settings.classes.index', compact("classes"));
+    }
+
+    /**
+     * get all the model from database by class id.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getSectionsAndCoursesByClassId(Request $request)
+    {
+        $classId = $request->query('class_id', 0);
+
+        $class = $this->service->getSectionsAndCoursesByClassId($this->getCurrentSchoolSession(), $classId);
+
+        return response()->json(compact('class'));
     }
 
     /**

@@ -36,14 +36,14 @@ interface SchoolClassContract
      * Get all the models from database.
      *
      * @param integer $id
-     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     * @return \Illuminate\Database\Eloquent\Collection<int, SchoolClass>
      */
     public function getById(int $id);
 
     /**
      * Get all the models from database.
      *
-     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     * @return \Illuminate\Database\Eloquent\Collection<int, SchoolClass>
      */
     public function getAll();
 
@@ -51,7 +51,7 @@ interface SchoolClassContract
      * Get all of the models from database by the session id.
      *
      * @param integer $sessionId
-     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     * @return \Illuminate\Database\Eloquent\Collection<int, SchoolClass>
      */
     public function getAllBySession(int $sessionId);
 
@@ -59,7 +59,7 @@ interface SchoolClassContract
      * Get all of the models from database by the session id.
      *
      * @param integer $sessionId
-     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     * @return \Illuminate\Database\Eloquent\Collection<int, SchoolClass>
      */
     public function getAllWithCoursesBySession(int $sessionId);
 
@@ -67,7 +67,16 @@ interface SchoolClassContract
      * Get all of the models from database by the session id.
      *
      * @param integer $sessionId
-     * @return \Illuminate\Database\Eloquent\Collection<int, static>
+     * @return \Illuminate\Database\Eloquent\Collection<int, SchoolClass>
      */
     public function getAllWithSectionsAndCoursesAndSyllabiBySession(int $sessionId);
+
+    /**
+     * get all the model from database by class id.
+     *
+     * @param integer $sessionId
+     * @param integer $classId
+     * @return \Illuminate\Http\Response
+     */
+    public function getSectionsAndCoursesByClassId(int $sessionId, int $classId);
 }
