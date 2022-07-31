@@ -70,9 +70,9 @@ class AssignedTeacherService implements AssignedTeacherContract
      * @param integer $semesterId
      * @return \Illuminate\Database\Eloquent\Collection<int, AssignedTeacher>
      */
-    public function getTeacherCourses(int $sessionId, int $teacherId, int $semesterId)
+    public function getTeacherData(int $sessionId, int $teacherId, int $semesterId)
     {
-        return $this->repository->getTeacherCourses($sessionId, $teacherId, $semesterId);
+        return $this->repository->getTeacherData($sessionId, $teacherId, $semesterId);
     }
 
     /**

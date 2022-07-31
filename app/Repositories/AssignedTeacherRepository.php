@@ -67,7 +67,7 @@ class AssignedTeacherRepository implements AssignedTeacherContract
      * @param integer $semesterId
      * @return \Illuminate\Database\Eloquent\Collection<int, AssignedTeacher>
      */
-    public function getTeacherCourses(int $sessionId, int $teacherId, int $semesterId)
+    public function getTeacherData(int $sessionId, int $teacherId, int $semesterId)
     {
         if ($semesterId == 0) {
             $semesterId = Semester::where('session_id', $sessionId)

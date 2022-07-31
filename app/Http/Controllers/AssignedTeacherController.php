@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAssignedTeacherRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\SchoolSession;
 use App\Models\AssignedTeacher;
+use App\Http\Requests\StoreAssignedTeacherRequest;
+use App\Contracts\Repositories\SchoolSessionContract;
+use App\Contracts\Repositories\SemesterContract;
 use App\Services\Repositories\AssignedTeacherService;
 
 class AssignedTeacherController extends Controller
 {
+    use SchoolSession;
+
     /**
      * Create a new instance of the class
      *
      * @param AssignedTeacherService $service
      */
-    public function __construct(private AssignedTeacherService $service)
-    {
+    public function __construct(
+        private AssignedTeacherService $service,
+        private SchoolSessionContract $sessionService,
+        private SemesterContract $semesterService
+    ) {
     }
 
     /**
@@ -26,6 +35,29 @@ class AssignedTeacherController extends Controller
     public function index()
     {
         //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param User $teacher
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getTeacherCourses(User $teacher, Request $request)
+    {
+        $semesterId = $request->query('semester_id');
+
+        abort_if($teacher == null, 404);
+
+        $semesters = $this->semesterService->getAllBySession($this->getCurrentSchoolSession());
+        $assignedTeacherData = [];
+
+        if ($semesterId != null) {
+            $assignedTeacherData = $this->service->getTeacherData($this->getCurrentSchoolSession(), $teacher->id, $semesterId);
+        }
+
+        return view('settings.courses.teacher', compact('assignedTeacherData', 'semesters', 'semesterId'));
     }
 
     /**

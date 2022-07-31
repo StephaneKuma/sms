@@ -110,7 +110,7 @@
                             <span class="sidebar-mini-hide">Classes</span>
                             {{-- <span class="badge badge-info">5</span> --}}
                         </a>
-                    </li>
+                    </li> 
                 @endcan
                 @unlessrole('student')
                     <li>
@@ -127,8 +127,11 @@
                     </li>
                 @endunlessrole
                 @role('teacher')
+                    @php
+                        $teacher = auth()->user();
+                    @endphp
                     <li>
-                        <a class="" href="#">
+                        <a class="" href="{{ route('school.teacher.courses', $teacher) }}">
                             <i class="fa fa-drivers-license-o"></i>
                             <span class="sidebar-mini-hide">Mes cours</span>
                         </a>

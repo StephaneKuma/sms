@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
             ->except(['show', 'destroy'])
             ->middleware('role:admin|teacher');
 
+        Route::prefix('teacher')->name('teacher.')->group(function () {
+            Route::get('{teacher}/courses', [AssignedTeacherController::class, 'getTeacherCourses'])->name('courses');
+        });
+
         // Students
         Route::resource('students', StudentController::class)
             ->except(['show', 'destroy'])

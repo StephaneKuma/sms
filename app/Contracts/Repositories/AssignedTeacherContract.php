@@ -47,7 +47,7 @@ interface AssignedTeacherContract
      * @param integer $semesterId
      * @return \Illuminate\Database\Eloquent\Collection<int, AssignedTeacher>
      */
-    public function getTeacherCourses(int $sessionId, int $teacherId, int $semesterId);
+    public function getTeacherData(int $sessionId, int $teacherId, int $semesterId);
 
     /**
      * Get all the models from database.
