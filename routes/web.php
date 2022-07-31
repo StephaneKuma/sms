@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignedTeacherController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\RoleController;
@@ -55,6 +56,15 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('teacher')->name('teacher.')->group(function () {
             Route::get('{teacher}/courses', [AssignedTeacherController::class, 'getTeacherCourses'])->name('courses');
+
+            // Attendance
+            // Route::resource('attendances', AttendanceController::class)->except('update');
+            Route::prefix('attendances')->name('attendances.')->group(function () {
+                Route::get('/{assignedTeacher}', [AttendanceController::class, 'index'])->name('index');
+                Route::get('/{assignedTeacher}/take', [AttendanceController::class, 'create'])->name('create');
+                Route::post('/{assignedTeacher}', [AttendanceController::class, 'store'])->name('store');
+                Route::get('/{assignedTeacher}/view', [AttendanceController::class, 'show'])->name('show');
+            });
         });
 
         // Students
@@ -131,7 +141,7 @@ Route::middleware('auth')->group(function () {
         Route::get('courses/by_class', [CourseController::class, 'getByClassId'])->name('courses.by.class.id');
 
         // Assigned Teacher
-        Route::resource('assignedTeachers', AssignedTeacherController::class)->except(['index','create','show']);
+        Route::resource('assignedTeachers', AssignedTeacherController::class)->except(['index', 'create', 'show']);
 
         // Profile
         Route::resource('profiles', ProfileController::class)->except(['index', 'create', 'store']);
@@ -150,4 +160,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

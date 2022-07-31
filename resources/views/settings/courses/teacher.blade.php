@@ -81,7 +81,7 @@ $teacher = auth()->user();
                             <tr>
                                 <td>{{ $assignedTeacher->course->name }}</td>
                                 <td>{{ $assignedTeacher->course->type }}</td>
-                                <td>{{ $assignedTeacher->course->class->name }}</td>
+                                <td>{{ $assignedTeacher->class->name }}</td>
                                 <td>{{ $assignedTeacher->section->name }}</td>
                                 <td class="text-center">
 
@@ -92,10 +92,10 @@ $teacher = auth()->user();
                                             <i class="si si-direction"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="{{ $assignedTeacher->course_id }}">
-                                            <a class="dropdown-item" href="javascript:void(0)">
+                                            <a class="dropdown-item" href="{{ route('school.teacher.attendances.create', $assignedTeacher) }}">
                                                 <i class="fa fa-fw fa-calendar mr-5"></i>Contôle de présences
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0)">
+                                            <a class="dropdown-item" href="{{ route('school.teacher.attendances.show', $assignedTeacher) }}">
                                                 <i class="fa fa-fw fa-list mr-5"></i>Liste de présence
                                             </a>
                                             <div class="dropdown-divider"></div>

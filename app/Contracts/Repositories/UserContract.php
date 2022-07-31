@@ -84,7 +84,7 @@ interface UserContract
      * @param integer $sectionId
      * @return \Illuminate\Database\Eloquent\Collection<int, static>
      */
-    public function getStudentsByClassAndSection(int $sessionId, int $classId, int $sectionId);
+    public function getPromotionStudentsDataByClassAndSection(int $sessionId, int $classId, int $sectionId);
 
     /**
      * Update the model in database.
