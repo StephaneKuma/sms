@@ -131,7 +131,7 @@
                         $teacher = auth()->user();
                     @endphp
                     <li>
-                        <a class="" href="{{ route('school.teacher.courses', $teacher) }}">
+                        <a class="{{  request()->is('school/teacher*') ? 'active' : ''  }}" href="{{ route('school.teacher.courses', $teacher) }}">
                             <i class="fa fa-drivers-license-o"></i>
                             <span class="sidebar-mini-hide">Mes cours</span>
                         </a>
