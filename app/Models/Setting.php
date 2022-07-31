@@ -33,8 +33,7 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'mark_submission_status' => 'boolean'
-    ]
-    ;
+    // protected $casts = [
+    //         'mark_submission_status' => 'boolean'
+    //     ];
 }

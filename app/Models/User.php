@@ -71,4 +71,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Promotions::class, 'student_id', 'id');
     }
+
+    /**
+     * Get all of the attendances for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'student_id', 'id');
+    }
 }

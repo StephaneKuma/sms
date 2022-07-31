@@ -84,4 +84,14 @@ class Course extends Model
     {
         return $this->hasMany(Mark::class);
     }
+
+    /**
+     * Get all of the attendances for the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

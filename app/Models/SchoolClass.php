@@ -101,4 +101,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(GradingSystem::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the attendances for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class, 'class_id', 'id');
+    }
 }

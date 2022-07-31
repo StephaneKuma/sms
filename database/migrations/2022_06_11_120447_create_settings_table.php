@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('fax')->nullable();
             $table->string('logo')->nullable();
             $table->string('attendance_type')->default('section');
-            $table->boolean('mark_submission_status')->default(false);
+            $table->string('mark_submission_status')->default('off');
             $table->timestamps();
         });
     }

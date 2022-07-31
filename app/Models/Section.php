@@ -53,4 +53,14 @@ class Section extends Model
     {
         return $this->hasMany(Promotion::class);
     }
+
+    /**
+     * Get all of the attendances for the Section
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

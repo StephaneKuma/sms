@@ -95,7 +95,7 @@
                     <span class="sidebar-mini-visible">ECOLE</span>
                     <span class="sidebar-mini-hidden">école</span>
                 </li>
-                @hasanyrole('admin|teacher')
+                @hasanyrole('teacher')
                     <li>
                         <a class="" href="#">
                             <i class="fa fa-calendar"></i>
