@@ -6,7 +6,8 @@
                 <i class="fa fa-exclamation mr-5"></i>
                 Ne pas changer de type au milieu d'un semestre
             </small>
-            <form class="js-validation-material mt-4" action="{{ route('settings.update', $setting) }}" method="POST">
+            <form class="js-validation-material mt-4" action="{{ route('settings.update', ['setting' => $setting]) }}"
+                method="POST">
                 @csrf
                 @method('PATCH')
 
