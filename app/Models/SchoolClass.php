@@ -59,7 +59,7 @@ class SchoolClass extends Model
      */
     public function syllabi(): HasMany
     {
-        return $this->hasMany(SYllabus::class, 'class_id', 'id');
+        return $this->hasMany(Syllabus::class, 'class_id', 'id');
     }
 
     /**
