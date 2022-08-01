@@ -75,7 +75,7 @@ class AssignedTeacherRepository implements AssignedTeacherContract
                 ->id;
         }
 
-        return AssignedTeacher::with(['course', 'class', 'section'])
+        return AssignedTeacher::with(['course.assignments', 'class', 'section'])
             ->where('session_id', $sessionId)
             ->where('teacher_id', $teacherId)
             ->where('semester_id', $semesterId)

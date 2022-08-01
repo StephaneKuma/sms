@@ -84,7 +84,6 @@ $teacher = auth()->user();
                                 <td>{{ $assignedTeacher->class->name }}</td>
                                 <td>{{ $assignedTeacher->section->name }}</td>
                                 <td class="text-center">
-
                                     <div class="btn-group" role="group">
                                         <a id="{{ $assignedTeacher->course_id }}" href="javascript:void()"
                                             class="btn btn-sm btn-outline-info dropdown-toggle" data-toggle="dropdown"
@@ -92,18 +91,22 @@ $teacher = auth()->user();
                                             <i class="si si-direction"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="{{ $assignedTeacher->course_id }}">
-                                            <a class="dropdown-item" href="{{ route('school.teacher.attendances.create', $assignedTeacher) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ route('school.teacher.attendances.create', $assignedTeacher) }}">
                                                 <i class="fa fa-fw fa-calendar mr-5"></i>Contôle de présences
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('school.teacher.attendances.show', $assignedTeacher) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ route('school.teacher.attendances.show', $assignedTeacher) }}">
                                                 <i class="fa fa-fw fa-list mr-5"></i>Liste de présence
                                             </a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="javascript:void(0)">
+                                            <a class="dropdown-item"
+                                                href="{{ route('school.teacher.assignments.create', $assignedTeacher) }}">
                                                 <i class="fa fa-fw fa-book mr-5"></i>Créer un devoir
                                             </a>
-                                            <a class="dropdown-item" href="javascript:void(0)">
-                                                <i class="fa fa-fw fa-check mr-5"></i>Donnez des notes
+                                            <a class="dropdown-item"
+                                                href="{{ route('school.teacher.assignments.index', $assignedTeacher) }}">
+                                                <i class="fa fa-fw fa-check mr-5"></i>Donner des notes
                                             </a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="javascript:void(0)">
@@ -115,7 +118,6 @@ $teacher = auth()->user();
                                             </a>
                                         </div>
                                     </div>
-
                                 </td>
                             </tr>
                         @empty

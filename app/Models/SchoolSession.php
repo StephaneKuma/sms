@@ -169,4 +169,14 @@ class SchoolSession extends Model
     {
         return $this->hasMany(Attendance::class, 'session_id', 'id');
     }
+
+    /**
+     * Get all of the assignments for the SchoolSession
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'session_id', 'id');
+    }
 }

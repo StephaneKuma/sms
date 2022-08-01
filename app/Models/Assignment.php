@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class AssignedTeacher extends Model
+class Assignment extends Model
 {
     use HasFactory;
 
@@ -24,10 +23,12 @@ class AssignedTeacher extends Model
         'section_id',
         'course_id',
         'teacher_id',
+        'name',
+        'path',
     ];
 
     /**
-     * Get the session that owns the AssignedTeacher
+     * Get the session that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -37,7 +38,7 @@ class AssignedTeacher extends Model
     }
 
     /**
-     * Get the semester that owns the AssignedTeacher
+     * Get the semester that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -47,7 +48,7 @@ class AssignedTeacher extends Model
     }
 
     /**
-     * Get the class that owns the AssignedTeacher
+     * Get the class that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -57,7 +58,7 @@ class AssignedTeacher extends Model
     }
 
     /**
-     * Get the section that owns the AssignedTeacher
+     * Get the section that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -67,7 +68,7 @@ class AssignedTeacher extends Model
     }
 
     /**
-     * Get the course that owns the AssignedTeacher
+     * Get the course that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -77,7 +78,7 @@ class AssignedTeacher extends Model
     }
 
     /**
-     * Get the teacher that owns the AssignedTeacher
+     * Get the teacher that owns the Assignment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -85,14 +86,4 @@ class AssignedTeacher extends Model
     {
         return $this->belongsTo(User::class, 'teacher_id');
     }
-
-    /**
-     * Get all of the assignments for the AssignedTeacher
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    // public function assignments(): HasManyThrough
-    // {
-    //     return $this->hasManyThrough(Assignment::class, Course::class);
-    // }
 }

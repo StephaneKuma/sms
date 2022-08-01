@@ -121,4 +121,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Attendance::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the assignments for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'class_id', 'id');
+    }
 }

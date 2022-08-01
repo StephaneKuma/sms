@@ -73,4 +73,14 @@ class Section extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+
+    /**
+     * Get all of the assignments for the Section
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class);
+    }
 }

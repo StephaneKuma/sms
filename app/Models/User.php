@@ -91,4 +91,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attendance::class, 'student_id', 'id');
     }
+
+    /**
+     * Get all of the assignments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'teacher_id', 'id');
+    }
 }

@@ -15,6 +15,7 @@ use App\Repositories\SemesterRepository;
 use App\Repositories\SyllabusRepository;
 use App\Repositories\GradeRuleRepository;
 use App\Repositories\PromotionRepository;
+use App\Repositories\AssignmentRepository;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\PermissionRepository;
 use App\Services\Repositories\ExamService;
@@ -43,11 +44,13 @@ use App\Services\Repositories\PromotionService;
 use App\Contracts\Repositories\ExamRuleContract;
 use App\Contracts\Repositories\SemesterContract;
 use App\Contracts\Repositories\SyllabusContract;
+use App\Services\Repositories\AssignmentService;
 use App\Services\Repositories\AttendanceService;
 use App\Services\Repositories\PermissionService;
 use App\Contracts\Repositories\GradeRuleContract;
 use App\Contracts\Repositories\PromotionContract;
 use App\Services\Repositories\SchoolClassService;
+use App\Contracts\Repositories\AssignmentContract;
 use App\Contracts\Repositories\AttendanceContract;
 use App\Contracts\Repositories\PermissionContract;
 use App\Contracts\Repositories\SchoolClassContract;
@@ -108,6 +111,12 @@ class AppServiceProvider extends ServiceProvider
             return new AttendanceService(new AttendanceRepository());
         });
         $this->app->bind(AttendanceContract::class, AttendanceService::class);
+
+        // Assignment
+        $this->app->bind(AssignmentService::class, function () {
+            return new AssignmentService(new AssignmentRepository());
+        });
+        $this->app->bind(AssignmentContract::class, AssignmentService::class);
 
         // Syllabus
         $this->app->bind(SyllabusService::class, function () {

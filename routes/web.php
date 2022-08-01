@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignedTeacherController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
@@ -58,12 +59,18 @@ Route::middleware('auth')->group(function () {
             Route::get('{teacher}/courses', [AssignedTeacherController::class, 'getTeacherCourses'])->name('courses');
 
             // Attendance
-            // Route::resource('attendances', AttendanceController::class)->except('update');
             Route::prefix('attendances')->name('attendances.')->group(function () {
-                Route::get('/{assignedTeacher}', [AttendanceController::class, 'index'])->name('index');
-                Route::get('/{assignedTeacher}/take', [AttendanceController::class, 'create'])->name('create');
-                Route::post('/{assignedTeacher}', [AttendanceController::class, 'store'])->name('store');
-                Route::get('/{assignedTeacher}/view', [AttendanceController::class, 'show'])->name('show');
+                Route::get('{assignedTeacher}', [AttendanceController::class, 'index'])->name('index');
+                Route::get('{assignedTeacher}/take', [AttendanceController::class, 'create'])->name('create');
+                Route::post('{assignedTeacher}', [AttendanceController::class, 'store'])->name('store');
+                Route::get('{assignedTeacher}/view', [AttendanceController::class, 'show'])->name('show');
+            });
+
+            // Assignment
+            Route::prefix('assignments')->name('assignments.')->group(function () {
+                Route::get('{assignedTeacher}', [AssignmentController::class, 'index'])->name('index');
+                Route::get('{assignedTeacher}/create', [AssignmentController::class, 'create'])->name('create');
+                Route::post('{assignedTeacher}', [AssignmentController::class, 'store'])->name('store');
             });
         });
 
