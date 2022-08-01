@@ -35,9 +35,9 @@ class StudentController extends Controller
         $sessionId = $this->getCurrentSchoolSession();
         $classes = $this->classService->getAllBySession($sessionId);
 
-        $students = $this->service->getStudentsByClassAndSection($sessionId, $classId, $sectionId);
+        $promotionData = $this->service->getPromotionStudentsDataByClassAndSection($sessionId, $classId, $sectionId);
 
-        return view('students.index', compact('classes', 'students'));
+        return view('students.index', compact('classes', 'promotionData'));
     }
 
     /**
@@ -48,7 +48,7 @@ class StudentController extends Controller
     public function create()
     {
         abort_if(!auth()->user()->can('create users'), 403, "Vous n'êtes pas autorisé(e) à effectuer cette action. Veuillez contacter l'administrateur.");
-        
+
         $role = Role::where('name', 'student')->first();
 
         return view('students.form', compact('role'));

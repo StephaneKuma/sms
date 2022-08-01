@@ -94,7 +94,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($students as $promotion)
+                        @forelse ($promotionData as $promotion)
                             @php
                                 $student = $promotion->student;
                                 $class = $promotion->class;
