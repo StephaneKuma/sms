@@ -1,5 +1,5 @@
 @php
-    $title = "Connectez-vous pour accéder au tableau de vord";
+$title = 'Connectez-vous pour accéder au tableau de vord';
 @endphp
 
 @extends('layouts.guest')
@@ -23,14 +23,15 @@
 
     <!-- Sign In Form -->
     <div class="row justify-content-center px-5">
-        <div class="col-sm-8 col-md-6 col-xl-4">
+        <div class="col-sm-9 col-md-7 col-xl-5">
             <form class="js-validation-material" action="{{ route('login') }}" method="post">
                 @csrf
-                
+
                 <div class="form-group row {{ $errors->has('email') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
-                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ old('email') }}" required autofocus>
                             <label for="email">Adresse E-mail</label>
                         </div>
                         @error('email')
@@ -40,10 +41,12 @@
                         @enderror
                     </div>
                 </div>
+
                 <div class="form-group row {{ $errors->has('password') ? 'is-invalid' : '' }}">
                     <div class="col-12">
                         <div class="form-material floating">
-                            <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password">
+                            <input type="password" class="form-control" id="password" name="password" required
+                                autocomplete="current-password">
                             <label for="password">Mot de passe</label>
                         </div>
                         @error('password')
@@ -54,21 +57,27 @@
                     </div>
                 </div>
                 <div class="form-group row gutters-tiny">
-                    <div class="col-12 mb-10">
+                    <div class="col-sm-7 mb-10">
                         <button type="submit" class="btn btn-block btn-hero btn-noborder btn-rounded btn-alt-primary">
                             <i class="si si-login mr-10"></i> Se Connecter
                         </button>
                     </div>
-                    <div class="col-sm-6 mb-5">
+                    <div class="col-sm-5">
+                        <a class="btn btn-block btn-hero btn-noborder btn-rounded btn-alt-secondary"
+                            href="{{ route('password.request') }}">
+                            <i class="fa fa-warning text-muted mr-5"></i> MDP oublié?
+                        </a>
+                    </div>
+                    {{-- <div class="col-sm-6 mb-5">
                         <a class="btn btn-block btn-noborder btn-rounded btn-alt-secondary" href="{{ route('register') }}">
                             <i class="fa fa-plus text-muted mr-5"></i> Nouveau Compte
                         </a>
-                    </div>
-                    <div class="col-sm-6 mb-5">
+                    </div> --}}
+                    {{-- <div class="col-sm-6 mb-5">
                         <a class="btn btn-block btn-noborder btn-rounded btn-alt-secondary" href="{{ route('password.request') }}">
                             <i class="fa fa-warning text-muted mr-5"></i> MDP oublié
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
             </form>
         </div>
