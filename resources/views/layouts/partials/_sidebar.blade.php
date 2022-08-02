@@ -1,5 +1,5 @@
 @php
-    $profile = auth()->user();
+$profile = auth()->user();
 @endphp
 
 <nav id="sidebar">
@@ -19,7 +19,8 @@
 
             <!-- Normal Mode -->
             <div class="content-header-section text-center align-parent sidebar-mini-hidden">
-                <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout" data-action="sidebar_close">
+                <button type="button" class="btn btn-circle btn-dual-secondary d-lg-none align-v-r" data-toggle="layout"
+                    data-action="sidebar_close">
                     <i class="fa fa-times text-danger"></i>
                 </button>
                 <!-- END Close Sidebar -->
@@ -28,7 +29,8 @@
                 <div class="content-header-item">
                     <a class="link-effect font-w700" href="{{ route('dashboard') }}">
                         <i class="si si-fire text-primary"></i>
-                        <span class="font-size-xl text-dual-primary-dark">STK</span><span class="font-size-xl text-primary">SMS</span>
+                        <span class="font-size-xl text-dual-primary-dark">STK</span><span
+                            class="font-size-xl text-primary">SMS</span>
                     </a>
                 </div>
                 <!-- END Logo -->
@@ -42,9 +44,11 @@
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
                 @if (is_null($profile->picture))
-                    <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
+                    <img class="img-avatar img-avatar32" src="{{ asset('media/avatars/avatar15.jpg') }}"
+                        alt="{{ $profile->name }}">
                 @else
-                    <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
+                    <img class="img-avatar img-avatar32" src="{{ Storage::url($profile->picture) }}"
+                        alt="{{ $profile->name }}">
                 @endif
             </div>
             <!-- END Visible only in mini mode -->
@@ -53,26 +57,30 @@
             <div class="sidebar-mini-hidden-b text-center">
                 <a class="img-link" href="{{ route('settings.profiles.show', $profile) }}">
                     @if (is_null($profile->picture))
-                        <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}" alt="{{ $profile->name }}">
+                        <img class="img-avatar" src="{{ asset('media/avatars/avatar15.jpg') }}"
+                            alt="{{ $profile->name }}">
                     @else
                         <img class="img-avatar" src="{{ Storage::url($profile->picture) }}" alt="{{ $profile->name }}">
                     @endif
                 </a>
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{ route('settings.profiles.show', $profile) }}">
+                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase"
+                            href="{{ route('settings.profiles.show', $profile) }}">
                             {{ $profile->name }}
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark" data-toggle="layout" data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
+                        <a class="link-effect text-dual-primary-dark" data-toggle="layout"
+                            data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
                             <i class="si si-drop"></i>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <a onclick="event.preventDefault(); this.closest('form').submit();" class="link-effect text-dual-primary-dark" href="#">
+                            <a onclick="event.preventDefault(); this.closest('form').submit();"
+                                class="link-effect text-dual-primary-dark" href="#">
                                 <i class="si si-logout"></i>
                             </a>
                         </form>
@@ -103,24 +111,27 @@
                         </a>
                     </li>
                 @endhasanyrole --}}
-                @can ('view classes')
+                @can('view classes')
                     <li>
-                        <a class="d-flex align-items-center justify-content-between {{ request()->is('school/classes*') ? 'active' : '' }}" href="{{ route('school.classes.index') }}">
+                        <a class="d-flex align-items-center justify-content-between {{ request()->is('school/classes*') ? 'active' : '' }}"
+                            href="{{ route('school.classes.index') }}">
                             <i class="si si-layers"></i>
                             <span class="sidebar-mini-hide">Classes</span>
                             {{-- <span class="badge badge-info">5</span> --}}
                         </a>
-                    </li> 
+                    </li>
                 @endcan
                 @unlessrole('student')
                     <li>
-                        <a class="{{ request()->is('school/students*') ? 'active' : '' }}" href="{{ route('school.students.index') }}">
+                        <a class="{{ request()->is('school/students*') ? 'active' : '' }}"
+                            href="{{ route('school.students.index') }}">
                             <i class="si si-users"></i>
                             <span class="sidebar-mini-hide">Elèves</span>
                         </a>
                     </li>
                     <li>
-                        <a class="{{ request()->is('school/teachers*') ? 'active' : '' }}" href="{{ route('school.teachers.index') }}">
+                        <a class="{{ request()->is('school/teachers*') ? 'active' : '' }}"
+                            href="{{ route('school.teachers.index') }}">
                             <i class="si si-briefcase"></i>
                             <span class="sidebar-mini-hide">Enseignants</span>
                         </a>
@@ -131,7 +142,8 @@
                         $teacher = auth()->user();
                     @endphp
                     <li>
-                        <a class="{{  request()->is('school/teacher*') ? 'active' : ''  }}" href="{{ route('school.teacher.courses', $teacher) }}">
+                        <a class="{{ request()->is('school/teacher*') ? 'active' : '' }}"
+                            href="{{ route('school.teacher.courses', $teacher) }}">
                             <i class="fa fa-drivers-license-o"></i>
                             <span class="sidebar-mini-hide">Mes cours</span>
                         </a>
@@ -148,13 +160,15 @@
                         </a>
                     </li>
                     <li>
-                        <a class="{{ request()->is('school/courses/student*') ? 'active' : '' }}" href="{{ route('school.show.students.courses', $student) }}">
+                        <a class="{{ request()->is('school/courses/student*') ? 'active' : '' }}"
+                            href="{{ route('school.show.students.courses', $student) }}">
                             <i class="fa fa-drivers-license-o"></i>
                             <span class="sidebar-mini-hide">Mes cours</span>
                         </a>
                     </li>
                     <li>
-                        <a class="" href="#">
+                        <a class="{{ request()->is('school/routines*') ? 'active' : '' }}"
+                            href="{{ route('school.routines.show') }}">
                             <i class="si si-speedometer"></i>
                             <span class="sidebar-mini-hide">Routine</span>
                         </a>
@@ -184,27 +198,38 @@
                 @endhasanyrole
                 @role('admin')
                     <li>
-                        <a class="{{ request()->is('school/notices*') ? 'active' : '' }}" href="{{ route('school.notices.create') }}">
+                        <a class="{{ request()->is('school/notices*') ? 'active' : '' }}"
+                            href="{{ route('school.notices.create') }}">
                             <i class="si si-speech"></i>
                             <span class="sidebar-mini-hide">Notice</span>
                         </a>
                     </li>
                     <li>
-                        <a class="{{ request()->is('school/events*') ? 'active' : '' }}" href="{{ route('school.events.index') }}">
+                        <a class="{{ request()->is('school/events*') ? 'active' : '' }}"
+                            href="{{ route('school.events.index') }}">
                             <i class="si si-calendar"></i>
                             <span class="sidebar-mini-hide">Evènements</span>
                         </a>
                     </li>
                     <li>
-                        <a class="{{ request()->is('school/syllabi*') ? 'active' : '' }}" href="{{ route('school.syllabi.index') }}">
+                        <a class="{{ request()->is('school/syllabi*') ? 'active' : '' }}"
+                            href="{{ route('school.syllabi.index') }}">
                             <i class="si si-docs"></i>
                             <span class="sidebar-mini-hide">Syllabus</span>
                         </a>
                     </li>
                     <li>
-                        <a class="{{ request()->is('school/promotions*') ? 'active' : '' }}" href="{{ route('school.promotions.index') }}">
+                        <a class="{{ request()->is('school/promotions*') ? 'active' : '' }}"
+                            href="{{ route('school.promotions.index') }}">
                             <i class="si si-equalizer"></i>
                             <span class="sidebar-mini-hide">Promotion</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ request()->is('school/routines*') ? 'active' : '' }}"
+                            href="{{ route('school.routines.create') }}">
+                            <i class="si si-speedometer"></i>
+                            <span class="sidebar-mini-hide">Routine</span>
                         </a>
                     </li>
                 @endrole
@@ -215,7 +240,8 @@
                 </li>
                 @role('admin')
                     <li>
-                        <a class="{{ request()->is('settings*') ? 'active' : '' }}" href="{{ route('settings.index') }}">
+                        <a class="{{ request()->is('settings*') ? 'active' : '' }}"
+                            href="{{ route('settings.index') }}">
                             <i class="si si-settings"></i>
                             <span class="sidebar-mini-hide">Académie</span>
                         </a>
@@ -225,7 +251,8 @@
                     @php
                         $profile = $profile;
                     @endphp
-                    <a class="{{ request()->is('settings/profiles*') ? 'active' : '' }}" href="{{ route('settings.profiles.show', $profile) }}">
+                    <a class="{{ request()->is('settings/profiles*') ? 'active' : '' }}"
+                        href="{{ route('settings.profiles.show', $profile) }}">
                         <i class="si si-user"></i>
                         <span class="sidebar-mini-hide">Profil</span>
                     </a>
@@ -238,13 +265,16 @@
                         </a>
                         <ul>
                             <li>
-                                <a class="{{ request()->is('settings/acl/roles*') ? 'active' : '' }}" href="{{ route('settings.acl.roles.index') }}">Rôles</a>
+                                <a class="{{ request()->is('settings/acl/roles*') ? 'active' : '' }}"
+                                    href="{{ route('settings.acl.roles.index') }}">Rôles</a>
                             </li>
                             <li>
-                                <a class="{{ request()->is('settings/acl/permissions*') ? 'active' : '' }}" href="{{ route('settings.acl.permissions.index') }}">Permissions</a>
+                                <a class="{{ request()->is('settings/acl/permissions*') ? 'active' : '' }}"
+                                    href="{{ route('settings.acl.permissions.index') }}">Permissions</a>
                             </li>
                             <li>
-                                <a class="{{ request()->is('settings/acl/users*') ? 'active' : '' }}" href="{{ route('settings.acl.users.index') }}">Utilisateurs</a>
+                                <a class="{{ request()->is('settings/acl/users*') ? 'active' : '' }}"
+                                    href="{{ route('settings.acl.users.index') }}">Utilisateurs</a>
                             </li>
                         </ul>
                     </li>

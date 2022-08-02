@@ -114,4 +114,14 @@ class Course extends Model
     {
         return $this->hasMany(Assignment::class);
     }
+
+    /**
+     * Get all of the routines for the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function routines(): HasMany
+    {
+        return $this->hasMany(Routine::class);
+    }
 }

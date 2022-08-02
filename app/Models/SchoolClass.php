@@ -131,4 +131,14 @@ class SchoolClass extends Model
     {
         return $this->hasMany(Assignment::class, 'class_id', 'id');
     }
+
+    /**
+     * Get all of the routines for the SchoolClass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function routines(): HasMany
+    {
+        return $this->hasMany(Routine::class, 'class_id', 'id');
+    }
 }

@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\CourseRepository;
 use App\Repositories\NoticeRepository;
 use App\Repositories\ProfileRepository;
+use App\Repositories\RoutineRepository;
 use App\Repositories\SectionRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\ExamRuleRepository;
@@ -30,6 +31,7 @@ use App\Services\Repositories\NoticeService;
 use App\Repositories\GradingSystemRepository;
 use App\Repositories\SchoolSessionRepository;
 use App\Services\Repositories\ProfileService;
+use App\Services\Repositories\RoutineService;
 use App\Services\Repositories\SectionService;
 use App\Contracts\Repositories\CourseContract;
 use App\Contracts\Repositories\NoticeContract;
@@ -37,6 +39,7 @@ use App\Services\Repositories\ExamRuleService;
 use App\Services\Repositories\SemesterService;
 use App\Services\Repositories\SyllabusService;
 use App\Contracts\Repositories\ProfileContract;
+use App\Contracts\Repositories\RoutineContract;
 use App\Contracts\Repositories\SectionContract;
 use App\Repositories\AssignedTeacherRepository;
 use App\Services\Repositories\GradeRuleService;
@@ -123,6 +126,12 @@ class AppServiceProvider extends ServiceProvider
             return new SyllabusService(new SyllabusRepository());
         });
         $this->app->bind(SyllabusContract::class, SyllabusService::class);
+
+        // Routine
+        $this->app->bind(RoutineService::class, function () {
+            return new RoutineService(new RoutineRepository());
+        });
+        $this->app->bind(RoutineContract::class, RoutineService::class);
 
         // Exam
         $this->app->bind(ExamService::class, function () {

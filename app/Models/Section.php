@@ -83,4 +83,14 @@ class Section extends Model
     {
         return $this->hasMany(Assignment::class);
     }
+
+    /**
+     * Get all of the routines for the Section
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function routines(): HasMany
+    {
+        return $this->hasMany(Routine::class);
+    }
 }

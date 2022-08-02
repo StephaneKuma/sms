@@ -91,8 +91,8 @@
                                                         ]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                                             Voir les élèves
                                                         </a>
-                                                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                            Voir l'emploi du temps
+                                                        <a href="{{ route('school.routines.show', $class) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                                            Voir la routine
                                                         </a>
                                                     </div>
                                                 </div>

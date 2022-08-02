@@ -25,6 +25,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\GradingSystemController;
+use App\Http\Controllers\RoutineController;
 use App\Http\Controllers\SchoolSessionController;
 
 /*
@@ -114,6 +115,17 @@ Route::middleware('auth')->group(function () {
                 });
             });
         });
+
+        // Routines
+        Route::resource('routines', RoutineController::class)->except('index');
+        // Route::prefix('routines')->name('routines.')->group(function () {
+        //     Route::get('create', [RoutineController::class, 'create'])->name('create');
+        //     Route::post('', [RoutineController::class, 'store'])->name('store');
+        //     Route::get('{routine}', [RoutineController::class, 'show'])->name('show');
+        //     Route::get('{routine}/edit', [RoutineController::class, 'edit'])->name('edit');
+        //     Route::post('{routine}', [RoutineController::class, 'update'])->name('update');
+        //     Route::delete('{routine}', [RoutineController::class, 'destroy'])->name('destroy');
+        // });
 
         // Notices
         Route::resource('notices', NoticeController::class)->only(['create', 'store']);

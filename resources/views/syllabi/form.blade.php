@@ -32,7 +32,7 @@
     <div class="content">
         @include('layouts.partials._breadcrumb')
 
-        <div class="block">
+        <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $title }}</h3>
                 <a href="{{ route('school.syllabi.index') }}" class="btn btn-rounded btn-noborder btn-primary">
@@ -47,8 +47,6 @@
                     @isset($syllabus)
                         @method('PATCH')
                     @endisset
-
-                    
 
                     <div class="form-group row">
                         <div class="col-md-6">
