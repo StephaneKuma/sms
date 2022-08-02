@@ -80,7 +80,7 @@ $profile = auth()->user();
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <a onclick="event.preventDefault(); this.closest('form').submit();"
-                                class="link-effect text-dual-primary-dark" href="#">
+                                class="link-effect text-dual-primary-dark" href="{{ route('logout') }}">
                                 <i class="si si-logout"></i>
                             </a>
                         </form>
@@ -152,6 +152,18 @@ $profile = auth()->user();
                 @role('student')
                     @php
                         $student = auth()->user();
+                        $class =null;
+                        $sessionId = null;
+
+                        if (session()->has('browse_session_id')) {
+                            $sessionId = session()->get('browse_session_id');
+                        } else {
+                            $sessionId = App\Models\SchoolSession::latest()->first()->id;
+                        }
+
+                        $promotion =  (new App\Repositories\PromotionRepository())
+                            ->getByStudent($sessionId, $student->id);
+                        $class = $promotion->class;
                     @endphp
                     <li>
                         <a class="" href="#">
@@ -168,7 +180,7 @@ $profile = auth()->user();
                     </li>
                     <li>
                         <a class="{{ request()->is('school/routines*') ? 'active' : '' }}"
-                            href="{{ route('school.routines.show') }}">
+                            href="{{ route('school.routines.show', $class) }}">
                             <i class="si si-speedometer"></i>
                             <span class="sidebar-mini-hide">Routine</span>
                         </a>
